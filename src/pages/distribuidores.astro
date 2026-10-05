@@ -1,0 +1,544 @@
+---
+import Base from '../layouts/Base.astro';
+import MapaVenezuela from '../components/MapaVenezuela.astro';
+import distribuidoresData from '../data/distribuidores.json';
+import empresa from '../data/empresa.json';
+import { breadcrumbSchema, SITE_URL } from '../lib/schema';
+
+const estadosAlfabetico = [...distribuidoresData.estados].sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'));
+const totalDistribuidores = distribuidoresData.estados.reduce((sum, e) => sum + e.distribuidores.length, 0);
+
+// Estado por defecto al cargar la página (igual que el mockup: 'VE-A', Distrito Capital),
+// renderizado en el servidor para que el panel tenga contenido real sin depender de JS.
+const estadoInicial = distribuidoresData.estados.find((e) => e.isoId === 'VE-A')!;
+
+const itemListSchema = {
+	'@type': 'ItemList',
+	name: 'Distribuidores autorizados Ecopack Venezuela',
+	numberOfItems: distribuidoresData.estados.length,
+	itemListElement: estadosAlfabetico.map((e, i) => ({
+		'@type': 'ListItem',
+		position: i + 1,
+		item: { '@type': 'Place', name: e.nombre, url: `${SITE_URL}/distribuidores/${e.isoId.toLowerCase()}` },
+	})),
+};
+
+const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }, { name: 'Distribuidores', path: '/distribuidores' }]), itemListSchema];
+---
+
+<Base
+	title="Distribuidores autorizados en Venezuela"
+	description={`${totalDistribuidores} distribuidores autorizados de envases Ecopack en Venezuela. Busca el más cercano a tu negocio o solicita ser distribuidor.`}
+	path="/distribuidores"
+	current="distribuidores"
+	jsonLd={jsonLd}
+>
+	<section class="container section-top">
+		<div class="top-grid">
+			<h1 data-split>Encuentra Ecopack en tu estado</h1>
+			<div class="top-side">
+				<p class="intro" data-fade>
+					Nuestros envases de PET 100% reciclado llegan a todo el país a través de distribuidores autorizados.
+				</p>
+				<div class="stats" data-fade>
+					<div>
+						<div class="stat-num" data-count={totalDistribuidores}>{totalDistribuidores}</div>
+						<div class="stat-label">distribuidores autorizados</div>
+					</div>
+				</div>
+				<div class="top-cta" data-fade>
+					<a href={`https://wa.me/${empresa.telefonoWhatsapp}?text=${encodeURIComponent('Hola Ecopack, quiero información para ser distribuidor.')}`} class="btn btn-primary">
+						Quiero ser distribuidor
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="container section-search">
+		<div class="dist-search" data-fade>
+			<span aria-hidden="true">⌕</span>
+			<input type="search" data-q placeholder="Buscar distribuidor, ciudad o estado" aria-label="Buscar distribuidor por estado, ciudad o nombre" />
+			<button type="button" data-clear hidden>Limpiar</button>
+		</div>
+
+		<div class="dist-rail" data-rail>
+			{
+				estadosAlfabetico.map((e) => (
+					<button type="button" data-chip={e.isoId} class={e.isoId === estadoInicial.isoId ? 'is-active' : ''}>
+						{e.nombre}
+						<span class="chip-badge">{e.distribuidores.length}</span>
+					</button>
+				))
+			}
+		</div>
+	</section>
+
+	<section class="container section-map">
+		<div class="map-layout">
+			<div class="mapa-box">
+				<div class="mapa-box-head">
+					<div class="hover-label" data-hover-label>Selecciona tu estado</div>
+					<div class="mapa-legend">
+						<span><span class="dot dot-covered"></span>Con distribuidor</span>
+					</div>
+				</div>
+				<div class="mapa-svg-wrap">
+					<MapaVenezuela mode="interactive" />
+				</div>
+			</div>
+
+			<aside class="panel" data-panel>
+				<div class="panel-title" data-panel-title>
+					<h2 data-panel-heading>{estadoInicial.nombre}</h2>
+					<div class="panel-sub" data-panel-sub>
+						{estadoInicial.distribuidores.length} {estadoInicial.distribuidores.length === 1 ? 'distribuidor autorizado' : 'distribuidores autorizados'}
+					</div>
+				</div>
+				<div class="panel-divider"></div>
+				<div class="panel-items" data-panel-items>
+					{
+						estadoInicial.distribuidores.map((d) => (
+							<div class="panel-item" data-panel-item>
+								<div class="panel-item-name">{d.porConfirmar ? 'Distribuidor autorizado' : d.nombre}</div>
+								<div class="panel-item-meta">{d.ciudad}</div>
+							</div>
+						))
+					}
+				</div>
+				<a href={`/distribuidores/${estadoInicial.isoId.toLowerCase()}`} class="panel-link" data-panel-link>
+					Ver página completa de {estadoInicial.nombre} →
+				</a>
+				<div class="panel-fallback">
+					¿No encuentras tu ciudad? <a href={`https://wa.me/${empresa.telefonoWhatsapp}`}>Escríbenos por WhatsApp</a> y te conectamos con el distribuidor más cercano.
+				</div>
+			</aside>
+		</div>
+	</section>
+
+	<section id="ser-distribuidor" class="container section-cta">
+		<div class="cta-box" data-box>
+			<div class="cta-orbit" data-orbit aria-hidden="true"></div>
+			<div class="cta-orbit cta-orbit-2" data-orbit aria-hidden="true"></div>
+			<h2 data-split>Lleva envases sostenibles <span>a tu zona</span></h2>
+			<div class="cta-body">
+				<p>Súmate a la red Ecopack y ofrece a tus clientes envases de PET reciclado avalados por la FDA.</p>
+				<div class="cta-actions">
+					<a href={`https://wa.me/${empresa.telefonoWhatsapp}?text=${encodeURIComponent('Hola Ecopack, quiero información para ser distribuidor.')}`} class="btn btn-primary">
+						Quiero ser distribuidor
+					</a>
+					<a href="/productos" class="btn btn-outline">Ver catálogo</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<noscript>
+		<section class="container section-noscript">
+			<h2>Todos los estados con cobertura</h2>
+			<div class="noscript-grid">
+				{
+					estadosAlfabetico.map((e) => (
+						<article class="estado-card">
+							<h3><a href={`/distribuidores/${e.isoId.toLowerCase()}`}>{e.nombre}</a></h3>
+							<ul>
+								{e.distribuidores.map((d) => (
+									<li>
+										<span>{d.porConfirmar ? 'Distribuidor autorizado' : d.nombre}</span>
+										<span>{d.ciudad}</span>
+									</li>
+								))}
+							</ul>
+						</article>
+					))
+				}
+			</div>
+		</section>
+	</noscript>
+</Base>
+
+<script src="../scripts/distribuidores.ts"></script>
+
+<style>
+	.section-top {
+		padding: 64px 24px 36px;
+	}
+	.top-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+		gap: 32px 64px;
+		align-items: end;
+	}
+	h1 {
+		font-size: clamp(52px, 7.4vw, 112px);
+		line-height: 0.92;
+		text-wrap: balance;
+	}
+	.top-side {
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+	}
+	.intro {
+		font-size: 18px;
+		line-height: 1.55;
+		color: var(--color-text-soft);
+		max-width: 520px;
+		text-wrap: pretty;
+	}
+	.stats {
+		display: flex;
+		gap: 40px;
+		flex-wrap: wrap;
+	}
+	.stat-num {
+		font-family: var(--font-display);
+		font-size: 56px;
+		line-height: 1;
+		color: var(--color-green-dark);
+	}
+	.stat-label {
+		font-size: 14px;
+		color: var(--color-text-muted);
+		margin-top: 6px;
+	}
+
+	.top-cta {
+		display: flex;
+		align-items: center;
+		gap: 20px;
+		flex-wrap: wrap;
+	}
+
+	.section-search {
+		padding: 0 24px 20px;
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+	.dist-search {
+		display: flex;
+		align-items: center;
+		gap: 14px;
+		background: var(--color-cream-card);
+		border: 1px solid var(--color-border-soft);
+		border-radius: var(--radius-pill);
+		padding: 6px 6px 6px 22px;
+		max-width: 620px;
+	}
+	.dist-search span {
+		font-size: 18px;
+		color: var(--color-text-muted);
+	}
+	.dist-search input {
+		flex: 1;
+		border: 0;
+		outline: 0;
+		background: transparent;
+		font: inherit;
+		font-size: 16px;
+		color: var(--color-ink);
+		padding: 12px 0;
+		min-width: 0;
+	}
+	.dist-search button {
+		border: 0;
+		background: var(--color-sage);
+		color: var(--color-green-dark);
+		font: inherit;
+		font-weight: 600;
+		font-size: 14px;
+		padding: 10px 16px;
+		border-radius: var(--radius-pill);
+	}
+
+	.dist-rail {
+		display: flex;
+		gap: 8px;
+		flex-wrap: wrap;
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+		margin: 0 -24px;
+		padding: 4px 24px 10px;
+		scrollbar-width: none;
+	}
+	.dist-rail::-webkit-scrollbar {
+		display: none;
+	}
+	.dist-rail button {
+		flex: 0 0 auto;
+		scroll-snap-align: start;
+		white-space: nowrap;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		border: 1px solid var(--color-border-soft);
+		background: var(--color-cream-card);
+		color: var(--color-ink);
+		font: inherit;
+		font-size: 15px;
+		font-weight: 600;
+		padding: 9px 10px 9px 16px;
+		border-radius: var(--radius-pill);
+		transition: background 0.25s, color 0.25s, border-color 0.25s;
+	}
+	.dist-rail button.is-active {
+		background: var(--color-green-dark);
+		border-color: var(--color-green-dark);
+		color: var(--color-cream);
+	}
+	.chip-badge {
+		min-width: 24px;
+		height: 24px;
+		border-radius: var(--radius-pill);
+		background: var(--color-sage);
+		color: var(--color-green-dark);
+		display: grid;
+		place-items: center;
+		font-size: 12px;
+		font-weight: 700;
+		padding: 0 6px;
+		box-sizing: border-box;
+	}
+	.dist-rail button.is-active .chip-badge {
+		background: var(--color-lime);
+		color: var(--color-ink);
+	}
+	@media (max-width: 900px) {
+		.dist-rail {
+			flex-wrap: nowrap;
+		}
+	}
+
+	.section-map {
+		padding: 0 24px 96px;
+	}
+	.map-layout {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		align-items: flex-start;
+	}
+	.mapa-box {
+		flex: 1.5 1 560px;
+		min-width: 0;
+		border-radius: var(--radius-panel);
+		padding: clamp(16px, 2.4vw, 28px);
+		position: relative;
+	}
+	.mapa-box-head {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 12px;
+		flex-wrap: wrap;
+		position: relative;
+		z-index: 2;
+		padding: 4px 4px 0;
+	}
+	.hover-label {
+		font-family: var(--font-display);
+		font-size: 22px;
+		color: var(--color-ink);
+		text-transform: uppercase;
+		min-height: 28px;
+	}
+	.mapa-legend {
+		display: flex;
+		gap: 16px;
+		font-size: 13px;
+		color: var(--color-text-soft);
+		flex-wrap: wrap;
+	}
+	.mapa-legend span {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+	.dot {
+		width: 12px;
+		height: 12px;
+		border-radius: 4px;
+	}
+	.dot-covered {
+		background: var(--color-lime-accent);
+	}
+	.mapa-svg-wrap {
+		margin-top: 8px;
+	}
+
+	.panel {
+		flex: 1 1 340px;
+		min-width: 0;
+		position: sticky;
+		top: 92px;
+		background: var(--color-cream-card);
+		border: 1px solid var(--color-border-soft);
+		border-radius: var(--radius-panel);
+		padding: 32px 28px 26px;
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+	}
+	@media (max-width: 900px) {
+		.panel {
+			position: relative;
+			top: 0;
+		}
+	}
+	.panel-title h2 {
+		font-size: clamp(40px, 4vw, 56px);
+		line-height: 1;
+		margin: 0 0 10px;
+		color: var(--color-ink);
+	}
+	.panel-sub {
+		font-size: 15px;
+		color: var(--color-green-dark);
+		font-weight: 600;
+	}
+	.panel-divider {
+		height: 1px;
+		background: var(--color-border-soft);
+		margin: 22px 0 4px;
+	}
+	/* :global porque el panel se re-renderiza con innerHTML desde distribuidores.ts
+	   y esos nodos no llevan el atributo de scope de Astro */
+	.panel-items {
+		display: flex;
+		flex-direction: column;
+	}
+	.panel-items :global(.panel-item) {
+		padding: 15px 0;
+		border-bottom: 1px solid var(--color-sage-line);
+	}
+	.panel-items :global(.panel-item:last-child) {
+		border-bottom: 0;
+	}
+	.panel-items :global(.panel-item-name) {
+		font-size: 17px;
+		font-weight: 600;
+		color: var(--color-ink);
+		line-height: 1.25;
+	}
+	.panel-items :global(.panel-item-meta) {
+		font-size: 14px;
+		color: var(--color-text-muted);
+		margin-top: 3px;
+	}
+	.panel-empty {
+		padding: 24px 0;
+		font-size: 17px;
+		line-height: 1.55;
+		color: var(--color-text-soft);
+	}
+	.panel-link {
+		display: inline-block;
+		margin-top: 18px;
+		font-size: 14px;
+		font-weight: 700;
+		color: var(--color-green-dark);
+	}
+	.panel-link[hidden] {
+		display: none;
+	}
+	.panel-fallback {
+		padding-top: 22px;
+		font-size: 14px;
+		color: var(--color-text-muted);
+		line-height: 1.5;
+	}
+	.panel-fallback a {
+		font-weight: 700;
+	}
+
+	.section-cta {
+		padding: 0 24px 112px;
+	}
+	.cta-box {
+		background: var(--color-green-deep);
+		border-radius: var(--radius-box);
+		padding: clamp(32px, 5vw, 72px);
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+		gap: 32px;
+		align-items: end;
+		position: relative;
+		overflow: hidden;
+	}
+	.cta-orbit {
+		position: absolute;
+		right: -120px;
+		top: -120px;
+		width: 420px;
+		height: 420px;
+		border-radius: 50%;
+		border: 1px solid rgba(var(--color-lime-pale-rgb), 0.25);
+	}
+	.cta-orbit-2 {
+		right: -40px;
+		top: -40px;
+		width: 260px;
+		height: 260px;
+	}
+	.cta-box h2 {
+		position: relative;
+		font-size: clamp(44px, 5.6vw, 84px);
+		color: var(--color-cream);
+		text-wrap: balance;
+	}
+	.cta-box h2 span {
+		color: var(--color-lime-light);
+	}
+	.cta-body {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+	}
+	.cta-body p {
+		font-size: 18px;
+		line-height: 1.55;
+		color: var(--color-text-on-dark);
+		max-width: 480px;
+		margin: 0;
+	}
+	.cta-actions {
+		display: flex;
+		gap: 12px;
+		flex-wrap: wrap;
+	}
+
+	.section-noscript {
+		padding: 0 24px 96px;
+	}
+	.noscript-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+		gap: 16px;
+	}
+	.estado-card {
+		background: var(--color-cream-card);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
+		padding: 20px 22px;
+	}
+	.estado-card h3 {
+		font-size: 20px;
+		margin-bottom: 12px;
+	}
+	.estado-card ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+	.estado-card li {
+		display: flex;
+		justify-content: space-between;
+		gap: 12px;
+		font-size: 14px;
+	}
+</style>

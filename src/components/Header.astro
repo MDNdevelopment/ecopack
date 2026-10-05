@@ -1,0 +1,296 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo-ecopack.png';
+import logoBlanco from '../assets/logo-ecopack-blanco.png';
+
+export interface Props {
+	current?: 'inicio' | 'productos' | 'distribuidores' | 'nosotros';
+}
+const { current } = Astro.props;
+
+const links = [
+	{ id: 'inicio', href: '/', label: 'Inicio' },
+	{ id: 'productos', href: '/productos', label: 'Productos' },
+	{ id: 'distribuidores', href: '/distribuidores', label: 'Distribuidores' },
+	{ id: 'nosotros', href: '/nosotros', label: 'Nosotros' },
+	{ id: 'contacto', href: '/#contacto', label: 'Contacto' },
+] as const;
+---
+
+<header class="site-header">
+	<div class="container header-bar">
+		<a href="/" class="logo-link" aria-label="Ecopack Venezuela — inicio">
+			<Image src={logo} alt="Ecopack" width={140} height={47} loading="eager" fetchpriority="high" />
+		</a>
+
+		<nav class="nav-desktop" aria-label="Principal">
+			{
+				links.map((l) => (
+					<a href={l.href} class={current === l.id ? 'is-active' : ''} aria-current={current === l.id ? 'page' : undefined}>
+						{l.label}
+					</a>
+				))
+			}
+		</nav>
+
+		<a href="/productos" class="btn btn-dark nav-cta">
+			Ver productos <span aria-hidden="true">→</span>
+		</a>
+
+		<button type="button" class="cart-toggle" data-carrito-toggle aria-haspopup="dialog" aria-expanded="false" aria-label="Abrir pedido">
+			<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 4h2.2l2.1 10.2a1 1 0 0 0 1 .8h8.4a1 1 0 0 0 1-.76L19.5 8H6.1"/><circle cx="9.5" cy="19" r="1.5" fill="currentColor"/><circle cx="17" cy="19" r="1.5" fill="currentColor"/></svg>
+			<span class="cart-count" data-carrito-count hidden>0</span>
+		</button>
+
+		<button type="button" class="menu-toggle" data-menu-toggle aria-haspopup="true" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menú">
+			<span></span>
+			<span></span>
+		</button>
+	</div>
+</header>
+
+<div id="mobile-menu" class="mobile-menu" data-menu-panel hidden>
+	<div class="mobile-menu-top">
+		<Image src={logoBlanco} alt="Ecopack" width={140} height={47} />
+		<button type="button" data-menu-close aria-label="Cerrar menú">✕</button>
+	</div>
+	<nav class="mobile-nav" aria-label="Principal móvil">
+		{
+			links.map((l) => (
+				<a href={l.href} class={current === l.id ? 'is-active' : ''}>
+					{l.label}
+				</a>
+			))
+		}
+	</nav>
+	<div class="mobile-menu-bottom">
+		<a href="/productos" class="btn btn-primary">Ver productos →</a>
+		<p>+58 414-2051941 · sac@plasticosecoplast.com</p>
+	</div>
+</div>
+
+<noscript>
+	<style>
+		.menu-toggle {
+			display: none !important;
+		}
+		.nav-desktop {
+			display: flex !important;
+			flex-wrap: wrap;
+		}
+		.nav-cta {
+			display: inline-flex !important;
+		}
+	</style>
+</noscript>
+
+<script src="../scripts/menu.ts"></script>
+
+<style>
+	.site-header {
+		position: sticky;
+		top: 0;
+		z-index: 40;
+		background: rgba(244, 242, 233, 0.9);
+		backdrop-filter: blur(14px);
+		-webkit-backdrop-filter: blur(14px);
+		border-bottom: 1px solid var(--color-border);
+	}
+	.header-bar {
+		padding-top: 12px;
+		padding-bottom: 12px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 24px;
+		min-height: 48px;
+	}
+	.logo-link {
+		display: flex;
+		align-items: center;
+		flex-shrink: 0;
+	}
+	.logo-link :global(img) {
+		height: 30px;
+		width: auto;
+	}
+	.nav-desktop {
+		display: none;
+		align-items: center;
+		gap: 28px;
+		font-size: 15px;
+		font-weight: 500;
+		margin-left: auto;
+		margin-right: 28px;
+	}
+	.nav-desktop a {
+		color: var(--color-ink);
+	}
+	.nav-desktop a.is-active {
+		color: var(--color-green-dark);
+		font-weight: 700;
+	}
+	.nav-cta {
+		display: none;
+		padding: 11px 20px;
+		font-size: 14px;
+	}
+	.cart-toggle {
+		position: relative;
+		width: 48px;
+		height: 48px;
+		border-radius: 50%;
+		border: 1.5px solid var(--color-border-soft);
+		background: transparent;
+		color: var(--color-green-dark);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		margin-left: auto;
+	}
+	.cart-toggle:hover {
+		background: var(--color-green-dark);
+		color: var(--color-cream);
+	}
+	.cart-count {
+		position: absolute;
+		top: -4px;
+		right: -4px;
+		min-width: 20px;
+		height: 20px;
+		padding: 0 5px;
+		box-sizing: border-box;
+		border-radius: 10px;
+		background: var(--color-lime);
+		color: var(--color-ink);
+		font-size: 12px;
+		font-weight: 700;
+		line-height: 20px;
+		text-align: center;
+	}
+	.cart-count[hidden] {
+		display: none;
+	}
+	.menu-toggle {
+		width: 48px;
+		height: 48px;
+		border-radius: 50%;
+		border: 0;
+		background: var(--color-green-dark);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 6px;
+		flex-shrink: 0;
+	}
+	.menu-toggle span {
+		display: block;
+		width: 20px;
+		height: 2px;
+		background: var(--color-cream);
+		border-radius: 2px;
+	}
+
+	@media (min-width: 900px) {
+		.nav-desktop {
+			display: flex;
+		}
+		.nav-cta {
+			display: inline-flex;
+		}
+		.cart-toggle {
+			margin-left: 0;
+		}
+		.menu-toggle {
+			display: none;
+		}
+	}
+
+	.mobile-menu {
+		position: fixed;
+		inset: 0;
+		z-index: 70;
+		background: var(--color-green-deep);
+		color: var(--color-cream);
+		display: flex;
+		flex-direction: column;
+		padding: 12px 24px 32px;
+		box-sizing: border-box;
+		overflow-y: auto;
+		/* La revelación circular la anima motion.ts (clip-path) sobre este estado base. */
+		clip-path: circle(0% at calc(100% - 48px) 36px);
+	}
+	.mobile-menu[hidden] {
+		/* El selector de clase de arriba gana por especificidad sobre la regla UA de
+		   [hidden]; sin esto el panel seguiría en el árbol de foco/accesibilidad
+		   aunque esté colapsado visualmente por el clip-path. */
+		display: none;
+	}
+	.mobile-menu.is-open {
+		clip-path: none;
+	}
+	.mobile-menu-top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		min-height: 48px;
+		padding-bottom: 12px;
+	}
+	.mobile-menu-top :global(img) {
+		height: 30px;
+		width: auto;
+	}
+	.mobile-menu-top button {
+		width: 48px;
+		height: 48px;
+		border-radius: 50%;
+		border: 0;
+		background: var(--color-lime);
+		color: var(--color-ink);
+		font-size: 22px;
+		line-height: 1;
+	}
+	.mobile-nav {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		margin-top: auto;
+		margin-bottom: auto;
+		padding: 24px 0;
+	}
+	.mobile-nav a {
+		display: block;
+		padding-top: 0.18em;
+		color: var(--color-cream);
+		font-family: var(--font-display);
+		font-size: clamp(40px, 12vw, 64px);
+		line-height: 1.08;
+		text-transform: uppercase;
+	}
+	.mobile-nav a.is-active {
+		color: var(--color-lime-light);
+	}
+	.mobile-menu-bottom {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+	.mobile-menu-bottom .btn {
+		align-self: flex-start;
+	}
+	.mobile-menu-bottom p {
+		font-size: 15px;
+		color: var(--color-lime-pale);
+		line-height: 1.6;
+		margin: 0;
+	}
+
+	@media (min-width: 900px) {
+		.mobile-menu,
+		.menu-toggle {
+			display: none;
+		}
+	}
+</style>

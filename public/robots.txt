@@ -1,0 +1,36 @@
+User-agent: *
+Allow: /
+
+# AI / answer-engine crawlers — explicitly allowed so Ecopack can be cited
+# by generative search and assistants (GEO/AEO).
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://ecopackvenezuela.com/sitemap-index.xml

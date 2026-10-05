@@ -1,0 +1,243 @@
+---
+import empresa from '../data/empresa.json';
+---
+
+<div class="carrito-backdrop" data-carrito-backdrop hidden></div>
+<aside class="carrito" data-carrito-panel data-telefono={empresa.telefonoWhatsapp} role="dialog" aria-modal="true" aria-labelledby="carrito-titulo" hidden>
+	<div class="carrito-head">
+		<h2 id="carrito-titulo">Tu pedido</h2>
+		<button type="button" data-carrito-cerrar aria-label="Cerrar carrito">✕</button>
+	</div>
+
+	<div class="carrito-body">
+		<p class="carrito-vacio" data-carrito-vacio>
+			Aún no has agregado productos. Elige las referencias que necesitas en el <a href="/productos">catálogo</a>.
+		</p>
+		<ul class="carrito-lista" data-carrito-lista></ul>
+	</div>
+
+	<div class="carrito-acciones" data-carrito-acciones hidden>
+		<a class="btn btn-primary" data-carrito-enviar href={`https://wa.me/${empresa.telefonoWhatsapp}`}>Enviar pedido por WhatsApp</a>
+		<button type="button" class="carrito-vaciar" data-carrito-vaciar>Vaciar pedido</button>
+		<p class="carrito-nota">Te responderemos con disponibilidad y precios.</p>
+	</div>
+</aside>
+<div class="visually-hidden" role="status" aria-live="polite" data-carrito-live></div>
+
+<script src="../scripts/carrito.ts"></script>
+
+<style>
+	.carrito-backdrop {
+		position: fixed;
+		inset: 0;
+		z-index: 90;
+		background: rgba(0, 42, 56, 0.55);
+	}
+	.carrito {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 91;
+		width: min(420px, 100vw);
+		background: var(--color-cream-card);
+		color: var(--color-ink);
+		display: flex;
+		flex-direction: column;
+		box-shadow: -24px 0 48px -24px rgba(0, 42, 56, 0.35);
+	}
+	.carrito:not([hidden]) {
+		animation: carrito-entra 0.45s var(--ease-out) both;
+	}
+	.carrito.is-closing {
+		animation: carrito-sale 0.3s cubic-bezier(0.5, 0, 0.75, 0) both;
+	}
+	.carrito-backdrop:not([hidden]) {
+		animation: carrito-fade-in 0.35s ease both;
+	}
+	.carrito-backdrop.is-closing {
+		animation: carrito-fade-out 0.3s ease both;
+	}
+	/* los productos entran escalonados cuando se abre el panel */
+	.carrito.is-entrando .carrito-lista :global(.carrito-item) {
+		animation: carrito-item-entra 0.5s var(--ease-out) both;
+		animation-delay: calc(0.12s + var(--i, 0) * 50ms);
+	}
+	@keyframes carrito-entra {
+		from {
+			transform: translateX(100%);
+		}
+		to {
+			transform: translateX(0);
+		}
+	}
+	@keyframes carrito-sale {
+		to {
+			transform: translateX(100%);
+		}
+	}
+	@keyframes carrito-fade-in {
+		from {
+			opacity: 0;
+		}
+	}
+	@keyframes carrito-fade-out {
+		to {
+			opacity: 0;
+		}
+	}
+	@keyframes carrito-item-entra {
+		from {
+			opacity: 0;
+			transform: translateX(24px);
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.carrito:not([hidden]),
+		.carrito-backdrop:not([hidden]),
+		.carrito.is-entrando .carrito-lista :global(.carrito-item) {
+			animation: none;
+		}
+	}
+	.carrito[hidden],
+	.carrito-backdrop[hidden] {
+		display: none;
+	}
+	.carrito-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 20px 24px;
+		border-bottom: 1px solid var(--color-border);
+	}
+	.carrito-head h2 {
+		font-size: 28px;
+		margin: 0;
+	}
+	.carrito-head button {
+		width: 44px;
+		height: 44px;
+		border-radius: 50%;
+		border: 1.5px solid var(--color-border-soft);
+		background: transparent;
+		color: var(--color-ink);
+		font-size: 16px;
+	}
+	.carrito-head button:hover {
+		background: var(--color-green-dark);
+		color: var(--color-cream);
+	}
+	.carrito-body {
+		flex: 1;
+		overflow-y: auto;
+		padding: 8px 24px;
+	}
+	.carrito-vacio {
+		color: var(--color-text-soft);
+		line-height: 1.55;
+		padding: 24px 0;
+	}
+	.carrito-vacio a {
+		color: var(--color-green-dark);
+		font-weight: 600;
+		text-decoration: underline;
+	}
+	.carrito-lista {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	.carrito-lista :global(.carrito-item) {
+		display: flex;
+		align-items: flex-start;
+		gap: 14px;
+		padding: 16px 0;
+		border-bottom: 1px solid var(--color-sage-line);
+	}
+	.carrito-lista :global(.carrito-foto) {
+		width: 64px;
+		height: 64px;
+		flex-shrink: 0;
+		border-radius: var(--radius-input);
+		background: var(--color-cream-media);
+		object-fit: cover;
+	}
+	.carrito-lista :global(.carrito-texto) {
+		flex: 1;
+		min-width: 0;
+		display: grid;
+		gap: 12px;
+	}
+	.carrito-lista :global(.carrito-info) {
+		display: grid;
+		gap: 2px;
+		font-size: 14px;
+	}
+	.carrito-lista :global(.carrito-info strong) {
+		color: var(--color-green-dark);
+		font-size: 15px;
+	}
+	.carrito-lista :global(.carrito-info small) {
+		color: var(--color-text-muted);
+	}
+	.carrito-lista :global(.carrito-cant) {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+	.carrito-lista :global(.carrito-cant button) {
+		width: 36px;
+		height: 36px;
+		border-radius: 50%;
+		border: 1.5px solid var(--color-border-soft);
+		background: transparent;
+		color: var(--color-ink);
+		font-size: 18px;
+		line-height: 1;
+	}
+	.carrito-lista :global(.carrito-cant button:hover) {
+		background: var(--color-green-dark);
+		color: var(--color-cream);
+	}
+	.carrito-lista :global(.carrito-num) {
+		min-width: 36px;
+		text-align: center;
+		font-weight: 700;
+	}
+	.carrito-lista :global(.carrito-quitar) {
+		margin-left: auto;
+		font-size: 13px !important;
+	}
+	.carrito-acciones {
+		display: grid;
+		gap: 12px;
+		padding: 20px 24px 24px;
+		border-top: 1px solid var(--color-border);
+	}
+	.carrito-acciones[hidden] {
+		display: none;
+	}
+	.carrito-acciones .btn {
+		justify-content: center;
+	}
+	.carrito-vaciar {
+		border: 0;
+		background: transparent;
+		color: var(--color-text-muted);
+		font-size: 14px;
+		text-decoration: underline;
+		padding: 8px;
+	}
+	.carrito-nota {
+		margin: 0;
+		font-size: 13px;
+		color: var(--color-text-muted);
+		text-align: center;
+	}
+</style>
+
+<style is:global>
+	html.carrito-abierto {
+		overflow: hidden;
+	}
+</style>

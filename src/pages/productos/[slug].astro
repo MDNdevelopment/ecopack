@@ -1,0 +1,258 @@
+---
+import { Image, getImage } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import FamiliaCard from '../../components/FamiliaCard.astro';
+import PlaceholderMedia from '../../components/PlaceholderMedia.astro';
+import TablaSkus from '../../components/TablaSkus.astro';
+import empresa from '../../data/empresa.json';
+import { breadcrumbSchema, SITE_URL } from '../../lib/schema';
+import { familias, categoriaLabel, materialLabel } from '../../lib/productos';
+import { imagenProducto } from '../../lib/imagenes';
+
+export function getStaticPaths() {
+	return familias.map((familia) => ({ params: { slug: familia.slug }, props: { familia } }));
+}
+
+const { familia } = Astro.props;
+const n = familia.items.length;
+const path = `/productos/${familia.slug}`;
+const categoria = categoriaLabel(familia.categoria);
+
+const foto = imagenProducto(familia.slug);
+
+const relacionadas = familias.filter((f) => f.categoria === familia.categoria && f.slug !== familia.slug).slice(0, 4);
+
+const og = foto ? (await getImage({ src: foto, width: 1080, height: 1080, fit: 'cover', format: 'jpg' })).src : undefined;
+const imageUrl = og ? `${SITE_URL}${og}` : undefined;
+
+const waText = encodeURIComponent(`Hola, quisiera información sobre ${familia.nombre} de Ecopack.`);
+const waHref = `https://wa.me/${empresa.telefonoWhatsapp}?text=${waText}`;
+
+const jsonLd = [
+	breadcrumbSchema([
+		{ name: 'Inicio', path: '/' },
+		{ name: 'Productos', path: '/productos' },
+		{ name: familia.nombre, path },
+	]),
+	...familia.items.map((it) => ({
+		'@type': 'Product',
+		sku: it.codigo,
+		name: `${familia.nombre} — ${it.nombre}`,
+		category: categoria,
+		material: materialLabel[familia.material],
+		color: it.color ?? familia.color,
+		description: familia.descripcion,
+		url: `${SITE_URL}${path}`,
+		...(imageUrl ? { image: imageUrl } : {}),
+		brand: { '@type': 'Brand', name: 'Ecopack' },
+	})),
+];
+---
+
+<Base
+	title={`${familia.nombre} · envases de PET reciclado`}
+	description={`${familia.nombre} Ecopack: ${materialLabel[familia.material]}, ${familia.color.toLowerCase()}. ${n} ${n === 1 ? 'referencia' : 'referencias'} con medidas, empaque y código. Fabricado en Guatire, Venezuela.`}
+	path={path}
+	image={og}
+	current="productos"
+	jsonLd={jsonLd}
+>
+	<section class="container ficha">
+		<nav class="crumbs" aria-label="Ruta de navegación" data-fade>
+			<a href="/">Inicio</a>
+			<span aria-hidden="true">›</span>
+			<a href="/productos">Productos</a>
+			<span aria-hidden="true">›</span>
+			<span aria-current="page">{familia.nombre}</span>
+		</nav>
+
+		<div class="ficha-grid">
+			<div class="galeria" data-fade>
+				<div class="foto foto-principal">
+					{
+						foto ? (
+							<Image src={foto} alt={`${familia.nombre} de Ecopack`} width={640} height={640} loading="eager" fetchpriority="high" />
+						) : (
+							<PlaceholderMedia label={familia.nombre} tone="light" />
+						)
+					}
+				</div>
+			</div>
+
+			<div class="info">
+				<p class="eyebrow" data-fade>{categoria}</p>
+				<h1 data-fade>{familia.nombre}</h1>
+				<div class="badges" data-fade>
+					<span class="badge badge-material">{materialLabel[familia.material]}</span>
+					<span class="badge badge-color">{familia.color}</span>
+					<span class="badge badge-color">{n} {n === 1 ? 'referencia' : 'referencias'}</span>
+				</div>
+				<p class="desc" data-fade>{familia.descripcion}</p>
+				<div class="ctas" data-fade>
+					<a class="btn btn-dark" href={waHref} target="_blank" rel="noopener">Consultar por WhatsApp</a>
+					<a class="btn btn-claro" href="#especs-titulo">Agregar al carrito</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="container especs" aria-labelledby="especs-titulo">
+		<h2 id="especs-titulo" data-fade>Referencias y medidas</h2>
+		<div data-fade>
+			<TablaSkus familia={familia} />
+		</div>
+	</section>
+
+	{
+		relacionadas.length > 0 && (
+			<section class="container relacionadas" aria-labelledby="rel-titulo">
+				<h2 id="rel-titulo" data-fade>Más de {categoria.toLowerCase()}</h2>
+				<div class="grid" data-fade>
+					{relacionadas.map((f) => (
+						<FamiliaCard familia={f} />
+					))}
+				</div>
+				<a href="/productos" class="volver" data-fade>← Ver todo el catálogo</a>
+			</section>
+		)
+	}
+</Base>
+
+<script src="../../scripts/page-motion.ts"></script>
+
+<style>
+	.ficha {
+		padding-top: 32px;
+		padding-bottom: 56px;
+	}
+	.crumbs {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		font-size: 14px;
+		color: var(--color-text-muted);
+		margin-bottom: 28px;
+	}
+	.crumbs a {
+		color: var(--color-green-dark);
+		font-weight: 600;
+	}
+	.ficha-grid {
+		display: grid;
+		gap: 40px;
+		align-items: start;
+	}
+	@media (min-width: 900px) {
+		.ficha-grid {
+			grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+			gap: 64px;
+		}
+	}
+	.galeria {
+		display: grid;
+		gap: 16px;
+	}
+	.foto {
+		border-radius: var(--radius-card);
+		background: var(--color-cream-media);
+		overflow: hidden;
+	}
+	.foto :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	.foto-principal {
+		aspect-ratio: 1 / 1;
+		max-width: 560px;
+	}
+	.eyebrow {
+		font-size: 14px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--color-green-dark);
+		margin-bottom: 12px;
+	}
+	h1 {
+		font-size: clamp(38px, 5vw, 64px);
+		line-height: 1;
+		text-wrap: balance;
+		margin-bottom: 20px;
+	}
+	.badges {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		margin-bottom: 20px;
+	}
+	.badge {
+		font-size: 12px;
+		font-weight: 700;
+		border-radius: var(--radius-pill);
+		padding: 6px 12px;
+	}
+	.badge-material {
+		background: var(--color-sage);
+		color: var(--color-green-dark);
+	}
+	.badge-color {
+		background: var(--color-cream);
+		border: 1px solid var(--color-border-soft);
+		color: var(--color-text-soft);
+	}
+	.desc {
+		font-size: 18px;
+		line-height: 1.55;
+		color: var(--color-text-soft);
+		max-width: 52ch;
+		margin-bottom: 28px;
+	}
+	.ctas {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+		margin-bottom: 16px;
+	}
+	.btn-claro {
+		border: 1.5px solid var(--color-green-dark);
+		color: var(--color-green-dark);
+	}
+	.btn-claro:hover {
+		background: var(--color-green-dark);
+		color: var(--color-cream);
+	}
+	.nota {
+		font-size: 14px;
+		color: var(--color-text-muted);
+		margin: 0;
+	}
+	.especs {
+		padding-bottom: 72px;
+	}
+	.especs h2,
+	.relacionadas h2 {
+		font-size: clamp(26px, 3.2vw, 36px);
+		margin-bottom: 24px;
+	}
+	.relacionadas {
+		padding-bottom: 96px;
+	}
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 28px 16px;
+	}
+	@media (min-width: 900px) {
+		.grid {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+			gap: 24px;
+		}
+	}
+	.volver {
+		display: inline-block;
+		margin-top: 32px;
+		font-weight: 700;
+		color: var(--color-green-dark);
+	}
+</style>

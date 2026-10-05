@@ -1,0 +1,30 @@
+# Ecopack Venezuela
+
+> Empresa venezolana de Guatire, Edo. Miranda, dedicada a la producción y comercialización de envases de plástico 100% reciclado, con productos de alta calidad y un compromiso real con el medio ambiente.
+
+Ecopack (razón social Plásticos Ecoplast, C.A.) fabrica y distribuye 101 referencias de envases
+para alimentos, la mayoría de PET 100% reciclado, avaladas por la FDA y el Reglamento (CE) Nº 282/2008.
+Sede en Guatire, estado Miranda, Venezuela. Red de 32 distribuidores
+autorizados en todo el país.
+
+Contacto: +58 414-2051941 (WhatsApp) · sac@plasticosecoplast.com
+
+## Páginas principales
+
+- [Inicio](https://ecopackvenezuela.com/): presentación de la marca, productos destacados, cobertura y proceso de reciclaje.
+- [Catálogo de productos](https://ecopackvenezuela.com/productos): 101 SKUs organizados en 26 familias (fiambreras, bandejas, Deligourmet, Ecocup, vasos, pitillos, etc.) con código, medidas, material y empaque de cada uno. Cada familia tiene su propia ficha con fotos en https://ecopackvenezuela.com/productos/{slug}.
+- [Distribuidores](https://ecopackvenezuela.com/distribuidores): mapa y listado de los 32 distribuidores autorizados, con una página propia por estado.
+- [Nosotros](https://ecopackvenezuela.com/nosotros): historia de la empresa, proceso de reciclaje (tecnología EREMA) y normativas que cumple (FDA, Reglamento CE 282/2008, EFSA).
+- [Preguntas frecuentes](https://ecopackvenezuela.com/preguntas-frecuentes): respuestas directas sobre seguridad alimentaria del PET reciclado, materiales, pedidos y distribución.
+- [Contacto](https://ecopackvenezuela.com/#contacto): formulario y datos de contacto directo, en la página de inicio.
+
+## Datos clave
+
+- Materiales usados: PET 100% reciclado (la mayoría de la línea), HIPS (Fiambrera ecológica RT) y polipropileno (pitillos y removedores).
+- Certificaciones/normativas: tecnología de reciclaje EREMA, Reglamento (CE) Nº 282/2008, evaluaciones EFSA, disposiciones de la FDA (EE. UU.).
+- Cobertura: todo el país, 32 distribuidores autorizados.
+
+## Notas
+
+- El catálogo completo en PDF está en https://ecopackvenezuela.com/catalogo-ecopack.pdf.
+- Volcado exhaustivo de productos y distribuidores (para lectura por máquinas): https://ecopackvenezuela.com/llms-full.txt.

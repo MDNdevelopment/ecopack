@@ -1,0 +1,144 @@
+---
+const categorias = [
+	{ value: 'todos', label: 'Todos' },
+	{ value: 'comida-preparada', label: 'Comida preparada' },
+	{ value: 'bandejas-tapas', label: 'Bandejas y tapas' },
+	{ value: 'bebidas', label: 'Bebidas' },
+	{ value: 'huevos', label: 'Huevos' },
+	{ value: 'complementos', label: 'Complementos' },
+];
+
+const materiales = [
+	{ value: 'todos', label: 'Todos' },
+	{ value: 'PET', label: 'PET reciclado' },
+	{ value: 'HIPS', label: 'HIPS' },
+	{ value: 'PP', label: 'Polipropileno' },
+];
+---
+
+<div class="filtros" data-filtros>
+	<div class="filtro-search">
+		<span aria-hidden="true">⌕</span>
+		<input type="search" data-filtro-search placeholder="Buscar por nombre o código (ej. DERD21GNE)" aria-label="Buscar producto por nombre o código" />
+		<button type="button" data-filtro-clear hidden>Limpiar</button>
+	</div>
+
+	<div class="filtro-group" role="group" aria-label="Filtrar por uso">
+		<span class="filtro-label">Uso:</span>
+		<div class="filtro-chips" data-filtro-chips="categoria">
+			{
+				categorias.map((c) => (
+					<button type="button" data-filtro-value={c.value} class:list={{ 'is-active': c.value === 'todos' }}>
+						{c.label}
+					</button>
+				))
+			}
+		</div>
+	</div>
+
+	<div class="filtro-group" role="group" aria-label="Filtrar por material">
+		<span class="filtro-label">Material:</span>
+		<div class="filtro-chips" data-filtro-chips="material">
+			{
+				materiales.map((m) => (
+					<button type="button" data-filtro-value={m.value} class:list={{ 'is-active': m.value === 'todos' }}>
+						{m.label}
+					</button>
+				))
+			}
+		</div>
+	</div>
+
+	<p class="filtro-status" data-filtro-status role="status" aria-live="polite"></p>
+</div>
+
+<noscript>
+	<style>
+		[data-filtros] {
+			display: none;
+		}
+	</style>
+</noscript>
+
+<script src="../scripts/filtro-productos.ts"></script>
+
+<style>
+	.filtros {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		margin-bottom: 48px;
+	}
+	.filtro-search {
+		display: flex;
+		align-items: center;
+		gap: 14px;
+		background: var(--color-cream-card);
+		border: 1px solid var(--color-border-soft);
+		border-radius: var(--radius-pill);
+		padding: 6px 6px 6px 22px;
+		max-width: 620px;
+	}
+	.filtro-search span {
+		font-size: 18px;
+		color: var(--color-text-muted);
+	}
+	.filtro-search input {
+		flex: 1;
+		border: 0;
+		outline: 0;
+		background: transparent;
+		font: inherit;
+		font-size: 16px;
+		color: var(--color-ink);
+		padding: 12px 0;
+		min-width: 0;
+	}
+	.filtro-search button {
+		border: 0;
+		background: var(--color-sage);
+		color: var(--color-green-dark);
+		font: inherit;
+		font-weight: 600;
+		font-size: 14px;
+		padding: 10px 16px;
+		border-radius: var(--radius-pill);
+	}
+	.filtro-group {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		flex-wrap: wrap;
+	}
+	.filtro-label {
+		font-size: 14px;
+		font-weight: 700;
+		color: var(--color-text-muted);
+	}
+	.filtro-chips {
+		display: flex;
+		gap: 8px;
+		flex-wrap: wrap;
+	}
+	.filtro-chips button {
+		border: 1px solid var(--color-border-soft);
+		background: var(--color-cream-card);
+		color: var(--color-ink);
+		font: inherit;
+		font-size: 14px;
+		font-weight: 600;
+		padding: 9px 16px;
+		border-radius: var(--radius-pill);
+		transition: background var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+	}
+	.filtro-chips button.is-active {
+		background: var(--color-green-dark);
+		border-color: var(--color-green-dark);
+		color: var(--color-cream);
+	}
+	.filtro-status {
+		margin: 0;
+		font-size: 14px;
+		color: var(--color-text-muted);
+	}
+</style>

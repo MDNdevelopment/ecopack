@@ -1,0 +1,124 @@
+---
+import { getImage } from 'astro:assets';
+import type { Familia } from '../data/types';
+import { imagenProducto } from '../lib/imagenes';
+
+export interface Props {
+	familia: Familia;
+}
+const { familia } = Astro.props;
+
+const hasColor = familia.items.some((it) => it.color);
+const hasMedidas = familia.items.some((it) => it.medidas);
+const fotoFamilia = imagenProducto(familia.slug);
+const miniatura = fotoFamilia ? (await getImage({ src: fotoFamilia, width: 160, height: 160, fit: 'cover', format: 'webp' })).src : undefined;
+const hasCapacidad = familia.items.some((it) => it.capacidadCc);
+---
+
+<div class="tabla-wrap">
+	<table>
+		<caption class="visually-hidden">Especificaciones de {familia.nombre}</caption>
+		<thead>
+			<tr>
+				<th scope="col">Código</th>
+				<th scope="col">Producto</th>
+				{hasColor && <th scope="col">Color</th>}
+				{hasMedidas && <th scope="col">Medidas</th>}
+				{hasCapacidad && <th scope="col">Capacidad</th>}
+				<th scope="col">Empaque</th>
+				<th scope="col">Peso del empaque</th>
+				<th scope="col"><span class="visually-hidden">Pedido</span></th>
+			</tr>
+		</thead>
+		<tbody>
+			{
+				familia.items.map((it) => (
+					<tr>
+						<th scope="row">{it.codigo}</th>
+						<td>
+							{it.nombre}
+							{it.retail && <span class="mini-tag">Retail</span>}
+						</td>
+						{hasColor && <td>{it.color ?? familia.color}</td>}
+						{hasMedidas && <td>{it.medidas ?? '—'}</td>}
+						{hasCapacidad && <td>{it.capacidadCc ? `${it.capacidadCc} cc` : '—'}</td>}
+						<td>{it.empaque}</td>
+						<td>{it.pesoEmpaque}</td>
+						<td>
+							<button
+								type="button"
+								class="btn btn-dark btn-add"
+								data-add-carrito
+								data-codigo={it.codigo}
+								data-nombre={it.nombre}
+								data-familia={familia.nombre}
+								data-empaque={it.empaque}
+								data-foto={miniatura}
+								aria-label={`Agregar ${it.codigo} al carrito`}
+							>
+								Agregar
+							</button>
+						</td>
+					</tr>
+				))
+			}
+		</tbody>
+	</table>
+</div>
+
+<style>
+	.tabla-wrap {
+		overflow-x: auto;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
+	}
+	table {
+		font-size: 14px;
+	}
+	th,
+	td {
+		text-align: left;
+		padding: 12px 16px;
+		white-space: nowrap;
+	}
+	.btn-add {
+		padding: 8px 16px;
+		font-size: 13px;
+	}
+	.btn-add:global(.is-added) {
+		background: var(--color-lime);
+		color: var(--color-ink);
+	}
+	td:nth-child(2) {
+		white-space: normal;
+		min-width: 200px;
+	}
+	thead th {
+		background: var(--color-sage);
+		color: var(--color-green-dark);
+		font-weight: 700;
+		font-size: 12px;
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+	}
+	tbody tr:nth-child(even) {
+		background: var(--color-cream-card);
+	}
+	tbody th {
+		font-weight: 600;
+		color: var(--color-ink);
+		font-family: 'Courier New', monospace;
+		font-size: 13px;
+	}
+	.mini-tag {
+		display: inline-block;
+		margin-left: 8px;
+		font-size: 11px;
+		font-weight: 700;
+		color: var(--color-green-dark);
+		background: var(--color-sage);
+		border-radius: var(--radius-pill);
+		padding: 2px 8px;
+		vertical-align: middle;
+	}
+</style>

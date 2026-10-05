@@ -1,0 +1,131 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo-ecopack.png';
+import empresa from '../data/empresa.json';
+
+const year = new Date().getFullYear();
+const redes = Object.entries(empresa.redes).filter(([, url]) => Boolean(url)) as [string, string][];
+const redLabels: Record<string, string> = {
+	instagram: 'Instagram',
+	facebook: 'Facebook',
+	tiktok: 'TikTok',
+	youtube: 'YouTube',
+	linkedin: 'LinkedIn',
+};
+---
+
+<footer class="site-footer">
+	<div class="container footer-grid">
+		<div class="footer-brand">
+			<Image src={logo} alt="Ecopack" width={140} height={47} />
+			<p>Envases de PET 100% reciclado para alimentos. Guatire, Edo. Miranda.</p>
+		</div>
+		<div class="footer-col">
+			<div class="footer-heading">Navegación</div>
+			<a href="/productos">Productos</a>
+			<a href="/distribuidores">Distribuidores</a>
+			<a href="/nosotros">Nosotros</a>
+			<a href="/preguntas-frecuentes">Preguntas frecuentes</a>
+		</div>
+		<div class="footer-col">
+			<div class="footer-heading">Contacto</div>
+			<a href={`https://wa.me/${empresa.telefonoWhatsapp}`}>{empresa.telefono}</a>
+			<a href={`mailto:${empresa.email}`}>{empresa.email}</a>
+		</div>
+		<div class="footer-col">
+			<div class="footer-heading">Síguenos</div>
+			<div class="footer-social">
+				{redes.length > 0 ? (
+					redes.map(([key, url]) => (
+						<a href={url} target="_blank" rel="noopener noreferrer">{redLabels[key] ?? key}</a>
+					))
+				) : (
+					<span>Próximamente</span>
+				)}
+			</div>
+		</div>
+		<div class="footer-col">
+			<div class="footer-heading">Certificación</div>
+			<p class="footer-muted">Nuestros procesos y productos siguen las disposiciones de la FDA y el Reglamento (CE) Nº 282/2008 sobre PET reciclado en contacto con alimentos.</p>
+		</div>
+	</div>
+	<div class="container footer-bottom">
+		<span>© {year} Ecopack Venezuela</span>
+		<span>Sitio web desarrollado por MDN Publicidad</span>
+	</div>
+</footer>
+
+<style>
+	.site-footer {
+		--f-bg: var(--color-cream-media);
+		--f-text: var(--color-ink);
+		--f-heading: var(--color-green-dark);
+		--f-muted: var(--color-text-muted);
+		--f-line: var(--color-text-muted);
+		--f-border: var(--color-border-soft);
+		--f-link: var(--color-ink);
+		background: var(--f-bg);
+		color: var(--f-text);
+		border-top: 4px solid var(--color-lime);
+	}
+	.footer-grid {
+		padding: 56px 24px 32px;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 40px;
+	}
+	.footer-brand {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+	.footer-brand p {
+		margin: 0;
+		font-size: 14px;
+		line-height: 1.6;
+		color: var(--f-muted);
+		max-width: 280px;
+	}
+	.footer-col {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		font-size: 15px;
+	}
+	.footer-heading {
+		font-weight: 700;
+		color: var(--f-heading);
+		margin-bottom: 4px;
+	}
+	.footer-col a {
+		color: var(--f-link);
+		text-decoration: underline;
+		text-decoration-color: transparent;
+		text-underline-offset: 3px;
+		transition: text-decoration-color var(--duration-fast);
+	}
+	.footer-col a:hover {
+		text-decoration-color: currentColor;
+	}
+	.footer-social {
+		display: flex;
+		gap: 16px;
+		flex-wrap: wrap;
+	}
+	.footer-muted {
+		margin: 0;
+		font-size: 14px;
+		color: var(--f-muted);
+		line-height: 1.6;
+	}
+	.footer-bottom {
+		padding: 20px 24px 28px;
+		border-top: 1px solid var(--f-border);
+		font-size: 13px;
+		color: var(--f-line);
+		display: flex;
+		justify-content: space-between;
+		gap: 12px;
+		flex-wrap: wrap;
+	}
+</style>

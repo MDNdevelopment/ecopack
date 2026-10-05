@@ -1,0 +1,132 @@
+{
+  "estados": [
+    {
+      "isoId": "VE-A",
+      "nombre": "Distrito Capital",
+      "distribuidores": [
+        { "nombre": "Corporación Nanotec", "ciudad": "Caracas" },
+        { "nombre": "Corporación Maxiplast", "ciudad": "Caracas" },
+        { "nombre": "Decoplásticos Unión", "ciudad": "Caracas" },
+        { "nombre": "Nexomart", "ciudad": "Caracas" },
+        { "nombre": "Plastic Land 2512", "ciudad": "Caracas" }
+      ]
+    },
+    {
+      "isoId": "VE-B",
+      "nombre": "Anzoátegui",
+      "distribuidores": [
+        { "nombre": "Samaka Distribuciones", "ciudad": "Barcelona" },
+        { "nombre": "Comercial Elica", "ciudad": "Barcelona" },
+        { "nombre": "Distribuidora Dasi II", "ciudad": "Barcelona" }
+      ]
+    },
+    {
+      "isoId": "VE-D",
+      "nombre": "Aragua",
+      "distribuidores": [
+        { "nombre": "Corporación Freitas", "ciudad": "Maracay" },
+        { "nombre": "Envases del Centro", "ciudad": "Maracay" }
+      ]
+    },
+    {
+      "isoId": "VE-E",
+      "nombre": "Barinas",
+      "distribuidores": [
+        { "nombre": "Kasaplast Comercializadora", "ciudad": "Barinas" },
+        { "nombre": "La Alborada", "ciudad": "Barinas" }
+      ]
+    },
+    {
+      "isoId": "VE-F",
+      "nombre": "Bolívar",
+      "distribuidores": [
+        { "nombre": null, "porConfirmar": true, "ciudad": "Ciudad Bolívar" }
+      ]
+    },
+    {
+      "isoId": "VE-G",
+      "nombre": "Carabobo",
+      "distribuidores": [
+        { "nombre": "Maos Supply", "ciudad": "Valencia" }
+      ]
+    },
+    {
+      "isoId": "VE-I",
+      "nombre": "Falcón",
+      "distribuidores": [
+        { "nombre": "Todo en Desechable", "ciudad": "Coro" }
+      ]
+    },
+    {
+      "isoId": "VE-J",
+      "nombre": "Guárico",
+      "distribuidores": [
+        { "nombre": "Total Supply VE.RD", "ciudad": "San Juan de los Morros" }
+      ]
+    },
+    {
+      "isoId": "VE-K",
+      "nombre": "Lara",
+      "distribuidores": [
+        { "nombre": "Lider Grup DGL", "ciudad": "Barquisimeto" },
+        { "nombre": "Inverplast 2014", "ciudad": "Barquisimeto" }
+      ]
+    },
+    {
+      "isoId": "VE-L",
+      "nombre": "Mérida",
+      "distribuidores": [
+        { "nombre": "Frigoca", "ciudad": "Mérida" }
+      ]
+    },
+    {
+      "isoId": "VE-N",
+      "nombre": "Monagas",
+      "distribuidores": [
+        { "nombre": null, "porConfirmar": true, "ciudad": "Maturín" }
+      ]
+    },
+    {
+      "isoId": "VE-O",
+      "nombre": "Nueva Esparta",
+      "distribuidores": [
+        { "nombre": "Prisca", "ciudad": "Porlamar" }
+      ]
+    },
+    {
+      "isoId": "VE-P",
+      "nombre": "Portuguesa",
+      "distribuidores": [
+        { "nombre": "Comercial Alviz Dos", "ciudad": "Guanare" },
+        { "nombre": "Comercial Envases Boulevard", "ciudad": "Guanare" },
+        { "nombre": null, "porConfirmar": true, "ciudad": "Guanare" }
+      ]
+    },
+    {
+      "isoId": "VE-R",
+      "nombre": "Sucre",
+      "distribuidores": [
+        { "nombre": "Inversiones LNT 23", "ciudad": "Cumaná" }
+      ]
+    },
+    {
+      "isoId": "VE-S",
+      "nombre": "Táchira",
+      "distribuidores": [
+        { "nombre": "Anro Trading", "ciudad": "San Cristóbal" },
+        { "nombre": "Comercializadora RM 7.000", "ciudad": "San Cristóbal" },
+        { "nombre": "Comercializadora Crazy Plast", "ciudad": "San Cristóbal" },
+        { "nombre": "HF Distribuciones", "ciudad": "San Cristóbal" },
+        { "nombre": "Yorley Esperanza Morales Calderón", "ciudad": "San Cristóbal" }
+      ]
+    },
+    {
+      "isoId": "VE-V",
+      "nombre": "Zulia",
+      "distribuidores": [
+        { "nombre": "Distribuidora Beltrán", "ciudad": "Maracaibo" },
+        { "nombre": "Grupo Hermanos Rivas 2016", "ciudad": "Maracaibo" }
+      ]
+    }
+  ]
+}

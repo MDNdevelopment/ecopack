@@ -1,0 +1,130 @@
+---
+import Base from '../layouts/Base.astro';
+import faq from '../data/faq.json';
+import empresa from '../data/empresa.json';
+import { breadcrumbSchema, faqSchema } from '../lib/schema';
+
+const jsonLd = [
+	breadcrumbSchema([{ name: 'Inicio', path: '/' }, { name: 'Preguntas frecuentes', path: '/preguntas-frecuentes' }]),
+	faqSchema(faq),
+];
+---
+
+<Base
+	title="Preguntas frecuentes"
+	description="Respuestas sobre el PET 100% reciclado de Ecopack: seguridad alimentaria, materiales, pedidos, distribuidores y certificaciones."
+	path="/preguntas-frecuentes"
+	jsonLd={jsonLd}
+>
+	<section class="container section-top">
+		<p class="eyebrow" data-fade>Ayuda</p>
+		<h1 data-fade>Preguntas frecuentes</h1>
+		<p class="intro" data-fade>Todo lo que necesitas saber sobre los envases de PET reciclado de Ecopack, antes de escribirnos.</p>
+	</section>
+
+	<section class="container section-faq">
+		<div class="faq-list">
+			{
+				faq.map((item, i) => (
+					<details class="faq-item" data-fade data-fade-delay={i * 40} open={i === 0}>
+						<summary>
+							<h2>{item.pregunta}</h2>
+							<span class="faq-icon" aria-hidden="true">+</span>
+						</summary>
+						<p>{item.respuesta}</p>
+					</details>
+				))
+			}
+		</div>
+
+		<p class="faq-fallback">
+			¿No encontraste tu respuesta? <a href={`https://wa.me/${empresa.telefonoWhatsapp}`}>Escríbenos por WhatsApp</a>.
+		</p>
+	</section>
+</Base>
+
+<script src="../scripts/page-motion.ts"></script>
+
+<style>
+	.section-top {
+		padding-top: 64px;
+		padding-bottom: 48px;
+	}
+	.eyebrow {
+		font-size: 14px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--color-green-dark);
+		margin-bottom: 16px;
+	}
+	h1 {
+		font-size: clamp(44px, 6vw, 80px);
+		margin-bottom: 20px;
+	}
+	.intro {
+		font-size: 18px;
+		line-height: 1.55;
+		color: var(--color-text-soft);
+		max-width: 600px;
+	}
+
+	.section-faq {
+		padding-bottom: 112px;
+	}
+	.faq-list {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		max-width: 780px;
+	}
+	.faq-item {
+		background: var(--color-cream-card);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
+		padding: 8px 24px;
+	}
+	.faq-item summary {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+		padding: 16px 0;
+		cursor: pointer;
+		list-style: none;
+	}
+	.faq-item summary::-webkit-details-marker {
+		display: none;
+	}
+	.faq-item summary h2 {
+		font-size: 18px;
+		text-transform: none;
+		font-family: var(--font-body);
+		font-weight: 700;
+		margin: 0;
+	}
+	.faq-icon {
+		font-size: 22px;
+		color: var(--color-green-dark);
+		flex-shrink: 0;
+		transition: transform var(--duration-fast) var(--ease-out);
+	}
+	.faq-item[open] .faq-icon {
+		transform: rotate(45deg);
+	}
+	.faq-item p {
+		margin: 0 0 20px;
+		font-size: 16px;
+		line-height: 1.6;
+		color: var(--color-text-soft);
+	}
+	.faq-fallback {
+		margin-top: 32px;
+		font-size: 15px;
+		color: var(--color-text-muted);
+	}
+	.faq-fallback a {
+		text-decoration: underline;
+		font-weight: 600;
+	}
+</style>

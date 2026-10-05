@@ -1,0 +1,87 @@
+---
+import '../styles/global.css';
+import Seo from '../components/Seo.astro';
+import JsonLd from '../components/JsonLd.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import Carrito from '../components/Carrito.astro';
+import { organizationSchema, localBusinessSchema, websiteSchema } from '../lib/schema';
+
+export interface Props {
+	title: string;
+	description: string;
+	path: string;
+	image?: string;
+	current?: 'inicio' | 'productos' | 'distribuidores' | 'nosotros';
+	jsonLd?: Record<string, unknown>[];
+	noindex?: boolean;
+}
+
+const { title, description, path, image, current, jsonLd = [], noindex } = Astro.props;
+
+const baseGraph = [organizationSchema(), localBusinessSchema(), websiteSchema(), ...jsonLd];
+---
+
+<!doctype html>
+<html lang="es-VE">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+
+		<link rel="icon" href="/favicon.ico" sizes="32x32" />
+		<link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<link rel="manifest" href="/site.webmanifest" />
+		<meta name="theme-color" content="#005067" />
+
+		<link rel="preload" href="/fonts/fjalla-one-latin.woff2" as="font" type="font/woff2" crossorigin />
+		<link rel="preload" href="/fonts/figtree-variable-latin.woff2" as="font" type="font/woff2" crossorigin />
+
+		<Seo title={title} description={description} path={path} image={image} noindex={noindex} />
+		<JsonLd data={baseGraph} />
+
+		<script is:inline>
+			// Marca temprana para CSS que sólo debe aplicar con JS activo (evita FOUC:
+			// el contenido siempre nace visible — ver el resto de scripts por página,
+			// que sólo AÑADEN animación, nunca ocultan contenido por defecto).
+			document.documentElement.classList.add('js');
+		</script>
+
+		<script is:inline>
+			// Anclas entre páginas (/#contacto): el navegador salta al ancla antes de que
+			// terminen de cargar fuentes, content-visibility y ScrollTrigger, y el layout
+			// cambia después. Se re-posiciona hasta que la altura de la página se estabiliza.
+			(function () {
+				var id = decodeURIComponent(location.hash.slice(1));
+				if (!id) return;
+				var tries = 0;
+				function go() {
+					var el = document.getElementById(id);
+					if (!el) return;
+					var y = el.getBoundingClientRect().top + window.scrollY - 88;
+					window.scrollTo({ top: Math.max(0, y), behavior: 'instant' });
+				}
+				function settle() {
+					go();
+					if (++tries < 8) setTimeout(settle, 150);
+				}
+				if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+				window.addEventListener('load', settle);
+			})();
+		</script>
+
+		<slot name="head" />
+	</head>
+	<body>
+		<a href="#main" class="skip-link">Saltar al contenido</a>
+		<Header current={current} />
+		<main id="main">
+			<slot />
+		</main>
+		<Footer />
+		<WhatsAppButton />
+		<Carrito />
+	</body>
+</html>

@@ -1,0 +1,177 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import FiltrosProductos from '../components/FiltrosProductos.astro';
+import FamiliaCard from '../components/FamiliaCard.astro';
+import { breadcrumbSchema, SITE_URL } from '../lib/schema';
+import { familias, porCategoria } from '../lib/productos';
+import { imagenAmbiente } from '../lib/imagenes';
+
+const totalSkus = familias.reduce((sum, f) => sum + f.items.length, 0);
+const grupos = porCategoria();
+const slugs = familias.map((f) => f.slug);
+
+const franja = ['fiambreras', 'ecocup-curvo', 'ecotray'].map((k) => ({ key: k, img: imagenAmbiente(k) })).filter((f) => f.img);
+
+const itemListSchema = {
+	'@type': 'ItemList',
+	name: 'Catálogo de productos Ecopack',
+	numberOfItems: familias.length,
+	itemListElement: familias.map((f, i) => ({
+		'@type': 'ListItem',
+		position: i + 1,
+		url: `${SITE_URL}/productos/${f.slug}`,
+		name: f.nombre,
+	})),
+};
+
+const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }, { name: 'Productos', path: '/productos' }]), itemListSchema];
+---
+
+<Base
+	title="Catálogo de envases de PET reciclado"
+	description={`${familias.length} familias y ${totalSkus} referencias de envases de PET 100% reciclado, HIPS y polipropileno: fiambreras, bandejas, vasos, Deligourmet, Ecocup y más. Mira las fotos y consulta medidas, empaque y código de cada producto.`}
+	path="/productos"
+	current="productos"
+	jsonLd={jsonLd}
+>
+	<section class="container section-top">
+		<p class="eyebrow" data-fade>Catálogo Ecopack</p>
+		<h1 data-fade>Envases de PET 100% reciclado, hechos en Guatire</h1>
+		<p class="intro" data-fade>
+			{familias.length} familias y {totalSkus} referencias avaladas por la FDA. La mayoría son 100% PET reciclado; la Fiambrera ecológica RT es
+			HIPS y los pitillos y removedores son de polipropileno. Toca un producto para ver sus fotos, medidas y empaque.
+		</p>
+	</section>
+
+	{
+		franja.length > 0 && (
+			<section class="container franja" aria-hidden="true">
+				{franja.map((f) => (
+					<div class="franja-item" data-fade>
+						<Image src={f.img!} alt="" width={640} height={420} loading={f.key === franja[0].key ? 'eager' : 'lazy'} />
+					</div>
+				))}
+			</section>
+		)
+	}
+
+	<section class="container section-body">
+		<FiltrosProductos />
+		<div data-familias-list>
+			{
+				grupos.map((g) => (
+					<section class="grupo" data-grupo aria-labelledby={`grupo-${g.value}`}>
+						<h2 id={`grupo-${g.value}`} data-fade>
+							{g.label}
+						</h2>
+						<div class="grid">
+							{g.familias.map((f) => (
+								<FamiliaCard familia={f} filtrable />
+							))}
+						</div>
+					</section>
+				))
+			}
+		</div>
+		<p class="vacio" data-filtro-vacio hidden>No encontramos productos con esos filtros. Prueba con otra búsqueda o limpia los filtros.</p>
+	</section>
+</Base>
+
+<script is:inline define:vars={{ slugs }}>
+	// Los enlaces antiguos /productos#slug ahora viven en /productos/slug.
+	var h = location.hash.slice(1);
+	if (h && slugs.indexOf(h) !== -1) location.replace('/productos/' + h);
+</script>
+<script src="../scripts/page-motion.ts"></script>
+
+<style>
+	.section-top {
+		padding-top: 64px;
+		padding-bottom: 36px;
+	}
+	.eyebrow {
+		font-size: 14px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--color-green-dark);
+		margin-bottom: 16px;
+	}
+	h1 {
+		font-size: clamp(40px, 6vw, 76px);
+		max-width: 900px;
+		text-wrap: balance;
+		margin-bottom: 24px;
+	}
+	.intro {
+		font-size: 18px;
+		line-height: 1.55;
+		color: var(--color-text-soft);
+		max-width: 700px;
+	}
+	.franja {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 12px;
+		margin-bottom: 56px;
+	}
+	.franja-item {
+		aspect-ratio: 4 / 3;
+		border-radius: var(--radius-card);
+		overflow: hidden;
+		background: var(--color-cream-media);
+	}
+	.franja-item :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	@media (max-width: 700px) {
+		.franja {
+			grid-template-columns: 1fr;
+		}
+		.franja-item:nth-child(n + 2) {
+			display: none;
+		}
+		.franja-item {
+			aspect-ratio: 16 / 9;
+		}
+	}
+	.section-body {
+		padding-bottom: 96px;
+	}
+	.grupo {
+		padding: 8px 0 40px;
+	}
+	.grupo[hidden] {
+		display: none;
+	}
+	.grupo h2 {
+		font-size: clamp(26px, 3.2vw, 36px);
+		margin-bottom: 24px;
+		padding-bottom: 14px;
+		border-bottom: 1px solid var(--color-border);
+	}
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 28px 16px;
+	}
+	@media (min-width: 700px) {
+		.grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 36px 24px;
+		}
+	}
+	@media (min-width: 1100px) {
+		.grid {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
+	}
+	.vacio {
+		padding: 48px 0;
+		font-size: 17px;
+		color: var(--color-text-soft);
+	}
+</style>

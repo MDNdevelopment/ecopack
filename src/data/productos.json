@@ -1,0 +1,1036 @@
+{
+  "familias": [
+    {
+      "slug": "fiambreras-ecologicas",
+      "nombre": "Fiambreras ecológicas",
+      "categoria": "comida-preparada",
+      "material": "PET",
+      "color": "Negro",
+      "descripcion": "Fiambreras de PET 100% reciclado, ideales para comidas preparadas y delivery.",
+      "items": [
+        {
+          "codigo": "DGF1SDINE",
+          "nombre": "Fiambrera ecológica 8x7 SD",
+          "medidas": "145 x 187 x 90 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "5,12 kg"
+        },
+        {
+          "codigo": "DGF1CDINE",
+          "nombre": "Fiambrera ecológica 8x7 CD",
+          "medidas": "145 x 187 x 90 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "5,12 kg"
+        }
+      ]
+    },
+    {
+      "slug": "fiambrera-ecologica-rt",
+      "nombre": "Fiambrera ecológica RT",
+      "categoria": "comida-preparada",
+      "material": "HIPS",
+      "color": "Negro",
+      "descripcion": "Fiambreras resistentes a la temperatura, en poliestireno de alto impacto (HIPS).",
+      "items": [
+        {
+          "codigo": "DGFTSDINE",
+          "nombre": "Fiambrera ecológica 8x7 RT SD",
+          "medidas": "145 x 187 x 90 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "4,25 kg"
+        },
+        {
+          "codigo": "01-0400204",
+          "nombre": "Fiambrera ecológica 8x7 RT CD",
+          "medidas": "145 x 187 x 90 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "4,25 kg"
+        }
+      ]
+    },
+    {
+      "slug": "bandeja-ecotray",
+      "nombre": "Bandeja Ecotray",
+      "categoria": "bandejas-tapas",
+      "material": "PET",
+      "color": "Negro, blanco y transparente",
+      "descripcion": "Bandejas para frutas, verduras y carnes en punto de venta, en versión normal y profunda.",
+      "items": [
+        {
+          "codigo": "BAETPLANE",
+          "nombre": "Bandeja ecotray",
+          "medidas": "140 x 210 x 25 mm",
+          "empaque": "5 paquetes de 100 unidades",
+          "pesoEmpaque": "8,80 kg",
+          "color": "Negro"
+        },
+        {
+          "codigo": "BAETPLABL",
+          "nombre": "Bandeja ecotray",
+          "medidas": "140 x 210 x 25 mm",
+          "empaque": "5 paquetes de 100 unidades",
+          "pesoEmpaque": "8,80 kg",
+          "color": "Blanco"
+        },
+        {
+          "codigo": "BAETPRONE",
+          "nombre": "Bandeja ecotray profunda",
+          "medidas": "140 x 210 x 58 mm",
+          "empaque": "200 unidades",
+          "pesoEmpaque": "4,70 kg",
+          "color": "Negro"
+        },
+        {
+          "codigo": "01-0420508",
+          "nombre": "Tapa/bandeja ecotray profunda",
+          "medidas": "200 x 130 x 45 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "2,9 kg",
+          "color": "Negro"
+        }
+      ]
+    },
+    {
+      "slug": "bandeja-ecotray-b6",
+      "nombre": "Bandeja Ecotray B6",
+      "categoria": "bandejas-tapas",
+      "material": "PET",
+      "color": "Negro y transparente",
+      "descripcion": "Bandeja profunda Ecotray B6, con marca Ecopack en relieve.",
+      "items": [
+        {
+          "codigo": "BAB6H25500TR",
+          "nombre": "Bandeja B6H25",
+          "medidas": "150 x 215 x 25 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "2,8 kg",
+          "color": "Transparente"
+        },
+        {
+          "codigo": "BAB6H25500NE",
+          "nombre": "Bandeja B6H25",
+          "medidas": "150 x 215 x 25 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "2,8 kg",
+          "color": "Negro"
+        }
+      ]
+    },
+    {
+      "slug": "tapas-bandejas-ecologicas",
+      "nombre": "Tapas bandejas ecológicas",
+      "categoria": "bandejas-tapas",
+      "material": "PET",
+      "color": "Blanco, transparente y negro",
+      "descripcion": "Tapas planas compatibles con las bandejas 705, 747 y 788.",
+      "items": [
+        {
+          "codigo": "TBPS705TR",
+          "nombre": "Tapa/bandeja plástica 705",
+          "medidas": "90 x 134 x 18 mm",
+          "empaque": "500 unidades",
+          "pesoEmpaque": "3,15 kg",
+          "color": "Transparente"
+        },
+        {
+          "codigo": "TBPS747TR",
+          "nombre": "Tapa/bandeja plástica 747",
+          "medidas": "78 x 103 x 16 mm",
+          "empaque": "500 unidades",
+          "pesoEmpaque": "4,65 kg",
+          "color": "Transparente"
+        },
+        {
+          "codigo": "TBPS788TR",
+          "nombre": "Tapa/bandeja plástica 788",
+          "medidas": "185 x 18 mm",
+          "empaque": "500 unidades",
+          "pesoEmpaque": "8,07 kg",
+          "color": "Transparente"
+        },
+        {
+          "codigo": "TBPS788NE",
+          "nombre": "Tapa/bandeja plástica 788",
+          "medidas": "185 x 18 mm",
+          "empaque": "500 unidades",
+          "pesoEmpaque": "8,07 kg",
+          "color": "Negro"
+        },
+        {
+          "codigo": "TBPS788BL",
+          "nombre": "Tapa/bandeja plástica 788",
+          "medidas": "185 x 18 mm",
+          "empaque": "500 unidades",
+          "pesoEmpaque": "8,07 kg",
+          "color": "Blanco"
+        }
+      ]
+    },
+    {
+      "slug": "deligourmet-redondo",
+      "nombre": "Deligourmet redondo",
+      "categoria": "comida-preparada",
+      "material": "PET",
+      "color": "Negro",
+      "descripcion": "Envases redondos para porciones individuales, en tres tamaños.",
+      "items": [
+        {
+          "codigo": "DERD21GNE",
+          "nombre": "Deligourmet 21G · 450 cc",
+          "medidas": "82 x 82 x 86 mm",
+          "empaque": "200 unidades",
+          "pesoEmpaque": "2,83 kg",
+          "capacidadCc": 450
+        },
+        {
+          "codigo": "DERD22GNE",
+          "nombre": "Deligourmet 22G (5x5)",
+          "medidas": "105 x 91 x 84 mm",
+          "empaque": "200 unidades",
+          "pesoEmpaque": "4,40 kg"
+        },
+        {
+          "codigo": "DERD23GNE",
+          "nombre": "Deligourmet 23G (6x6)",
+          "medidas": "125 x 125 x 84 mm",
+          "empaque": "200 unidades",
+          "pesoEmpaque": "5,40 kg"
+        }
+      ]
+    },
+    {
+      "slug": "deligourmet-rectangular-negro",
+      "nombre": "Deligourmet rectangular",
+      "categoria": "comida-preparada",
+      "material": "PET",
+      "color": "Negro",
+      "descripcion": "Envase rectangular Deligourmet en color negro.",
+      "items": [
+        {
+          "codigo": "DERE10GNE",
+          "nombre": "Deligourmet rectangular",
+          "medidas": "85 x 175 x 94 mm",
+          "empaque": "200 unidades",
+          "pesoEmpaque": "5,75 kg"
+        }
+      ]
+    },
+    {
+      "slug": "deligourmet-1-pieza",
+      "nombre": "Deligourmet 1 pieza",
+      "categoria": "comida-preparada",
+      "material": "PET",
+      "color": "Transparente",
+      "descripcion": "Envases Deligourmet transparentes de una sola pieza, en cinco tamaños.",
+      "items": [
+        {
+          "codigo": "DGREGSDTR",
+          "nombre": "Deligourmet 11G",
+          "medidas": "145 x 187 x 90 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "4,94 kg"
+        },
+        {
+          "codigo": "DEREGCDTR",
+          "nombre": "Deligourmet 11GD",
+          "medidas": "145 x 187 x 90 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "4,94 kg"
+        },
+        {
+          "codigo": "DERD21GTR",
+          "nombre": "Deligourmet 21G",
+          "medidas": "82 x 82 x 86 mm",
+          "empaque": "200 unidades",
+          "pesoEmpaque": "2,63 kg"
+        },
+        {
+          "codigo": "DERD22GTR",
+          "nombre": "Deligourmet 22G",
+          "medidas": "105 x 91 x 84 mm",
+          "empaque": "200 unidades",
+          "pesoEmpaque": "4,40 kg"
+        },
+        {
+          "codigo": "DERD23GTR",
+          "nombre": "Deligourmet 23G",
+          "medidas": "125 x 125 x 84 mm",
+          "empaque": "200 unidades",
+          "pesoEmpaque": "5,95 kg"
+        }
+      ]
+    },
+    {
+      "slug": "deligourmet-rectangular-transparente",
+      "nombre": "Deligourmet rectangular transparente",
+      "categoria": "comida-preparada",
+      "material": "PET",
+      "color": "Transparente",
+      "descripcion": "Línea rectangular Deligourmet transparente, en varias capacidades.",
+      "items": [
+        {
+          "codigo": "DERE10GTR",
+          "nombre": "Deligourmet rectangular",
+          "medidas": "85 x 175 x 94 mm",
+          "empaque": "200 unidades",
+          "pesoEmpaque": "5,56 kg"
+        },
+        {
+          "codigo": "DERE12GTR",
+          "nombre": "Deligourmet rectangular 12G · 1.250 cc (42 oz)",
+          "medidas": "35 x 190 x 70 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "4,8 kg",
+          "capacidadCc": 1250
+        },
+        {
+          "codigo": "DERE07GTR",
+          "nombre": "Deligourmet rectangular 7G · 700 cc (24 oz)",
+          "medidas": "140 x 195 x 53 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "4,26 kg",
+          "capacidadCc": 700
+        },
+        {
+          "codigo": "DERE06GTR",
+          "nombre": "Deligourmet rectangular 6G · 690 cc (23 oz)",
+          "medidas": "120 x 195 x 36 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "3,6 kg",
+          "capacidadCc": 690
+        }
+      ]
+    },
+    {
+      "slug": "deligourmet-rectangular-4g",
+      "nombre": "Deligourmet rectangular 4G",
+      "categoria": "comida-preparada",
+      "material": "PET",
+      "color": "Transparente",
+      "descripcion": "Envase rectangular 4G de 450 cc, en tres variantes de tapa.",
+      "items": [
+        {
+          "codigo": "DERE4GLTR",
+          "nombre": "Deligourmet 4G TL · 450 cc (15 oz)",
+          "medidas": "92 x 195 x 34 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "2,62 kg",
+          "capacidadCc": 450
+        },
+        {
+          "codigo": "DERE4GRTR",
+          "nombre": "Deligourmet 4G TC · 450 cc (15 oz)",
+          "medidas": "92 x 195 x 49 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "2,62 kg",
+          "capacidadCc": 450
+        },
+        {
+          "codigo": "01-0173002",
+          "nombre": "Deligourmet 4G TLA · 450 cc (15 oz)",
+          "medidas": "92 x 195 x 49 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "2,52 kg",
+          "capacidadCc": 450
+        }
+      ]
+    },
+    {
+      "slug": "deligourmet-triangular",
+      "nombre": "Deligourmet triangular",
+      "categoria": "comida-preparada",
+      "material": "PET",
+      "color": "Mixto y transparente",
+      "descripcion": "Envases triangulares para porciones de tortas, quesos o sándwiches.",
+      "items": [
+        {
+          "codigo": "DETR000MX",
+          "nombre": "Deligourmet triangular (2 piezas)",
+          "medidas": "115 x 120 x 75 mm",
+          "empaque": "250 unidades",
+          "pesoEmpaque": "4,53 kg",
+          "color": "Mixto (fondo negro / tapa transparente)"
+        },
+        {
+          "codigo": "DETRTBATR",
+          "nombre": "Deligourmet triangular de tapa baja · 9 oz (250 ml)",
+          "medidas": "94 x 125 x 47 mm",
+          "empaque": "200 unidades",
+          "pesoEmpaque": "2,56 kg",
+          "color": "Transparente"
+        },
+        {
+          "codigo": "DETRTALTR",
+          "nombre": "Deligourmet triangular de tapa alta · 15 oz (426 ml)",
+          "medidas": "94 x 125 x 75 mm",
+          "empaque": "200 unidades",
+          "pesoEmpaque": "2,56 kg",
+          "color": "Transparente"
+        }
+      ]
+    },
+    {
+      "slug": "deligourmet-hermetico",
+      "nombre": "Deligourmet hermético",
+      "categoria": "comida-preparada",
+      "material": "PET",
+      "color": "Transparente",
+      "descripcion": "Envases herméticos redondos de cierre seguro, de 250 a 2.000 cc.",
+      "items": [
+        {
+          "codigo": "DEHE08ZTR",
+          "nombre": "Deligourmet hermético 250 cc",
+          "medidas": "77 x 102 x 41 mm",
+          "empaque": "200 unidades",
+          "pesoEmpaque": "3,20 kg",
+          "capacidadCc": 250
+        },
+        {
+          "codigo": "DEHE12ZTR",
+          "nombre": "Deligourmet hermético 375 cc",
+          "medidas": "91 x 127 x 47 mm",
+          "empaque": "200 unidades",
+          "pesoEmpaque": "3,50 kg",
+          "capacidadCc": 375
+        },
+        {
+          "codigo": "DEHE17ZTR",
+          "nombre": "Deligourmet hermético 500 cc",
+          "medidas": "100 x 135 x 52 mm",
+          "empaque": "200 unidades",
+          "pesoEmpaque": "4,2 kg",
+          "capacidadCc": 500
+        },
+        {
+          "codigo": "DEHE26ZTR",
+          "nombre": "Deligourmet hermético 750 cc",
+          "medidas": "103 x 148 x 59 mm",
+          "empaque": "200 unidades",
+          "pesoEmpaque": "6 kg",
+          "capacidadCc": 750
+        },
+        {
+          "codigo": "DEHE34ZTR",
+          "nombre": "Deligourmet hermético 1.000 cc",
+          "medidas": "126 x 162 x 64 mm",
+          "empaque": "200 unidades",
+          "pesoEmpaque": "4,2 kg",
+          "capacidadCc": 1000
+        },
+        {
+          "codigo": "DEHE48ZTR",
+          "nombre": "Deligourmet hermético 1.500 cc",
+          "medidas": "147 x 177 x 66 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "3,98 kg",
+          "capacidadCc": 1500
+        },
+        {
+          "codigo": "DEHE64ZTR",
+          "nombre": "Deligourmet hermético 2.000 cc",
+          "medidas": "142 x 172 x 87 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "4,1 kg",
+          "capacidadCc": 2000
+        }
+      ]
+    },
+    {
+      "slug": "deligourmet-sello-plus",
+      "nombre": "Deligourmet Sello Plus",
+      "categoria": "comida-preparada",
+      "material": "PET",
+      "color": "Transparente",
+      "descripcion": "Envases rectangulares de cierre hermético reforzado, de 8 a 32 oz.",
+      "items": [
+        {
+          "codigo": "DGSP08ZTR",
+          "nombre": "Deligourmet cierre hermético rectangular 8 oz",
+          "medidas": "93 x 104 x 35 mm",
+          "empaque": "200 unidades",
+          "pesoEmpaque": "3,51 kg"
+        },
+        {
+          "codigo": "DGSP16ZTR",
+          "nombre": "Deligourmet cierre hermético rectangular 16 oz",
+          "medidas": "83 x 104 x 64 mm",
+          "empaque": "200 unidades",
+          "pesoEmpaque": "3,83 kg"
+        },
+        {
+          "codigo": "DGSP24ZTR",
+          "nombre": "Deligourmet cierre hermético rectangular 24 oz",
+          "medidas": "118 x 149 x 52 mm",
+          "empaque": "200 unidades",
+          "pesoEmpaque": "5,93 kg"
+        },
+        {
+          "codigo": "DGSP32ZTR",
+          "nombre": "Deligourmet cierre hermético rectangular 32 oz",
+          "medidas": "113 x 143 x 66 mm",
+          "empaque": "200 unidades",
+          "pesoEmpaque": "6,34 kg"
+        }
+      ]
+    },
+    {
+      "slug": "delipack",
+      "nombre": "Delipack",
+      "categoria": "comida-preparada",
+      "material": "PET",
+      "color": "Transparente o mixto",
+      "descripcion": "Envase cuadrado con tapa a presión para postres y comida gourmet, de 250 a 1.000 cc.",
+      "items": [
+        {
+          "codigo": "DPFN08ZMX",
+          "nombre": "Delipack de 250 cc y 8 oz, c/t rectangular",
+          "empaque": "250 unidades",
+          "pesoEmpaque": "2,62 kg",
+          "capacidadCc": 250
+        },
+        {
+          "codigo": "DPFN17ZMX",
+          "nombre": "Delipack de 500 cc y 17 oz, c/t rectangular",
+          "empaque": "250 unidades",
+          "pesoEmpaque": "2,80 kg",
+          "capacidadCc": 500
+        },
+        {
+          "codigo": "DPFN26ZMX",
+          "nombre": "Delipack de 750 cc y 26 oz, c/t rectangular",
+          "empaque": "250 unidades",
+          "pesoEmpaque": "4,50 kg",
+          "capacidadCc": 750
+        },
+        {
+          "codigo": "DPFN34ZMX",
+          "nombre": "Delipack de 1.000 cc y 34 oz, c/t rectangular",
+          "empaque": "250 unidades",
+          "pesoEmpaque": "4,50 kg",
+          "capacidadCc": 1000
+        }
+      ]
+    },
+    {
+      "slug": "delipack-sushi",
+      "nombre": "Delipack de sushi",
+      "categoria": "comida-preparada",
+      "material": "PET",
+      "color": "Fondo negro y tapa transparente",
+      "descripcion": "Fondos y tapas para sushi, en tamaño grande y pequeño, alto y bajo.",
+      "items": [
+        {
+          "codigo": "DPFSGALNE",
+          "nombre": "Fondo sushi grande alto",
+          "medidas": "127 x 200 x 35 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "2,21 kg",
+          "color": "Negro"
+        },
+        {
+          "codigo": "DPTSGALTR",
+          "nombre": "Tapa sushi grande alta",
+          "medidas": "150 x 222 x 36 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "1,95 kg",
+          "color": "Transparente"
+        },
+        {
+          "codigo": "DPFSGBANE",
+          "nombre": "Fondo sushi grande bajo",
+          "medidas": "132 x 205 x 21 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "2,34 kg",
+          "color": "Negro"
+        },
+        {
+          "codigo": "DPTSGBATR",
+          "nombre": "Tapa sushi grande baja",
+          "medidas": "150 x 222 x 21 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "1,25 kg",
+          "color": "Transparente"
+        },
+        {
+          "codigo": "DPFSPALNE",
+          "nombre": "Fondo sushi pequeño alto",
+          "medidas": "100 x 156 x 35 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "1,41 kg",
+          "color": "Negro"
+        },
+        {
+          "codigo": "DPTSPALTR",
+          "nombre": "Tapa sushi pequeña alta",
+          "medidas": "120 x 175 x 36 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "1,32 kg",
+          "color": "Transparente"
+        },
+        {
+          "codigo": "DPFSPBANE",
+          "nombre": "Fondo sushi pequeño bajo",
+          "medidas": "104 x 161 x 21 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "1,35 kg",
+          "color": "Negro"
+        },
+        {
+          "codigo": "DPTSPBATR",
+          "nombre": "Tapa sushi pequeña baja",
+          "medidas": "120 x 175 x 22 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "2 kg",
+          "color": "Transparente"
+        }
+      ]
+    },
+    {
+      "slug": "ecocup-porciones",
+      "nombre": "Ecocup (porciones para salsas y aderezos)",
+      "categoria": "bebidas",
+      "material": "PET",
+      "color": "Tapa transparente; fondo transparente o negro",
+      "descripcion": "Vasitos porcionadores para salsas, aderezos y complementos, de 1 a 5 oz.",
+      "items": [
+        {
+          "codigo": "VATE012TR",
+          "nombre": "Tapa ecocup 1/2 oz",
+          "medidas": "61,0 x 7,5 mm",
+          "empaque": "25 paquetes de 100 unidades",
+          "pesoEmpaque": "3,33 kg"
+        },
+        {
+          "codigo": "VATE345TR",
+          "nombre": "Tapa ecocup 3/4/5 oz",
+          "medidas": "73,2 x 8,1 mm",
+          "empaque": "25 paquetes de 100 unidades",
+          "pesoEmpaque": "5,12 kg"
+        },
+        {
+          "codigo": "VAFP01ZNE",
+          "nombre": "Fondo ecocup 1 oz",
+          "medidas": "41,5 x 56,9 x 14 mm",
+          "empaque": "25 paquetes de 100 unidades",
+          "pesoEmpaque": "4,51 kg"
+        },
+        {
+          "codigo": "VAFP02ZNE",
+          "nombre": "Fondo ecocup 2 oz",
+          "medidas": "41,5 x 56,9 x 26 mm",
+          "empaque": "25 paquetes de 100 unidades",
+          "pesoEmpaque": "5,90 kg"
+        },
+        {
+          "codigo": "VAFP03ZNE",
+          "nombre": "Fondo ecocup 3 oz",
+          "medidas": "51 x 66,4 x 31,2 mm",
+          "empaque": "25 paquetes de 100 unidades",
+          "pesoEmpaque": "8,75 kg"
+        },
+        {
+          "codigo": "VAFP04ZNE",
+          "nombre": "Fondo ecocup 4 oz",
+          "medidas": "47,6 x 66,9 x 42,5 mm",
+          "empaque": "25 paquetes de 100 unidades",
+          "pesoEmpaque": "10,00 kg"
+        },
+        {
+          "codigo": "VAFP05ZNE",
+          "nombre": "Fondo ecocup 5 oz",
+          "medidas": "45,7 x 68 x 54 mm",
+          "empaque": "25 paquetes de 100 unidades",
+          "pesoEmpaque": "10,88 kg"
+        }
+      ]
+    },
+    {
+      "slug": "vaso-pet",
+      "nombre": "Vaso PET",
+      "categoria": "bebidas",
+      "material": "PET",
+      "color": "Transparente y negro",
+      "descripcion": "Vasos PET para bebidas frías, en 8 y 12 oz.",
+      "items": [
+        {
+          "codigo": "VAPT12ZTR",
+          "nombre": "Vaso PET #12 · 12 oz (360 cc)",
+          "medidas": "55 x 81,7 x 98,2 mm",
+          "empaque": "40 paquetes de 25 unidades",
+          "pesoEmpaque": "9,32 kg",
+          "capacidadCc": 360
+        },
+        {
+          "codigo": "VAPT08ZNE",
+          "nombre": "Vaso PET #8 · 8 oz (237 cc)",
+          "medidas": "63,4 x 81,7 x 59 mm",
+          "empaque": "40 paquetes de 25 unidades",
+          "pesoEmpaque": "8,30 kg",
+          "capacidadCc": 237
+        }
+      ]
+    },
+    {
+      "slug": "tapa-vaso-pet",
+      "nombre": "Tapa de vaso PET",
+      "categoria": "bebidas",
+      "material": "PET",
+      "color": "Transparente",
+      "descripcion": "Tapas lisas y domo, con y sin abertura para pitillo, para vasos de 8 y 12 oz.",
+      "items": [
+        {
+          "codigo": "VATC812TR",
+          "nombre": "Tapa de vaso lisa con abertura 8 oz / 12 oz",
+          "medidas": "88,8 x 8,3 mm",
+          "empaque": "20 paquetes de 50 unidades",
+          "pesoEmpaque": "2,83 kg"
+        },
+        {
+          "codigo": "VATS812TR",
+          "nombre": "Tapa de vaso lisa sin abertura 8 oz / 12 oz",
+          "medidas": "88,8 x 8,3 mm",
+          "empaque": "20 paquetes de 50 unidades",
+          "pesoEmpaque": "2,83 kg"
+        },
+        {
+          "codigo": "VADC812TR",
+          "nombre": "Tapa de vaso domo con abertura 8 oz / 12 oz",
+          "medidas": "88,8 x 42,5 mm",
+          "empaque": "20 paquetes de 50 unidades",
+          "pesoEmpaque": "2,83 kg"
+        },
+        {
+          "codigo": "VADS812TR",
+          "nombre": "Tapa de vaso domo sin abertura 8 oz / 12 oz",
+          "medidas": "88,8 x 42,5 mm",
+          "empaque": "20 paquetes de 50 unidades",
+          "pesoEmpaque": "2,83 kg"
+        }
+      ]
+    },
+    {
+      "slug": "pitillos",
+      "nombre": "Pitillos",
+      "categoria": "complementos",
+      "material": "PP",
+      "color": "Transparente y negro",
+      "descripcion": "Pitillos de polipropileno: de estuche, envueltos y para frappé.",
+      "items": [
+        {
+          "codigo": "PIES1/2TR",
+          "nombre": "Pitillo de estuche 10 1/2\"",
+          "medidas": "5,6 x 6,7 x 252 mm",
+          "empaque": "15 paquetes de 200 unidades",
+          "pesoEmpaque": "2,75 kg",
+          "color": "Transparente"
+        },
+        {
+          "codigo": "PIES1/2NE",
+          "nombre": "Pitillo de estuche 10 1/2\"",
+          "medidas": "5,6 x 6,7 x 252 mm",
+          "empaque": "15 paquetes de 200 unidades",
+          "pesoEmpaque": "2,75 kg",
+          "color": "Negro"
+        },
+        {
+          "codigo": "PIEN734NE",
+          "nombre": "Pitillo envuelto 7 3/4\"",
+          "medidas": "5,6 x 6,7 x 194 mm",
+          "empaque": "4 paquetes de 500 unidades",
+          "pesoEmpaque": "1,73 kg",
+          "color": "Negro"
+        },
+        {
+          "codigo": "PIEN734TR",
+          "nombre": "Pitillo envuelto 7 3/4\"",
+          "medidas": "5,6 x 6,7 x 194 mm",
+          "empaque": "4 paquetes de 500 unidades",
+          "pesoEmpaque": "1,73 kg",
+          "color": "Transparente"
+        },
+        {
+          "codigo": "PIFV000NE",
+          "nombre": "Pitillo de frappé envuelto",
+          "medidas": "7,8 x 8,6 x 187 mm",
+          "empaque": "12 paquetes de 125 unidades",
+          "pesoEmpaque": "2,34 kg",
+          "color": "Negro"
+        },
+        {
+          "codigo": "PIFR000NE",
+          "nombre": "Pitillo de frappé",
+          "medidas": "7,8 x 8,6 x 187 mm",
+          "empaque": "20 paquetes de 125 unidades",
+          "pesoEmpaque": "3,9 kg",
+          "color": "Negro"
+        },
+        {
+          "codigo": "PIEN7341800NE",
+          "nombre": "Pitillo envuelto retail",
+          "medidas": "5,6 x 6,7 x 252 mm",
+          "empaque": "12 paquetes de 150 unidades",
+          "pesoEmpaque": "0,159 kg",
+          "color": "Negro",
+          "retail": true
+        }
+      ]
+    },
+    {
+      "slug": "removedores",
+      "nombre": "Removedores",
+      "categoria": "complementos",
+      "material": "PP",
+      "color": "Rojo y transparente",
+      "descripcion": "Removedores de polipropileno para café y bebidas calientes.",
+      "items": [
+        {
+          "codigo": "PIRG000TR",
+          "nombre": "Removedor grande",
+          "medidas": "3,2 x 3,7 x 100 mm",
+          "empaque": "18 paquetes de 1.000 unidades",
+          "pesoEmpaque": "3,78 kg",
+          "color": "Transparente"
+        },
+        {
+          "codigo": "PIRG000RO",
+          "nombre": "Removedor grande",
+          "medidas": "3,2 x 3,7 x 100 mm",
+          "empaque": "18 paquetes de 1.000 unidades",
+          "pesoEmpaque": "3,62 kg",
+          "color": "Rojo"
+        },
+        {
+          "codigo": "PIRP000RO",
+          "nombre": "Removedor pequeño",
+          "medidas": "3,2 x 3,7 x 70 mm",
+          "empaque": "18 paquetes de 1.000 unidades",
+          "pesoEmpaque": "3,62 kg",
+          "color": "Transparente"
+        }
+      ]
+    },
+    {
+      "slug": "estuche-huevos",
+      "nombre": "Estuche para huevos",
+      "categoria": "huevos",
+      "material": "PET",
+      "color": "Transparente",
+      "descripcion": "Estuches para huevos en presentación docena y medio cartón.",
+      "items": [
+        {
+          "codigo": "EHSN012TR",
+          "nombre": "Docena (12)",
+          "medidas": "107 x 291 x 72 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "3,13 kg"
+        },
+        {
+          "codigo": "EHSN015TR",
+          "nombre": "Medio cartón (15)",
+          "medidas": "154 x 249 x 75 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "4,04 kg"
+        }
+      ]
+    },
+    {
+      "slug": "bandejas-pet",
+      "nombre": "Bandejas PET",
+      "categoria": "bandejas-tapas",
+      "material": "PET",
+      "color": "Negro y dorado",
+      "descripcion": "Bandejas y discos rígidos para presentación de alimentos y repostería.",
+      "items": [
+        {
+          "codigo": "BAPTGRANE",
+          "nombre": "Bandeja PET 30 x 39 cm",
+          "medidas": "300 x 390 x 21 mm",
+          "empaque": "50 unidades",
+          "pesoEmpaque": "4,16 kg"
+        },
+        {
+          "codigo": "DIPT030NE",
+          "nombre": "Disco PET 30 cm",
+          "medidas": "300 x 12 mm",
+          "empaque": "50 unidades",
+          "pesoEmpaque": "2,89 kg"
+        },
+        {
+          "codigo": "BAPTPEQNE",
+          "nombre": "Bandeja PET 13 x 19 cm",
+          "medidas": "125 x 190 x 21 mm",
+          "empaque": "200 unidades",
+          "pesoEmpaque": "3,70 kg"
+        },
+        {
+          "codigo": "BAPTMEDNE",
+          "nombre": "Bandeja PET 20 x 28,5 cm",
+          "medidas": "195 x 285 x 24 mm",
+          "empaque": "100 unidades",
+          "pesoEmpaque": "4,45 kg"
+        },
+        {
+          "codigo": "DIPT010NE",
+          "nombre": "Disco PET 10 cm",
+          "medidas": "120 x 11 mm",
+          "empaque": "200 unidades",
+          "pesoEmpaque": "1,80 kg"
+        }
+      ]
+    },
+    {
+      "slug": "domo-discos",
+      "nombre": "Domo discos",
+      "categoria": "bandejas-tapas",
+      "material": "PET",
+      "color": "Transparente",
+      "descripcion": "Domos transparentes para tortas y bandejas de repostería.",
+      "items": [
+        {
+          "codigo": "DIDO010NE",
+          "nombre": "Domo disco pequeño · diámetro 10 (alto 10 cm)",
+          "medidas": "118 x 94 mm",
+          "empaque": "200 unidades",
+          "pesoEmpaque": "2,13 kg"
+        },
+        {
+          "codigo": "DIDO30ANE",
+          "nombre": "Domo 30 cm, tipo A",
+          "medidas": "300 x 262 mm",
+          "empaque": "50 unidades",
+          "pesoEmpaque": "3,03 kg"
+        },
+        {
+          "codigo": "DIDO30BNE",
+          "nombre": "Domo 30 cm, tipo B",
+          "medidas": "300 x 270 x 38 mm",
+          "empaque": "50 unidades",
+          "pesoEmpaque": "3,03 kg"
+        }
+      ]
+    },
+    {
+      "slug": "ecolunch",
+      "nombre": "Ecolunch",
+      "categoria": "comida-preparada",
+      "material": "PET",
+      "color": "Negro",
+      "descripcion": "Bandejas resistentes al calor (RT) con hasta 3 divisiones, para menús completos.",
+      "items": [
+        {
+          "codigo": "DEELSDINE",
+          "nombre": "Ecolunch sin división RT",
+          "medidas": "200 x 238 x 53 mm",
+          "empaque": "50 unidades",
+          "pesoEmpaque": "2 kg"
+        },
+        {
+          "codigo": "DEEL2DINE",
+          "nombre": "Ecolunch 2 divisiones RT",
+          "medidas": "200 x 238 x 53 mm",
+          "empaque": "50 unidades",
+          "pesoEmpaque": "2 kg"
+        },
+        {
+          "codigo": "DEEL3DINE",
+          "nombre": "Ecolunch 3 divisiones RT",
+          "medidas": "200 x 238 x 53 mm",
+          "empaque": "50 unidades",
+          "pesoEmpaque": "2 kg"
+        }
+      ]
+    },
+    {
+      "slug": "ecocup-fondo-curvo",
+      "nombre": "Ecocup fondo curvo",
+      "categoria": "bebidas",
+      "material": "PET",
+      "color": "Negro y transparente",
+      "descripcion": "Vasos de fondo curvo para bebidas frías y batidos, en 12 y 14 oz. Disponibles en caja mayorista (1.000 u.) o bolsa retail (50 u.) para punto de venta.",
+      "items": [
+        {
+          "codigo": "VAFC12ZNE",
+          "nombre": "Ecocup fondo curvo 12 oz",
+          "medidas": "89,8 x 45,0 x 95,0 mm",
+          "empaque": "1.000 unidades (caja) · 50 unidades (bolsa retail)",
+          "pesoEmpaque": "10,30 kg la caja",
+          "color": "Negro",
+          "retail": true
+        },
+        {
+          "codigo": "VAFC12ZTR",
+          "nombre": "Ecocup fondo curvo 12 oz",
+          "medidas": "89,8 x 45,0 x 95,0 mm",
+          "empaque": "1.000 unidades (caja) · 50 unidades (bolsa retail)",
+          "pesoEmpaque": "10,30 kg la caja",
+          "color": "Transparente",
+          "retail": true
+        },
+        {
+          "codigo": "VAFC14ZNE",
+          "nombre": "Ecocup fondo curvo 14 oz",
+          "medidas": "89,8 x 45,0 x 110,0 mm",
+          "empaque": "1.000 unidades (caja) · 50 unidades (bolsa retail)",
+          "pesoEmpaque": "11,40 kg la caja",
+          "color": "Negro",
+          "retail": true
+        },
+        {
+          "codigo": "VAFC14ZTR",
+          "nombre": "Ecocup fondo curvo 14 oz",
+          "medidas": "89,8 x 45,0 x 110,0 mm",
+          "empaque": "1.000 unidades (caja) · 50 unidades (bolsa retail)",
+          "pesoEmpaque": "11,40 kg la caja",
+          "color": "Transparente",
+          "retail": true
+        }
+      ]
+    },
+    {
+      "slug": "ecocup-fondo-plano",
+      "nombre": "Ecocup fondo plano",
+      "categoria": "bebidas",
+      "material": "PET",
+      "color": "Negro y transparente",
+      "descripcion": "Vasos de fondo plano para bebidas frías, en 12 y 14 oz. Disponibles en caja mayorista (1.000 u.) o bolsa retail (50 u.) para punto de venta.",
+      "items": [
+        {
+          "codigo": "VAFP12ZNE",
+          "nombre": "Ecocup fondo plano 12 oz",
+          "medidas": "89,8 x 58,8 x 95,0 mm",
+          "empaque": "1.000 unidades (caja) · 50 unidades (bolsa retail)",
+          "pesoEmpaque": "10,30 kg la caja",
+          "color": "Negro",
+          "retail": true
+        },
+        {
+          "codigo": "VAFP12ZTR",
+          "nombre": "Ecocup fondo plano 12 oz",
+          "medidas": "89,8 x 58,8 x 95,0 mm",
+          "empaque": "1.000 unidades (caja) · 50 unidades (bolsa retail)",
+          "pesoEmpaque": "10,30 kg la caja",
+          "color": "Transparente",
+          "retail": true
+        },
+        {
+          "codigo": "VAFP14ZNE",
+          "nombre": "Ecocup fondo plano 14 oz",
+          "medidas": "89,8 x 58,8 x 110,0 mm",
+          "empaque": "1.000 unidades (caja) · 50 unidades (bolsa retail)",
+          "pesoEmpaque": "11,40 kg la caja",
+          "color": "Negro",
+          "retail": true
+        },
+        {
+          "codigo": "VAFP14ZTR",
+          "nombre": "Ecocup fondo plano 14 oz",
+          "medidas": "89,8 x 58,8 x 110,0 mm",
+          "empaque": "1.000 unidades (caja) · 50 unidades (bolsa retail)",
+          "pesoEmpaque": "11,40 kg la caja",
+          "color": "Transparente",
+          "retail": true
+        }
+      ]
+    }
+  ]
+}

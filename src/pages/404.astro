@@ -1,0 +1,57 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Página no encontrada" description="La página que buscas no existe o fue movida." path="/404" noindex>
+	<section class="container section-404">
+		<p class="eyebrow">Error 404</p>
+		<h1>Esta página no existe</h1>
+		<p class="intro">Puede que el enlace esté roto o la página se haya movido. Prueba con alguno de estos accesos:</p>
+		<div class="links">
+			<a href="/" class="btn btn-dark">Ir al inicio</a>
+			<a href="/productos" class="btn btn-outline-dark">Ver productos</a>
+			<a href="/distribuidores" class="btn btn-outline-dark">Ver distribuidores</a>
+		</div>
+	</section>
+</Base>
+
+<style>
+	.section-404 {
+		padding-top: 96px;
+		padding-bottom: 140px;
+		text-align: center;
+		max-width: 560px;
+	}
+	.eyebrow {
+		font-size: 14px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--color-green-dark);
+		margin-bottom: 16px;
+	}
+	h1 {
+		font-size: clamp(40px, 6vw, 64px);
+		margin-bottom: 20px;
+	}
+	.intro {
+		font-size: 17px;
+		line-height: 1.55;
+		color: var(--color-text-soft);
+		margin-bottom: 32px;
+	}
+	.links {
+		display: flex;
+		gap: 12px;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+	.btn-outline-dark {
+		border: 1.5px solid var(--color-border-soft);
+		color: var(--color-ink);
+	}
+	.btn-outline-dark:hover {
+		background: var(--color-ink);
+		color: var(--color-cream);
+	}
+</style>

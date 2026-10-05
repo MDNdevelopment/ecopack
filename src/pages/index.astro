@@ -1,0 +1,619 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import HeroCarousel from '../components/HeroCarousel.astro';
+import MapaVenezuela from '../components/MapaVenezuela.astro';
+import PlaceholderMedia from '../components/PlaceholderMedia.astro';
+import FormWhatsApp from '../components/FormWhatsApp.astro';
+import clientes from '../data/clientes.json';
+import empresa from '../data/empresa.json';
+import { breadcrumbSchema } from '../lib/schema';
+import { familias, materialLabel } from '../lib/productos';
+import { imagenDestacado, imagenProducto, logoCliente, imagenInstagram, imagenPlanta } from '../lib/imagenes';
+
+const destacados = ['estuche-huevos', 'deligourmet-sello-plus', 'bandeja-ecotray', 'ecocup-porciones', 'delipack-sushi']
+	.map((slug) => familias.find((f) => f.slug === slug))
+	.filter((f): f is NonNullable<typeof f> => Boolean(f));
+
+const totalSkus = familias.reduce((sum, f) => sum + f.items.length, 0);
+const fotoNosotros = imagenPlanta('pet-molido');
+
+const posts = [
+	{ key: 'deligourmet-dona', alt: 'Deligourmet 116, el envase perfecto para llevar donas' },
+	{ key: 'sello-plus', alt: 'Deligourmet Sello Plus con brownies' },
+	{ key: 'vasos-pet', alt: 'Vasos PET Ecopack con batido' },
+	{ key: 'envase-division', alt: 'Envases para comida con división' },
+];
+
+const pasos = [
+	{
+		titulo: 'Reciclaje con tecnología EREMA',
+		texto: 'Reconocida internacionalmente por producir material reciclado de alta pureza, apto para aplicaciones exigentes.',
+	},
+	{
+		titulo: 'Normativa europea',
+		texto: 'Cumplimos el Reglamento (CE) Nº 282/2008 y las evaluaciones de la EFSA sobre plásticos reciclados en contacto con alimentos.',
+	},
+	{
+		titulo: 'Disposiciones de la FDA',
+		texto: 'Seguimos las normas de la FDA de EE. UU., referencia técnica en América y otros mercados internacionales.',
+	},
+];
+
+const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }])];
+---
+
+<Base
+	title="Ecopack Venezuela · Envases de PET 100% reciclado"
+	description="Fabricante venezolano de envases de PET 100% reciclado para alimentos, avalados por la FDA. Fiambreras, bandejas, vasos y delipacks con distribuidores autorizados en todo el país."
+	path="/"
+	current="inicio"
+	jsonLd={jsonLd}
+>
+	<HeroCarousel />
+
+	<section id="productos" class="container section-productos">
+		<div class="section-head">
+			<h2 data-split>Productos destacados</h2>
+			<a href="/productos" class="section-link">Ver catálogo completo →</a>
+		</div>
+		<div class="destacados-grid" data-flip>
+			{
+				destacados.map((fam) => (
+					<a class="destacado-card" href={`/productos/${fam.slug}`}>
+						<div class="destacado-media">
+							{(() => {
+								const foto = imagenDestacado(fam.slug) ?? imagenProducto(fam.slug);
+								return foto ? (
+									<Image src={foto} alt={`${fam.nombre} de Ecopack`} width={420} height={420} densities={[1, 1.5]} loading="lazy" />
+								) : (
+									<PlaceholderMedia label={fam.nombre} tone="light" />
+								);
+							})()}
+						</div>
+						<div class="destacado-body">
+							<h3>{fam.nombre}</h3>
+							<p>{fam.color}</p>
+							<span class="tag">{materialLabel[fam.material]}</span>
+						</div>
+					</a>
+				))
+			}
+		</div>
+	</section>
+
+	<section class="container section-mapa">
+		<div class="cobertura-box" data-box>
+			<div class="cobertura-copy">
+				<h2 data-split>
+					Presentes en todo el país
+				</h2>
+				<p data-fade>
+					{empresa.distribuidoresAutorizados} distribuidores llevan los envases Ecopack a comercios, restaurantes y productores de alimentos de todo el país.
+				</p>
+				<div class="cobertura-ctas" data-fade>
+					<a href="/distribuidores" class="btn btn-dark">Buscar en mi estado →</a>
+					<a href="/distribuidores#ser-distribuidor" class="link-inline">Sé distribuidor</a>
+				</div>
+			</div>
+			<a href="/distribuidores" class="cobertura-mapa" aria-label="Ver mapa de distribuidores">
+				<MapaVenezuela />
+			</a>
+		</div>
+	</section>
+
+	<section class="container section-clientes cv-auto">
+		<h2 data-split>Confían en Ecopack</h2>
+		<div class="clientes-marquee">
+			<div class="clientes-track">
+				{
+					[false, true].flatMap((copia) =>
+						clientes.map((c) => {
+							const logo = logoCliente(c.logo);
+							return (
+								<div class="cliente-card" aria-hidden={copia ? 'true' : undefined}>
+									{logo ? <Image src={logo} alt={copia ? '' : c.nombre} width={150} height={150} densities={[1, 2]} loading="lazy" /> : <PlaceholderMedia label={c.nombre} tone="light" />}
+								</div>
+							);
+						})
+					)
+				}
+			</div>
+		</div>
+	</section>
+
+	<section id="nosotros" class="section-dark cv-auto">
+		<div class="container section-nosotros">
+			<h2 class="nosotros-headline" data-scrub>
+				Creemos en un futuro donde el plástico reciclado sea <span>la norma</span>
+			</h2>
+			<div class="nosotros-grid">
+				<div class="nosotros-texto" data-fade>
+					<p>{empresa.descripcion}</p>
+					<p>
+						Reciclamos el PET en nuestra planta con tecnología EREMA y lo transformamos en fiambreras, bandejas, vasos y mucho más: {totalSkus} referencias
+						en {familias.length} familias, avaladas por la FDA y alineadas con el Reglamento (CE) Nº 282/2008. Hoy llegan a comercios, restaurantes y
+						productores de todo el país a través de {empresa.distribuidoresAutorizados} distribuidores autorizados.
+					</p>
+				</div>
+				<div class="nosotros-media" data-wipe>
+					<div class="wipe-inner" data-wipe-in>
+						{fotoNosotros && <Image src={fotoNosotros} alt="Manos sosteniendo PET molido, la materia prima reciclada de los envases Ecopack" widths={[640, 960, 1280]} sizes="(min-width: 900px) 600px, 100vw" loading="lazy" />}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="sostenibilidad" class="container section-sostenibilidad cv-auto">
+		<h2 data-split>Del plástico reciclado a tu mesa</h2>
+		<div class="proceso-grid">
+			<div class="proceso-media">
+				<div class="wipe-inner">
+					<video controls playsinline preload="none" poster="/videos/poster-planta.webp" aria-label="Video: recorrido por la planta de reciclaje de Ecopack, con subtítulos">
+						<source src="/videos/ecopack-planta.mp4" type="video/mp4" />
+					</video>
+				</div>
+			</div>
+			<div class="proceso-steps" data-skew>
+				{
+					pasos.map((p) => (
+						<div class="paso-card">
+							<h3>{p.titulo}</h3>
+							<p>{p.texto}</p>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<section class="container section-ig cv-auto">
+		<div class="section-head">
+			<h2 data-split>Síguenos en @ecopackvzla</h2>
+			{empresa.redes.instagram && (
+				<a href={empresa.redes.instagram} target="_blank" rel="noopener noreferrer" class="btn btn-dark" data-fade>Instagram</a>
+			)}
+		</div>
+		<div class="ig-grid" data-shutter>
+			{posts.map((p) => {
+				const img = imagenInstagram(p.key);
+				return (
+					<a class="ig-item" href={empresa.redes.instagram ?? undefined} target="_blank" rel="noopener noreferrer">
+						{img ? <Image src={img} alt={p.alt} width={480} height={600} densities={[1, 2]} loading="lazy" /> : <PlaceholderMedia label="Post de Instagram" tone="light" />}
+					</a>
+				);
+			})}
+		</div>
+	</section>
+
+	<section id="contacto" class="container section-contacto cv-auto">
+		<div class="contacto-grid">
+			<div class="contacto-info">
+				<p class="eyebrow" data-fade>Contacto</p>
+				<h2 data-split>Hablemos</h2>
+				<p class="intro" data-fade>Cotizaciones, catálogo o información para distribuidores: te respondemos a la brevedad.</p>
+
+				<div class="info-list" data-fade>
+					<a href={`https://wa.me/${empresa.telefonoWhatsapp}`} class="info-item">
+						<span class="info-icon wa">
+							<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+						</span>
+						<div>
+							<div class="info-label">WhatsApp</div>
+							<div class="info-value">{empresa.telefono}</div>
+						</div>
+					</a>
+					<a href={`mailto:${empresa.email}`} class="info-item">
+						<span class="info-icon mail">
+							<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 5.5h18v13H3z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m3 6 9 7 9-7"/></svg>
+						</span>
+						<div>
+							<div class="info-label">Correo</div>
+							<div class="info-value">{empresa.email}</div>
+						</div>
+					</a>
+					<div class="info-item">
+						<span class="info-icon pin">
+							<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 2c-4.42 0-8 3.58-8 8 0 5.5 7 11.5 7.3 11.75a1 1 0 0 0 1.4 0C12.99 21.5 20 15.5 20 10c0-4.42-3.58-8-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/></svg>
+						</span>
+						<div>
+							<div class="info-label">Planta</div>
+							<div class="info-value">{empresa.ciudad}, Edo. {empresa.estado}, Venezuela</div>
+						</div>
+					</div>
+				</div>
+
+				<p class="faq-hint" data-fade>
+					¿Tienes dudas sobre materiales, capacidades o pedidos mínimos? Revisa las <a href="/preguntas-frecuentes">preguntas frecuentes</a>.
+				</p>
+			</div>
+
+			<div class="contacto-form" data-fade>
+				<h3>Escríbenos</h3>
+				<FormWhatsApp id="contacto" />
+			</div>
+		</div>
+	</section>
+</Base>
+
+<script src="../scripts/home.ts"></script>
+
+<style>
+	.section-head {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		gap: 24px;
+		flex-wrap: wrap;
+		margin-bottom: 40px;
+	}
+	.section-head h2 {
+		font-size: clamp(36px, 5vw, 64px);
+	}
+	.section-link {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		font-weight: 600;
+		font-size: 16px;
+		color: var(--color-green-dark);
+		border-bottom: 1.5px solid var(--color-green-dark);
+		padding-bottom: 4px;
+	}
+
+	.section-productos {
+		padding: 112px 24px 96px;
+	}
+	.destacados-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr));
+		gap: 20px;
+		perspective: 1200px;
+	}
+	.destacado-card {
+		color: inherit;
+		background: var(--color-cream-card);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
+		padding: 12px 12px 20px;
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		transition: box-shadow var(--duration-base) var(--ease-out);
+	}
+	.destacado-card:hover {
+		box-shadow: var(--shadow-card);
+	}
+	.destacado-media :global(img),
+	.cliente-card :global(img),
+	.nosotros-media :global(img),
+	.proceso-media :global(video),
+	.ig-item :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+	.cliente-card :global(img) {
+		object-fit: contain;
+	}
+	.destacado-media {
+		aspect-ratio: 1 / 1;
+		border-radius: var(--radius-product-img);
+		overflow: hidden;
+		background: var(--color-cream-media);
+	}
+	.destacado-body {
+		padding: 0 8px;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+	.destacado-body h3 {
+		font-size: 22px;
+	}
+	.destacado-body p {
+		font-size: 14px;
+		color: var(--color-text-muted);
+		line-height: 1.45;
+	}
+	.tag {
+		align-self: flex-start;
+		font-size: 12px;
+		font-weight: 700;
+		color: var(--color-ink);
+		background: var(--color-lime);
+		border-radius: var(--radius-pill);
+		padding: 6px 10px;
+	}
+
+	.section-mapa {
+		padding: 0 24px 112px;
+	}
+	.cobertura-box {
+		border-radius: var(--radius-box);
+		padding: clamp(28px, 5vw, 64px);
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+		gap: 40px;
+		align-items: center;
+		overflow: hidden;
+	}
+	.cobertura-copy {
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+	}
+	.cobertura-copy h2 {
+		font-size: clamp(44px, 5.4vw, 80px);
+	}
+	.cobertura-copy p {
+		font-size: 18px;
+		line-height: 1.55;
+		color: var(--color-text-soft);
+		max-width: 460px;
+	}
+	.cobertura-ctas {
+		display: flex;
+		gap: 12px;
+		flex-wrap: wrap;
+		align-items: center;
+	}
+	.link-inline {
+		font-weight: 600;
+		font-size: 15px;
+		color: var(--color-green-dark);
+		padding: 15px 8px;
+	}
+	.cobertura-mapa {
+		display: block;
+	}
+
+	.section-clientes {
+		padding: 0 24px 112px;
+	}
+	.section-clientes h2 {
+		font-size: clamp(40px, 4.6vw, 64px);
+		margin-bottom: 32px;
+	}
+	.clientes-marquee {
+		--marquee-duration: 28s;
+		overflow: hidden;
+		-webkit-mask-image: linear-gradient(90deg, transparent, #000 64px, #000 calc(100% - 64px), transparent);
+		mask-image: linear-gradient(90deg, transparent, #000 64px, #000 calc(100% - 64px), transparent);
+	}
+	.clientes-track {
+		display: flex;
+		width: max-content;
+		animation: clientes-scroll var(--marquee-duration) linear infinite;
+	}
+	.clientes-marquee:hover .clientes-track {
+		animation-play-state: paused;
+	}
+	.cliente-card {
+		flex: 0 0 auto;
+		width: 180px;
+		margin-right: 12px;
+		aspect-ratio: 3 / 2;
+		background: #fff;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-client-card);
+		overflow: hidden;
+		padding: 14px;
+		box-sizing: border-box;
+	}
+	@keyframes clientes-scroll {
+		from {
+			transform: translateX(0);
+		}
+		to {
+			transform: translateX(-50%);
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.clientes-track {
+			animation: none;
+		}
+	}
+
+	.section-dark {
+		background: var(--color-green-deep);
+		color: var(--color-cream);
+		overflow: hidden;
+	}
+	.section-nosotros {
+		padding: 120px 24px;
+	}
+	.nosotros-headline {
+		font-size: clamp(40px, 6.4vw, 96px);
+		line-height: 1;
+		margin-bottom: 64px;
+		max-width: 1150px;
+	}
+	.nosotros-headline span {
+		color: var(--color-lime-light);
+	}
+	.nosotros-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+		gap: 48px;
+		align-items: center;
+	}
+	.nosotros-grid p {
+		font-size: 18px;
+		line-height: 1.65;
+		color: var(--color-text-on-dark);
+		max-width: 540px;
+		text-wrap: pretty;
+	}
+	.nosotros-texto p {
+		margin: 0;
+	}
+	.nosotros-texto p + p {
+		margin-top: 18px;
+	}
+	.nosotros-media {
+		aspect-ratio: 16 / 10;
+		border-radius: var(--radius-video);
+		overflow: hidden;
+		background: var(--color-green-dark);
+		position: relative;
+	}
+	.wipe-inner {
+		position: absolute;
+		inset: 0;
+	}
+
+	.section-sostenibilidad {
+		padding: 120px 24px;
+	}
+	.section-sostenibilidad h2 {
+		font-size: clamp(44px, 6vw, 88px);
+		margin-bottom: 56px;
+		max-width: 1000px;
+	}
+	.proceso-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+		gap: 24px;
+		align-items: stretch;
+	}
+	.proceso-media {
+		border-radius: var(--radius-video);
+		overflow: hidden;
+		background: var(--color-green-night);
+		aspect-ratio: 9 / 16;
+		width: min(100%, 360px);
+		justify-self: center;
+		position: relative;
+	}
+	.proceso-steps {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: 16px;
+	}
+	.paso-card {
+		background: var(--color-cream-card);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
+		padding: 28px;
+	}
+	.paso-card h3 {
+		font-size: 24px;
+		margin-bottom: 8px;
+	}
+	.paso-card p {
+		margin: 0;
+		font-size: 16px;
+		line-height: 1.55;
+		color: var(--color-text-soft);
+		text-wrap: pretty;
+	}
+
+	.section-ig {
+		padding: 0 24px 112px;
+	}
+	.section-ig h2 {
+		font-size: clamp(40px, 4.6vw, 64px);
+	}
+	.ig-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+		gap: 16px;
+	}
+	.ig-item {
+		display: block;
+		aspect-ratio: 4 / 5;
+		border-radius: var(--radius-ig-cell);
+		overflow: hidden;
+		background: var(--color-sage);
+	}
+
+	.section-contacto {
+		padding: 0 24px 112px;
+	}
+	.contacto-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+		gap: 48px;
+	}
+	.contacto-info .eyebrow {
+		font-size: 14px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--color-green-dark);
+		margin-bottom: 16px;
+	}
+	.contacto-info h2 {
+		font-size: clamp(48px, 6vw, 88px);
+		margin-bottom: 20px;
+	}
+	.contacto-info .intro {
+		font-size: 18px;
+		line-height: 1.55;
+		color: var(--color-text-soft);
+		max-width: 420px;
+		margin-bottom: 32px;
+	}
+	.info-list {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+	.info-item {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		color: var(--color-ink);
+	}
+	.info-icon {
+		width: 44px;
+		height: 44px;
+		border-radius: 50%;
+		display: grid;
+		place-items: center;
+		flex-shrink: 0;
+	}
+	.info-icon.wa {
+		background: var(--color-sage);
+		color: var(--color-green-dark);
+	}
+	.info-icon.mail {
+		background: var(--color-sage);
+		color: var(--color-green-dark);
+	}
+	.info-icon.pin {
+		background: var(--color-sage);
+		color: var(--color-green-dark);
+	}
+	.info-label {
+		font-size: 13px;
+		color: var(--color-text-muted);
+	}
+	.info-value {
+		font-size: 17px;
+		font-weight: 600;
+	}
+	.faq-hint {
+		margin-top: 32px;
+		font-size: 15px;
+		color: var(--color-text-muted);
+	}
+	.faq-hint a {
+		text-decoration: underline;
+		font-weight: 600;
+	}
+	.contacto-form {
+		background: var(--color-cream-card);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-box);
+		padding: clamp(28px, 4vw, 40px);
+	}
+	.contacto-form h3 {
+		font-size: 24px;
+		margin-bottom: 20px;
+	}
+</style>

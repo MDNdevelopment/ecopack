@@ -1,0 +1,387 @@
+---
+import { Image } from "astro:assets";
+import { imagenAmbiente, imagenPlanta } from "../lib/imagenes";
+
+const slides = [
+  {
+    foto: imagenPlanta("ensalada"),
+    pos: "50% 55%",
+    heading: "Un paso hacia la <em>sostenibilidad</em>",
+    text: "Envases para alimentos fabricados con PET 100% reciclado y avalados por la FDA.",
+    ctas: [
+      {
+        href: "/catalogo-ecopack.pdf",
+        text: "Descargar catálogo PDF ↓",
+        style: "primary",
+        download: true,
+      },
+      {
+        href: "/distribuidores",
+        text: "Encontrar distribuidor",
+        style: "outline",
+      },
+    ],
+  },
+  {
+    foto: imagenAmbiente("deligourmet"),
+    pos: "50% 50%",
+    heading: "Envases que cuidan <em>lo que preparas</em>",
+    text: "Estuches, bandejas, vasos y delipacks para restaurantes, productores y comercios.",
+    ctas: [
+      { href: "/productos", text: "Ver productos", style: "primary" },
+      {
+        href: "/catalogo-ecopack.pdf",
+        text: "Catálogo PDF ↓",
+        style: "outline",
+        download: true,
+      },
+    ],
+  },
+  {
+    foto: imagenAmbiente("ecotray"),
+    pos: "50% 60%",
+    heading: "Ecopack en <em>16 estados.</em>",
+    text: "32 distribuidores autorizados en todo el país. Encuentra el más cercano a tu negocio.",
+    ctas: [
+      {
+        href: "/distribuidores",
+        text: "Buscar distribuidor →",
+        style: "primary",
+      },
+      {
+        href: "/distribuidores#ser-distribuidor",
+        text: "Sé distribuidor",
+        style: "outline",
+      },
+    ],
+  },
+  {
+    foto: imagenPlanta("maquina"),
+    pos: "50% 50%",
+    heading: "Reciclado con <em>estándares internacionales</em>",
+    text: "Tecnología EREMA, Reglamento (CE) Nº 282/2008 y disposiciones de la FDA.",
+    ctas: [
+      {
+        href: "/nosotros#proceso",
+        text: "Conoce el proceso",
+        style: "primary",
+      },
+    ],
+  },
+];
+
+const dotLabels = [
+  "Sostenibilidad",
+  "Productos",
+  "Distribuidores",
+  "Certificación",
+];
+---
+
+<section
+  class="hero"
+  data-hero
+  aria-roledescription="carrusel"
+  aria-label="Presentación de Ecopack"
+>
+  <ul class="hero-slides" aria-live="polite">
+    {
+      slides.map((s, i) => (
+        <li
+          class="hero-slide"
+          data-slide={i}
+          style={i > 0 ? "visibility:hidden" : undefined}
+          aria-hidden={i === 0 ? "false" : "true"}
+        >
+          <div class="hero-zoom" data-slide-zoom>
+            {s.foto && (
+              <Image
+                src={s.foto}
+                alt=""
+                widths={[640, 1080, 1664, 1920]}
+                sizes="100vw"
+                loading={i === 0 ? "eager" : "lazy"}
+                fetchpriority={i === 0 ? "high" : undefined}
+                style={`object-position:${s.pos}`}
+              />
+            )}
+          </div>
+          <div class="hero-overlay" aria-hidden="true" />
+          <div class="hero-text" data-slide-text>
+            {i === 0 ? (
+              <h1 data-slide-h set:html={s.heading} />
+            ) : (
+              <h2 data-slide-h set:html={s.heading} />
+            )}
+            <p data-slide-rest class="hero-copy">
+              {s.text}
+            </p>
+            <div data-slide-rest class="hero-ctas">
+              {s.ctas.map((c) => (
+                <a
+                  href={c.href}
+                  class={`btn btn-${c.style === "primary" ? "primary" : "outline"}`}
+                  download={c.download || undefined}
+                >
+                  {c.text}
+                </a>
+              ))}
+            </div>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+
+  <div data-curtain="1" class="hero-curtain hero-curtain-1" aria-hidden="true">
+  </div>
+  <div data-curtain="2" class="hero-curtain hero-curtain-2" aria-hidden="true">
+  </div>
+
+  <div class="hero-controls">
+    <div class="hero-dots">
+      {
+        dotLabels.map((label, i) => (
+          <button
+            type="button"
+            data-dot={i}
+            aria-label={`Ir a la diapositiva: ${label}`}
+            aria-current={i === 0 ? "true" : undefined}
+          >
+            <span class="hero-bar">
+              <span data-bar={i} />
+            </span>
+            <span class="hero-dot-label" data-dot-label>
+              {label}
+            </span>
+          </button>
+        ))
+      }
+    </div>
+    <div class="hero-arrows">
+      <button type="button" data-hero-prev aria-label="Diapositiva anterior"
+        >←</button
+      >
+      <button type="button" data-hero-next aria-label="Diapositiva siguiente"
+        >→</button
+      >
+    </div>
+  </div>
+</section>
+
+<noscript>
+  <style>
+    .hero-slide[style*="visibility:hidden"] {
+      display: none;
+    }
+    .hero-controls {
+      display: none;
+    }
+  </style>
+</noscript>
+
+<script src="../scripts/hero-carousel.ts"></script>
+
+<style>
+  .hero {
+    position: relative;
+    height: calc(100svh - var(--header-height));
+    min-height: 580px;
+    max-height: 900px;
+    overflow: hidden;
+    background: var(--color-green-hover);
+  }
+  .hero-slides {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  .hero-slide {
+    position: absolute;
+    inset: 0;
+  }
+  .hero-zoom {
+    position: absolute;
+    inset: 0;
+    background: var(--color-green-dark);
+  }
+  .hero-zoom :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(
+        0deg,
+        rgba(var(--color-hero-overlay-rgb), 0.92) 0%,
+        rgba(var(--color-hero-overlay-rgb), 0.4) 55%,
+        rgba(var(--color-hero-overlay-rgb), 0.1) 100%
+      ),
+      linear-gradient(
+        90deg,
+        rgba(var(--color-hero-overlay-rgb), 0.55) 0%,
+        rgba(var(--color-hero-overlay-rgb), 0) 65%
+      );
+  }
+  .hero-text {
+    position: relative;
+    z-index: 2;
+    max-width: var(--max-width);
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 24px 150px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 22px;
+    pointer-events: none;
+  }
+  .hero-text h1,
+  .hero-text h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(48px, 8vw, 120px);
+    line-height: 0.95;
+    margin: 0;
+    color: var(--color-cream);
+    text-transform: uppercase;
+    max-width: 900px;
+    text-wrap: balance;
+  }
+  .hero-text h1 :global(em),
+  .hero-text h2 :global(em) {
+    font-style: normal;
+    color: var(--color-lime-light);
+  }
+  .hero-copy {
+    font-size: clamp(16px, 1.6vw, 20px);
+    line-height: 1.55;
+    color: var(--color-text-on-dark);
+    margin: 0;
+    max-width: 520px;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    pointer-events: auto;
+  }
+  .hero-ctas .btn {
+    font-size: 15px;
+    white-space: nowrap;
+  }
+
+  .hero-curtain {
+    position: absolute;
+    inset: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .hero-curtain-1 {
+    z-index: 5;
+    background: var(--color-lime);
+  }
+  .hero-curtain-2 {
+    z-index: 6;
+    background: var(--color-green-deep);
+  }
+
+  .hero-controls {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 8;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .hero-dots {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .hero-dots button {
+    border: 0;
+    background: transparent;
+    padding: 12px 0;
+    text-align: left;
+    font: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+  }
+  .hero-bar {
+    display: block;
+    height: 3px;
+    border-radius: 3px;
+    background: rgba(244, 242, 233, 0.25);
+    overflow: hidden;
+  }
+  .hero-bar span {
+    display: block;
+    height: 100%;
+    background: var(--color-lime-light);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  .hero-dot-label {
+    display: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-dot-inactive);
+    transition: color 0.3s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .hero-dots button[aria-current="true"] .hero-dot-label {
+    color: var(--color-cream);
+  }
+  /* El mockup oculta solo el texto del dot bajo el breakpoint BP=900 del propio diseño
+	   (isDesktop/isMobile), no las barras — éstas se ven siempre. */
+  @media (min-width: 901px) {
+    .hero-dot-label {
+      display: block;
+    }
+  }
+
+  .hero-arrows {
+    display: flex;
+    gap: 10px;
+  }
+  .hero-arrows button {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    color: var(--color-cream);
+    font-size: 18px;
+  }
+  .hero-arrows button:first-child {
+    border: 1.5px solid rgba(244, 242, 233, 0.5);
+    background: transparent;
+  }
+  .hero-arrows button:first-child:hover {
+    background: var(--color-cream);
+    color: var(--color-ink);
+  }
+  .hero-arrows button:last-child {
+    border: 0;
+    background: var(--color-lime);
+    color: var(--color-ink);
+  }
+  .hero-arrows button:last-child:hover {
+    background: var(--color-lime-hover);
+  }
+</style>

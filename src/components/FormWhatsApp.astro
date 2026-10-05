@@ -1,0 +1,86 @@
+---
+import empresa from '../data/empresa.json';
+
+export interface Props {
+	id?: string;
+}
+const { id = 'contacto-form' } = Astro.props;
+---
+
+<form class="wa-form" data-wa-form action={`https://wa.me/${empresa.telefonoWhatsapp}`} method="get" target="_blank">
+	<label for={`${id}-nombre`}>
+		Nombre completo
+		<input id={`${id}-nombre`} name="nombre" type="text" placeholder="Tu nombre" required autocomplete="name" />
+	</label>
+	<label for={`${id}-correo`}>
+		Correo electrónico
+		<input id={`${id}-correo`} name="correo" type="email" placeholder="nombre@empresa.com" autocomplete="email" />
+	</label>
+	<label class="full" for={`${id}-mensaje`}>
+		Mensaje
+		<textarea id={`${id}-mensaje`} name="mensaje" rows="5" placeholder="Cuéntanos qué necesitas" required></textarea>
+	</label>
+	<div class="full form-actions">
+		<button type="submit" class="btn btn-dark">Enviar por WhatsApp</button>
+		<span class="form-hint">Se abrirá WhatsApp con tu mensaje ya redactado.</span>
+	</div>
+</form>
+
+<noscript>
+	<p class="form-noscript">
+		Este formulario necesita JavaScript para armar el mensaje de WhatsApp automáticamente. Mientras tanto, escríbenos directo a
+		<a href={`https://wa.me/${empresa.telefonoWhatsapp}`}>{empresa.telefono}</a> o a <a href={`mailto:${empresa.email}`}>{empresa.email}</a>.
+	</p>
+</noscript>
+
+<script src="../scripts/wa-form.ts"></script>
+
+<style>
+	.wa-form {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 14px;
+	}
+	.wa-form label {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		font-size: 14px;
+		font-weight: 600;
+	}
+	.wa-form label.full {
+		grid-column: 1 / -1;
+	}
+	.wa-form input,
+	.wa-form textarea {
+		font: inherit;
+		font-weight: 400;
+		font-size: 16px;
+		padding: 14px 16px;
+		border-radius: 14px;
+		border: 1px solid var(--color-border-soft);
+		background: var(--color-cream);
+		outline: none;
+		color: var(--color-ink);
+	}
+	.wa-form textarea {
+		resize: vertical;
+	}
+	.form-actions {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		flex-wrap: wrap;
+	}
+	.form-hint {
+		font-size: 14px;
+		color: var(--color-text-muted);
+	}
+	.form-noscript {
+		background: var(--color-sage);
+		border-radius: var(--radius-input);
+		padding: 16px 20px;
+		font-size: 15px;
+		line-height: 1.6;
+	}
+</style>

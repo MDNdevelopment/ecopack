@@ -1,0 +1,335 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import empresa from '../data/empresa.json';
+import { breadcrumbSchema } from '../lib/schema';
+import { imagenPlanta } from '../lib/imagenes';
+
+const fotoPet = imagenPlanta('pet-molido');
+const fotoOperaria = imagenPlanta('operaria');
+const fotoEmpaque = imagenPlanta('empaque');
+const fotoMaquina = imagenPlanta('maquina');
+
+const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }, { name: 'Nosotros', path: '/nosotros' }])];
+---
+
+<Base
+	title="Nosotros"
+	description="Ecopack Venezuela es una empresa de Guatire, Edo. Miranda, dedicada a la producción de envases de plástico 100% reciclado con tecnología EREMA y normativa FDA."
+	path="/nosotros"
+	current="nosotros"
+	jsonLd={jsonLd}
+>
+	<section class="container section-top">
+		<p class="eyebrow" data-fade>Nosotros</p>
+		<h1 data-fade>Creemos en un futuro donde el plástico reciclado sea <span>la norma</span></h1>
+		<p class="intro" data-fade>{empresa.descripcion}</p>
+	</section>
+
+	<section class="container section-media">
+		<div class="media-box" data-fade>
+			<video controls playsinline preload="none" poster="/videos/poster-nosotros.webp" aria-label="Video: conoce Ecopack y su planta de reciclaje en Guatire">
+				<source src="/videos/ecopack-nosotros.mp4" type="video/mp4" />
+			</video>
+		</div>
+	</section>
+
+	<section id="proceso" class="container section-proceso">
+		<div class="proceso-layout">
+			<div class="proceso-lado">
+				<h2 data-fade>Cómo reciclamos el PET</h2>
+				{
+					fotoPet && (
+						<div class="proceso-foto" data-fade data-fade-delay="120">
+							<Image
+								src={fotoPet}
+								alt="Manos sosteniendo PET molido, la materia prima reciclada de los envases Ecopack"
+								widths={[480, 720, 960]}
+								sizes="(min-width: 900px) 40vw, 100vw"
+								loading="lazy"
+							/>
+						</div>
+					)
+				}
+			</div>
+			<ol class="proceso-lista">
+				{
+					empresa.normativas.map((n, i) => (
+						<li class="proceso-item" data-fade data-fade-delay={i * 110}>
+							<h3>{n.nombre}</h3>
+							<p>{n.descripcion}</p>
+						</li>
+					))
+				}
+			</ol>
+		</div>
+	</section>
+
+	<section class="section-dark section-planta cv-auto">
+		<div class="container planta-layout">
+			<div class="planta-copy">
+				<p class="eyebrow-claro" data-fade>Nuestra planta</p>
+				<h2 data-fade>Hecho en {empresa.ciudad}, <span>para todo el país</span></h2>
+				<p class="planta-texto" data-fade>
+					Operamos desde {empresa.ciudad}, estado {empresa.estado}, Venezuela — desde donde despachamos a todo el país
+					a través de nuestra red de distribuidores.
+				</p>
+				<div class="planta-datos" data-fade>
+					<div class="dato">
+						<div class="dato-num" data-count={empresa.distribuidoresAutorizados}>{empresa.distribuidoresAutorizados}</div>
+						<div class="dato-label">distribuidores autorizados</div>
+					</div>
+					<div class="dato">
+						<div class="dato-num">100%</div>
+						<div class="dato-label">PET reciclado en la línea principal</div>
+					</div>
+				</div>
+				<a href="/distribuidores" class="btn btn-primary" data-fade>Ver cobertura →</a>
+			</div>
+			<div class="planta-mosaico">
+				{
+					fotoOperaria && (
+						<div class="foto foto-alta" data-fade>
+							<Image src={fotoOperaria} alt="Operaria de la planta de Ecopack revisando envases" widths={[400, 640, 900]} sizes="(min-width: 900px) 24vw, 50vw" loading="lazy" />
+						</div>
+					)
+				}
+				{
+					fotoEmpaque && (
+						<div class="foto" data-fade data-fade-delay="110">
+							<Image src={fotoEmpaque} alt="Empaque de envases de PET reciclado en la planta de Ecopack" widths={[400, 640, 900]} sizes="(min-width: 900px) 24vw, 50vw" loading="lazy" />
+						</div>
+					)
+				}
+				{
+					fotoMaquina && (
+						<div class="foto" data-fade data-fade-delay="200">
+							<Image src={fotoMaquina} alt="Máquina termoformadora produciendo envases en la planta de Ecopack" widths={[400, 640, 900]} sizes="(min-width: 900px) 24vw, 50vw" loading="lazy" />
+						</div>
+					)
+				}
+			</div>
+		</div>
+	</section>
+</Base>
+
+<script src="../scripts/page-motion.ts"></script>
+
+<style>
+	.section-top {
+		padding-top: 64px;
+		padding-bottom: 48px;
+	}
+	.eyebrow {
+		font-size: 14px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--color-green-dark);
+		margin-bottom: 16px;
+	}
+	h1 {
+		font-size: clamp(40px, 6.4vw, 80px);
+		max-width: 1000px;
+		text-wrap: balance;
+		margin-bottom: 24px;
+	}
+	h1 span {
+		color: var(--color-green-dark);
+	}
+	.intro {
+		font-size: 18px;
+		line-height: 1.6;
+		color: var(--color-text-soft);
+		max-width: 640px;
+	}
+
+	.section-media {
+		padding-bottom: 96px;
+	}
+	.media-box {
+		aspect-ratio: 16 / 9;
+		border-radius: var(--radius-panel);
+		overflow: hidden;
+		background: var(--color-green-dark);
+	}
+	.media-box video {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.section-proceso {
+		padding-bottom: 112px;
+	}
+	.proceso-layout {
+		display: grid;
+		gap: 48px;
+		align-items: start;
+	}
+	@media (min-width: 900px) {
+		.proceso-layout {
+			grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+			gap: 80px;
+		}
+		.proceso-lado {
+			position: sticky;
+			top: calc(var(--header-height) + 32px);
+		}
+	}
+	.proceso-lado h2 {
+		font-size: clamp(40px, 5vw, 72px);
+		line-height: 1;
+		margin-bottom: 32px;
+		text-wrap: balance;
+	}
+	.proceso-foto {
+		aspect-ratio: 4 / 3;
+		border-radius: var(--radius-video);
+		overflow: hidden;
+		background: var(--color-cream-media);
+	}
+	.proceso-foto :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+	.proceso-lista {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	.proceso-item {
+		position: relative;
+		padding: 36px 0 40px;
+		border-top: 1px solid var(--color-border-soft);
+	}
+	.proceso-item:last-child {
+		border-bottom: 1px solid var(--color-border-soft);
+	}
+	.proceso-item::before {
+		content: '';
+		position: absolute;
+		top: -2px;
+		left: 0;
+		width: 40px;
+		height: 3px;
+		background: var(--color-lime);
+		transition: width var(--duration-base) var(--ease-out);
+	}
+	.proceso-item:hover::before {
+		width: 120px;
+	}
+	.proceso-item h3 {
+		font-size: clamp(26px, 3vw, 40px);
+		line-height: 1.05;
+		margin-bottom: 14px;
+	}
+	.proceso-item p {
+		margin: 0;
+		font-size: 17px;
+		line-height: 1.6;
+		color: var(--color-text-soft);
+		max-width: 52ch;
+	}
+
+	.section-dark {
+		background: var(--color-green-deep);
+		color: var(--color-cream);
+		overflow: hidden;
+	}
+	.section-planta {
+		padding: 112px 0;
+	}
+	.planta-layout {
+		display: grid;
+		gap: 56px;
+		align-items: center;
+	}
+	@media (min-width: 900px) {
+		.planta-layout {
+			grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+			gap: 72px;
+		}
+	}
+	.eyebrow-claro {
+		font-size: 14px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--color-lime-light);
+		margin-bottom: 16px;
+	}
+	.planta-copy h2 {
+		font-size: clamp(40px, 5.4vw, 80px);
+		line-height: 1;
+		margin-bottom: 24px;
+		text-wrap: balance;
+	}
+	.planta-copy h2 span {
+		color: var(--color-lime-light);
+	}
+	.planta-texto {
+		font-size: 18px;
+		line-height: 1.6;
+		color: var(--color-text-on-dark);
+		max-width: 480px;
+		margin-bottom: 36px;
+	}
+	.planta-datos {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 32px 0;
+		margin-bottom: 40px;
+	}
+	.dato {
+		padding-right: 36px;
+	}
+	.dato + .dato {
+		padding-left: 36px;
+		padding-right: 0;
+		border-left: 1px solid rgba(var(--color-lime-pale-rgb), 0.3);
+	}
+	.dato-num {
+		font-family: var(--font-display);
+		font-size: clamp(48px, 5vw, 72px);
+		color: var(--color-lime-light);
+		line-height: 1;
+	}
+	.dato-label {
+		font-size: 14px;
+		color: var(--color-text-on-dark);
+		margin-top: 8px;
+		max-width: 190px;
+	}
+
+	.planta-mosaico {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: 1fr 1fr;
+		gap: 14px;
+		aspect-ratio: 1 / 1.05;
+	}
+	.foto {
+		border-radius: var(--radius-card);
+		overflow: hidden;
+		background: var(--color-green-hover);
+		min-height: 0;
+	}
+	.foto :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		transition: transform 0.9s var(--ease-out);
+	}
+	.foto:hover :global(img) {
+		transform: scale(1.05);
+	}
+	.foto-alta {
+		grid-row: 1 / 3;
+		border-radius: var(--radius-video);
+	}
+</style>

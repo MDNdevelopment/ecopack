@@ -1,0 +1,35 @@
+{
+  "nombre": "Ecopack Venezuela",
+  "razonSocial": "Plásticos Ecoplast, C.A.",
+  "eslogan": "Un paso hacia la sostenibilidad",
+  "descripcion": "Empresa venezolana de Guatire, Edo. Miranda, dedicada a la producción y comercialización de envases de plástico 100% reciclado, con productos de alta calidad y un compromiso real con el medio ambiente.",
+  "ciudad": "Guatire",
+  "estado": "Miranda",
+  "pais": "Venezuela",
+  "telefono": "+58 414-2051941",
+  "telefonoWhatsapp": "584142051941",
+  "email": "sac@plasticosecoplast.com",
+  "estadosCobertura": 16,
+  "distribuidoresAutorizados": 32,
+  "redes": {
+    "instagram": "https://www.instagram.com/ecopackvzla",
+    "tiktok": "https://www.tiktok.com/@ecopackvzla",
+    "facebook": null,
+    "youtube": null,
+    "linkedin": null
+  },
+  "normativas": [
+    {
+      "nombre": "Tecnología EREMA",
+      "descripcion": "Reconocida internacionalmente por producir material reciclado de alta pureza, apto para aplicaciones exigentes."
+    },
+    {
+      "nombre": "Reglamento (CE) Nº 282/2008",
+      "descripcion": "Cumplimos la normativa europea y las evaluaciones de la EFSA sobre plásticos reciclados en contacto con alimentos."
+    },
+    {
+      "nombre": "Disposiciones de la FDA",
+      "descripcion": "Seguimos las normas de la FDA de EE. UU., referencia técnica en América y otros mercados internacionales."
+    }
+  ]
+}

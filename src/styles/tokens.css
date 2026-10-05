@@ -1,0 +1,77 @@
+/*
+  Design tokens — Ecopack Venezuela
+  Valores literales extraídos del mockup fuente (Home v2.dc.html / Distribuidores v2.dc.html).
+  No es una escala "limpia" inventada: el mockup usa intencionalmente más de un valor de
+  border-radius y de color por familia — cada token de abajo corresponde a un valor real
+  documentado, con el componente que lo usa anotado al lado.
+*/
+:root {
+	/* Color — paleta base */
+	--color-cream: #f4f2e9; /* body bg, header bg (α.9), texto sobre verde */
+	--color-cream-card: #fbfaf4; /* tarjetas, panel, chips off, pin off */
+	--color-cream-media: #edeee4; /* fondo caja de imagen de producto */
+	--color-sage: #e3ecee; /* caja mapa, badge chip off, píldora, ícono @ */
+	--color-sage-line: #dbe6e9; /* separador de items del panel */
+
+	--color-green-dark: #005067; /* links, botones primarios, estado seleccionado */
+	--color-green-hover: #003d4f; /* hover de --color-green-dark */
+	--color-green-deep: #00435a; /* overlay menú, sección Nosotros, caja ser-distribuidor */
+	--color-green-night: #002a38; /* footer */
+
+	--color-lime: #93ba2f; /* CTA claro, curtain 1, botón cerrar menú, pin seleccionado */
+	--color-lime-hover: #a9cc45; /* hover de --color-lime */
+	--color-lime-light: #a6cc3a; /* acento en títulos, barra de progreso, link activo menú */
+	--color-lime-accent: #a6c659; /* fill de estados cubiertos en el mapa */
+	--color-lime-accent-hover: #8eb33b; /* fill hover de estado cubierto (Distribuidores) */
+	--color-lime-pale: #c9dc93; /* texto contacto menú móvil, base rgba de los orbit */
+	--color-lime-pale-rgb: 201, 220, 147;
+
+	--color-map-empty: #d6dac3; /* fill de estados sin distribuidor */
+	--color-dot-inactive: #8fa9b3; /* label de dot no activo en el hero */
+
+	--color-ink: #14232a; /* texto principal */
+	--color-text-soft: #3f535b; /* párrafos sobre crema */
+	--color-text-muted: #55666d; /* metadatos, captions */
+	--color-placeholder: #6f8088; /* placeholder de inputs */
+
+	--color-border: #dde6e8; /* borde de tarjetas */
+	--color-border-soft: #d3dfe2; /* borde de inputs, panel, chips off */
+	--color-border-header: #d9e3e6; /* border-bottom del header */
+
+	--color-text-on-dark: #d4e4ea; /* párrafos sobre fondo verde (hero, nosotros, footer) */
+	--color-footer-muted: #a9c4cf;
+	--color-footer-line: #7fa0ad; /* barra inferior del footer */
+
+	--color-whatsapp: #25d366;
+
+	--color-hero-overlay-rgb: 0, 30, 40; /* base del degradé del hero + shadow-wa */
+
+	/* Typography */
+	--font-display: 'Fjalla One', 'Arial Narrow', sans-serif;
+	--font-body: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+	/* Radii — cada uno es un valor real del mockup, no una escala genérica */
+	--radius-input: 14px; /* inputs / textarea */
+	--radius-product-img: 16px; /* caja de imagen dentro de la tarjeta de producto */
+	--radius-client-card: 18px; /* celda de logo de cliente */
+	--radius-ig-cell: 20px; /* celda de Instagram */
+	--radius-card: 24px; /* tarjeta de producto, tarjeta de paso */
+	--radius-video: 28px; /* data-wipe (nosotros, sostenibilidad) */
+	--radius-panel: 32px; /* caja del mapa y panel lateral (Distribuidores) */
+	--radius-box: 36px; /* data-box: mini-mapa, contacto, ser-distribuidor */
+	--radius-pill: 999px; /* botones, píldoras, chips, search bar */
+
+	/* Shadows */
+	--shadow-card: 0 24px 40px -24px rgba(0, 42, 56, 0.35);
+	--shadow-wa: 0 12px 28px -8px rgba(var(--color-hero-overlay-rgb), 0.5);
+
+	/* Layout */
+	--max-width: 1320px;
+	--header-height: 73px;
+
+	/* Motion */
+	--ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+	--duration-fast: 0.25s;
+	--duration-base: 0.4s;
+	--duration-slow: 0.9s;
+}

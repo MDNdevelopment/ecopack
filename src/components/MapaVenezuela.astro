@@ -1,0 +1,135 @@
+---
+import veMap from '../data/ve-map.json';
+import distribuidoresData from '../data/distribuidores.json';
+
+export interface Props {
+	/** "mini": mapa decorativo enlazado como un todo (Home). "interactive": mapa
+	 * clicable estado por estado, maneja su propio estado en distribuidores.ts. */
+	mode?: 'mini' | 'interactive';
+}
+const { mode = 'mini' } = Astro.props;
+
+const countByState = new Map(distribuidoresData.estados.map((e) => [e.isoId, e.distribuidores.length]));
+const covered = new Set(countByState.keys());
+const interactive = mode === 'interactive';
+---
+
+<svg
+	data-mapa={mode}
+	data-minimap={interactive ? undefined : '1'}
+	data-map={interactive ? '1' : undefined}
+	viewBox={`0 0 ${veMap.w} ${veMap.h}`}
+	role="img"
+	aria-label="Mapa de Venezuela: estados con cobertura de distribuidores Ecopack"
+	class="mapa-ve"
+>
+	{
+		veMap.states.map((s) => {
+			const isCovered = covered.has(s.id);
+			return (
+				<path
+					d={s.d}
+					data-id={s.id}
+					class:list={['estado', { 'is-covered': isCovered }]}
+					role={interactive && isCovered ? 'button' : undefined}
+					tabindex={interactive && isCovered ? 0 : undefined}
+					aria-label={interactive && isCovered ? `Ver distribuidores en ${s.name}` : undefined}
+				/>
+			);
+		})
+	}
+	{
+		veMap.states
+			.filter((s) => covered.has(s.id))
+			.map((s) => {
+				const cy = s.id === 'VE-A' ? s.cy - 4 : s.cy;
+				const count = countByState.get(s.id) ?? 0;
+				return interactive ? (
+					<g data-pin={s.id} class="pin-group" aria-hidden="true">
+						<circle cx={s.cx} cy={cy} r={13} class="pin-hit" />
+						<circle cx={s.cx} cy={cy} r={11} class="pin-circle" />
+						<text x={s.cx} y={cy + 4} text-anchor="middle" class="pin-count">
+							{count}
+						</text>
+					</g>
+				) : (
+					<circle cx={s.cx} cy={cy} r={5} class="pin" aria-hidden="true" />
+				);
+			})
+	}
+</svg>
+
+<style>
+	.mapa-ve {
+		width: 100%;
+		height: auto;
+		display: block;
+		overflow: visible;
+	}
+	.estado {
+		fill: var(--color-map-empty);
+		stroke: var(--color-cream);
+		stroke-width: 1.4;
+		stroke-linejoin: round;
+	}
+	.estado.is-covered {
+		fill: var(--color-lime-accent);
+	}
+	.pin {
+		fill: var(--color-green-dark);
+		stroke: var(--color-cream-card);
+		stroke-width: 2;
+	}
+
+	[data-mapa='interactive'] .estado {
+		stroke: var(--color-cream);
+		transition: fill 0.25s ease;
+	}
+	[data-mapa='interactive'] .estado.is-covered {
+		cursor: pointer;
+	}
+	[data-mapa='interactive'] .estado.is-covered:hover {
+		fill: var(--color-lime-accent-hover);
+	}
+	[data-mapa='interactive'] .estado.is-selected {
+		fill: var(--color-green-dark) !important;
+	}
+	[data-mapa='interactive'] .estado:focus {
+		outline: none;
+	}
+	/* Teclado: resalta el contorno del propio estado en vez de una caja rectangular */
+	[data-mapa='interactive'] .estado:focus-visible:not(.is-selected) {
+		stroke: var(--color-green-dark);
+		stroke-width: 3;
+	}
+
+	.pin-hit {
+		fill: transparent;
+		pointer-events: all;
+	}
+	[data-mapa='interactive'] .pin-group {
+		cursor: pointer;
+	}
+	.pin-circle {
+		fill: var(--color-cream-card);
+		stroke: var(--color-green-dark);
+		stroke-width: 1.5;
+		pointer-events: none;
+	}
+	.pin-count {
+		font-family: var(--font-body);
+		font-size: 11px;
+		font-weight: 700;
+		fill: var(--color-green-dark);
+		pointer-events: none;
+	}
+	.pin-group.is-selected .pin-circle {
+		fill: var(--color-lime);
+		stroke: var(--color-cream-card);
+		stroke-width: 3;
+	}
+	.pin-group.is-selected .pin-count {
+		font-size: 13px;
+		fill: var(--color-ink);
+	}
+</style>
