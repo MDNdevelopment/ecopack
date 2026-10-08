@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import MapaVenezuela from '../components/MapaVenezuela.astro';
 import distribuidoresData from '../data/distribuidores.json';
 import empresa from '../data/empresa.json';
-import { breadcrumbSchema, SITE_URL } from '../lib/schema';
+import { breadcrumbSchema } from '../lib/schema';
 
 const estadosAlfabetico = [...distribuidoresData.estados].sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'));
 const totalDistribuidores = distribuidoresData.estados.reduce((sum, e) => sum + e.distribuidores.length, 0);
@@ -19,7 +19,7 @@ const itemListSchema = {
 	itemListElement: estadosAlfabetico.map((e, i) => ({
 		'@type': 'ListItem',
 		position: i + 1,
-		item: { '@type': 'Place', name: e.nombre, url: `${SITE_URL}/distribuidores/${e.isoId.toLowerCase()}` },
+		item: { '@type': 'Place', name: e.nombre },
 	})),
 };
 
@@ -45,11 +45,6 @@ const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }, { name: 'Distri
 						<div class="stat-num" data-count={totalDistribuidores}>{totalDistribuidores}</div>
 						<div class="stat-label">distribuidores autorizados</div>
 					</div>
-				</div>
-				<div class="top-cta" data-fade>
-					<a href={`https://wa.me/${empresa.telefonoWhatsapp}?text=${encodeURIComponent('Hola Ecopack, quiero información para ser distribuidor.')}`} class="btn btn-primary">
-						Quiero ser distribuidor
-					</a>
 				</div>
 			</div>
 		</div>
@@ -106,9 +101,17 @@ const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }, { name: 'Distri
 						))
 					}
 				</div>
-				<a href={`/distribuidores/${estadoInicial.isoId.toLowerCase()}`} class="panel-link" data-panel-link>
-					Ver página completa de {estadoInicial.nombre} →
-				</a>
+				<div class="panel-cta" data-panel-cta>
+					<p data-panel-cta-text>¿Eres de {estadoInicial.nombre} y quieres ser distribuidor?</p>
+					<a
+						href={`https://wa.me/${empresa.telefonoWhatsapp}?text=${encodeURIComponent(`Hola Ecopack, quiero ser distribuidor en ${estadoInicial.nombre}.`)}`}
+						class="btn btn-primary"
+						data-panel-link
+						data-wa={`https://wa.me/${empresa.telefonoWhatsapp}`}
+					>
+						Quiero ser distribuidor
+					</a>
+				</div>
 				<div class="panel-fallback">
 					¿No encuentras tu ciudad? <a href={`https://wa.me/${empresa.telefonoWhatsapp}`}>Escríbenos por WhatsApp</a> y te conectamos con el distribuidor más cercano.
 				</div>
@@ -140,7 +143,7 @@ const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }, { name: 'Distri
 				{
 					estadosAlfabetico.map((e) => (
 						<article class="estado-card">
-							<h3><a href={`/distribuidores/${e.isoId.toLowerCase()}`}>{e.nombre}</a></h3>
+							<h3>{e.nombre}</h3>
 							<ul>
 								{e.distribuidores.map((d) => (
 									<li>
@@ -201,13 +204,6 @@ const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }, { name: 'Distri
 		font-size: 14px;
 		color: var(--color-text-muted);
 		margin-top: 6px;
-	}
-
-	.top-cta {
-		display: flex;
-		align-items: center;
-		gap: 20px;
-		flex-wrap: wrap;
 	}
 
 	.section-search {
@@ -432,14 +428,20 @@ const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }, { name: 'Distri
 		line-height: 1.55;
 		color: var(--color-text-soft);
 	}
-	.panel-link {
-		display: inline-block;
+	.panel-cta {
 		margin-top: 18px;
-		font-size: 14px;
-		font-weight: 700;
-		color: var(--color-green-dark);
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 12px;
 	}
-	.panel-link[hidden] {
+	.panel-cta p {
+		margin: 0;
+		font-size: 15px;
+		line-height: 1.4;
+		color: var(--color-text-soft);
+	}
+	.panel-cta[hidden] {
 		display: none;
 	}
 	.panel-fallback {

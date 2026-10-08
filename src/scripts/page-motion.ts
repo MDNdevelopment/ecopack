@@ -1,6 +1,6 @@
 /**
  * Bootstrapper de animación para las páginas propias del sitio (fuera del mockup):
- * /productos, /nosotros, /contacto, /preguntas-frecuentes, /distribuidores/[estado].
+ * /productos, /nosotros, /contacto, /preguntas-frecuentes.
  * Sólo necesitan data-fade / data-box / data-split / data-count — ver
  * `EcoMotion.wireSimple` en motion.ts.
  */

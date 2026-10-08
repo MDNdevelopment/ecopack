@@ -19,9 +19,7 @@ Todos los `PlaceholderMedia` se reemplazaron con medios reales tomados de https:
   (recorrido por la planta, vertical, con audio y subtítulos), ambos recomprimidos a ~6–8 MB.
 - El PDF `public/catalogo-ecopack.pdf` es ahora el catálogo actualizado (`Catalogo-Ecopack-Act.pdf`).
 
-Pendiente menor: las "publicaciones de Instagram" del home son piezas de marca estáticas (el feed
-original de la web era un plugin dinámico y no se pudo copiar); enlazan al perfil. Si se quiere el
-feed real, hay que integrarlo aparte. Además, `public/og-default.jpg` no se regeneró.
+Pendiente menor: el home tiene una sección de redes sociales (sin feed de Instagram en vivo). Además, `public/og-default.jpg` no se regeneró.
 
 ## 2. Tres distribuidores con nombre por confirmar
 

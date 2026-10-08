@@ -6,8 +6,8 @@ import PlaceholderMedia from '../../components/PlaceholderMedia.astro';
 import TablaSkus from '../../components/TablaSkus.astro';
 import empresa from '../../data/empresa.json';
 import { breadcrumbSchema, SITE_URL } from '../../lib/schema';
-import { familias, categoriaLabel, materialLabel } from '../../lib/productos';
-import { imagenProducto } from '../../lib/imagenes';
+import { familias, categoriaLabel, materialLabel, coloresDe, chipDe } from '../../lib/productos';
+import { imagenProducto, variantesColor } from '../../lib/imagenes';
 
 export function getStaticPaths() {
 	return familias.map((familia) => ({ params: { slug: familia.slug }, props: { familia } }));
@@ -19,6 +19,11 @@ const path = `/productos/${familia.slug}`;
 const categoria = categoriaLabel(familia.categoria);
 
 const foto = imagenProducto(familia.slug);
+const colores = coloresDe(familia.color);
+const variantes = variantesColor(familia.slug)
+	.map((v) => ({ ...v, chip: chipDe(v.key) }))
+	.filter((v) => v.chip)
+	.sort((a, b) => colores.findIndex((c) => c.key === a.key) - colores.findIndex((c) => c.key === b.key));
 
 const relacionadas = familias.filter((f) => f.categoria === familia.categoria && f.slug !== familia.slug).slice(0, 4);
 
@@ -68,15 +73,33 @@ const jsonLd = [
 
 		<div class="ficha-grid">
 			<div class="galeria" data-fade>
-				<div class="foto foto-principal">
-					{
-						foto ? (
-							<Image src={foto} alt={`${familia.nombre} de Ecopack`} width={640} height={640} loading="eager" fetchpriority="high" />
-						) : (
-							<PlaceholderMedia label={familia.nombre} tone="light" />
-						)
-					}
-				</div>
+				{
+					variantes.length > 1 ? (
+						<>
+							<div class="foto foto-principal">
+								{variantes.map((v, i) => (
+									<Image src={v.img} alt={`${familia.nombre} de Ecopack, color ${v.chip!.label.toLowerCase()}`} width={640} height={640} loading={i === 0 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : undefined} data-color-foto={v.key} hidden={i !== 0} />
+								))}
+							</div>
+							<div class="selector-color" role="group" aria-label="Color">
+								{variantes.map((v, i) => (
+									<button type="button" class:list={['chip-color', { 'is-active': i === 0 }]} data-color-btn={v.key} aria-pressed={i === 0 ? 'true' : 'false'}>
+										<span class="chip-dot" style={`background:${v.chip!.css}`} />
+										{v.chip!.label}
+									</button>
+								))}
+							</div>
+						</>
+					) : (
+						<div class="foto foto-principal">
+							{foto ? (
+								<Image src={foto} alt={`${familia.nombre} de Ecopack`} width={640} height={640} loading="eager" fetchpriority="high" />
+							) : (
+								<PlaceholderMedia label={familia.nombre} tone="light" />
+							)}
+						</div>
+					)
+				}
 			</div>
 
 			<div class="info">
@@ -119,6 +142,21 @@ const jsonLd = [
 </Base>
 
 <script src="../../scripts/page-motion.ts"></script>
+<script>
+	// Selector de color de la ficha: muestra la foto del color elegido.
+	const btns = document.querySelectorAll<HTMLButtonElement>('[data-color-btn]');
+	btns.forEach((btn) =>
+		btn.addEventListener('click', () => {
+			const key = btn.dataset.colorBtn;
+			document.querySelectorAll<HTMLElement>('[data-color-foto]').forEach((img) => (img.hidden = img.dataset.colorFoto !== key));
+			btns.forEach((b) => {
+				const on = b === btn;
+				b.classList.toggle('is-active', on);
+				b.setAttribute('aria-pressed', String(on));
+			});
+		})
+	);
+</script>
 
 <style>
 	.ficha {
@@ -161,6 +199,40 @@ const jsonLd = [
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+	}
+	.foto :global(img[hidden]) {
+		display: none;
+	}
+	.selector-color {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		margin-top: 14px;
+	}
+	.chip-color {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 8px 14px 8px 10px;
+		border: 1px solid var(--color-border-soft);
+		border-radius: var(--radius-pill);
+		background: var(--color-cream-card);
+		color: var(--color-ink);
+		font: inherit;
+		font-size: 14px;
+		font-weight: 600;
+		cursor: pointer;
+	}
+	.chip-color.is-active {
+		background: var(--color-green-dark);
+		border-color: var(--color-green-dark);
+		color: var(--color-cream);
+	}
+	.chip-dot {
+		width: 16px;
+		height: 16px;
+		border-radius: 50%;
+		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.25);
 	}
 	.foto-principal {
 		aspect-ratio: 1 / 1;

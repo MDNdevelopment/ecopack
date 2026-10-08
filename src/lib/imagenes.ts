@@ -13,6 +13,13 @@ const pick = (mods: Mods, dir: string, key: string): ImageMetadata | undefined =
 
 /** Foto de estudio de una familia (recortada del catálogo). */
 export const imagenProducto = (slug: string) => pick(productos, 'productos', slug);
+/** Fotos de una familia por color (`<slug>--<color>.webp`), cuando existen. */
+export function variantesColor(slug: string): { key: string; img: ImageMetadata }[] {
+	const prefix = `/src/assets/productos/${slug}--`;
+	return Object.entries(productos)
+		.filter(([path]) => path.startsWith(prefix))
+		.map(([path, mod]) => ({ key: path.slice(prefix.length).replace(/\.webp$/, ''), img: mod.default }));
+}
 /** Foto de producto en uso (portadas del catálogo). */
 export const imagenAmbiente = (key: string) => pick(ambiente, 'ambiente', key);
 /** Foto de estudio de las 5 familias destacadas del home, tal como las muestra la web original. */

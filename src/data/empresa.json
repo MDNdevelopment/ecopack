@@ -2,7 +2,7 @@
   "nombre": "Ecopack Venezuela",
   "razonSocial": "Plásticos Ecoplast, C.A.",
   "eslogan": "Un paso hacia la sostenibilidad",
-  "descripcion": "Empresa venezolana de Guatire, Edo. Miranda, dedicada a la producción y comercialización de envases de plástico 100% reciclado, con productos de alta calidad y un compromiso real con el medio ambiente.",
+  "descripcion": "Somos una empresa venezolana de Guatire, Edo. Miranda, dedicada a la producción y comercialización de envases de plástico 100% reciclado, con productos de alta calidad y un compromiso real con el medio ambiente.",
   "ciudad": "Guatire",
   "estado": "Miranda",
   "pais": "Venezuela",
@@ -14,9 +14,9 @@
   "redes": {
     "instagram": "https://www.instagram.com/ecopackvzla",
     "tiktok": "https://www.tiktok.com/@ecopackvzla",
-    "facebook": null,
-    "youtube": null,
-    "linkedin": null
+    "facebook": "https://www.facebook.com/plasticos.ecoplast",
+    "youtube": "https://www.youtube.com/@ecopackvzla",
+    "linkedin": "https://www.linkedin.com/company/ecopack-venezuela/"
   },
   "normativas": [
     {

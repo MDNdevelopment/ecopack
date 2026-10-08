@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import PlaceholderMedia from './PlaceholderMedia.astro';
 import type { Familia } from '../data/types';
 import { imagenProducto } from '../lib/imagenes';
-import { materialCorto, searchBlob } from '../lib/productos';
+import { coloresDe, materialCorto, searchBlob } from '../lib/productos';
 
 export interface Props {
 	familia: Familia;
@@ -13,6 +13,7 @@ export interface Props {
 const { familia, filtrable = false } = Astro.props;
 const foto = imagenProducto(familia.slug);
 const n = familia.items.length;
+const colores = coloresDe(familia.color);
 const filtroAttrs = filtrable
 	? { 'data-familia': '', 'data-categoria': familia.categoria, 'data-material': familia.material, 'data-search': searchBlob(familia) }
 	: {};
@@ -27,10 +28,19 @@ const filtroAttrs = filtrable
 				<PlaceholderMedia label={familia.nombre} tone="light" />
 			)
 		}
+		{
+			colores.length > 0 && (
+				<span class="card-colores" role="img" aria-label={`Colores: ${colores.map((c) => c.label.toLowerCase()).join(', ')}`}>
+					{colores.map((c) => (
+						<span class="dot" style={`background:${c.css}`} title={c.label} />
+					))}
+				</span>
+			)
+		}
 	</div>
 	<div class="card-body">
 		<h3>{familia.nombre}</h3>
-		<p>{materialCorto[familia.material]} · {familia.color}</p>
+		<p>{materialCorto[familia.material]}</p>
 		<span class="card-count">{n} {n === 1 ? 'referencia' : 'referencias'} <span aria-hidden="true">→</span></span>
 	</div>
 </a>
@@ -46,6 +56,7 @@ const filtroAttrs = filtrable
 		display: none;
 	}
 	.card-media {
+		position: relative;
 		aspect-ratio: 1 / 1;
 		border-radius: var(--radius-product-img);
 		background: var(--color-cream-media);
@@ -77,6 +88,25 @@ const filtroAttrs = filtrable
 		margin: 0;
 		font-size: 14px;
 		color: var(--color-text-muted);
+	}
+	.card-colores {
+		position: absolute;
+		left: 10px;
+		bottom: 10px;
+		display: flex;
+		gap: 6px;
+		padding: 6px;
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.92);
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+	}
+	.dot {
+		width: 18px;
+		height: 18px;
+		flex: none;
+		border-radius: 50%;
+		/* Aro con sombra interior: un border dejaba que el degradado se repitiera bajo el borde y asomaba el otro color. */
+		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.28);
 	}
 	.card-count {
 		margin-top: 4px;

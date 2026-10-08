@@ -44,3 +44,30 @@ export function porCategoria() {
 		.map((c) => ({ ...c, familias: familias.filter((f) => f.categoria === c.value) }))
 		.filter((g) => g.familias.length > 0);
 }
+
+export interface ColorChip {
+	key: string;
+	label: string;
+	/** Valor CSS de `background` del punto de muestra. */
+	css: string;
+}
+
+const CHIPS: ColorChip[] = [
+	{ key: 'negro', label: 'Negro', css: '#1b1d1c' },
+	{ key: 'blanco', label: 'Blanco', css: '#ffffff' },
+	{ key: 'transparente', label: 'Transparente', css: 'linear-gradient(135deg, #f4f8f9 0%, #cfdde2 100%)' },
+	{ key: 'rojo', label: 'Rojo', css: '#d9362b' },
+	{ key: 'dorado', label: 'Dorado', css: 'linear-gradient(135deg, #e8c766 0%, #b8892a 100%)' },
+	{ key: 'mixto', label: 'Mixto', css: 'linear-gradient(180deg, #e3edf0 50%, #1b1d1c 50%)' },
+];
+
+/** Colores de una familia, en el orden en que aparecen en su texto de color ("Negro, blanco y transparente"). */
+export function coloresDe(color: string): ColorChip[] {
+	const t = normalize(color);
+	return CHIPS.map((c) => ({ c, i: t.indexOf(c.key) }))
+		.filter((x) => x.i >= 0)
+		.sort((a, b) => a.i - b.i)
+		.map((x) => x.c);
+}
+
+export const chipDe = (key: string): ColorChip | undefined => CHIPS.find((c) => c.key === key);

@@ -42,7 +42,7 @@ function split(el: HTMLElement | null): HTMLElement[] {
 					}
 					const outer = document.createElement('span');
 					outer.style.cssText =
-						'display:inline-block;overflow:hidden;vertical-align:bottom;padding:.28em .03em .12em;margin:-.28em -.03em -.12em';
+						'display:inline-block;overflow:hidden;vertical-align:bottom;padding:.4em .06em .3em;margin:-.4em -.06em -.3em';
 					const inner = document.createElement('span');
 					inner.style.cssText = 'display:inline-block;will-change:transform';
 					inner.textContent = part;
@@ -92,32 +92,29 @@ function headings(scope: ParentNode = document) {
 	});
 }
 
-/** Revelación circular del menú móvil, centrada en el botón hamburguesa (esquina sup. derecha). */
+/** Menú móvil: panel lateral que desliza desde la derecha sobre un fondo que se oscurece. */
 function menu(open: boolean) {
 	const overlay = document.querySelector<HTMLElement>('[data-menu-panel]');
-	if (!overlay) return;
-	const at = 'at calc(100% - 48px) 36px';
+	const drawer = overlay?.querySelector<HTMLElement>('[data-menu-drawer]');
+	if (!overlay || !drawer) return;
 	document.body.style.overflow = open ? 'hidden' : '';
-	gsap.killTweensOf(overlay);
+	gsap.killTweensOf([overlay, drawer]);
 
 	if (open) {
 		gsap.set(overlay, { visibility: 'visible' });
-		gsap.fromTo(overlay, { clipPath: `circle(0% ${at})` }, { clipPath: `circle(150% ${at})`, duration: 0.9, ease: 'expo.inOut' });
+		gsap.fromTo(overlay, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: 'power2.out' });
+		gsap.fromTo(drawer, { xPercent: 100 }, { xPercent: 0, duration: 0.55, ease: 'power3.out' });
 		gsap.fromTo(
-			overlay.querySelectorAll('[data-menu-link]'),
-			{ yPercent: 130, rotate: 8 },
-			{ yPercent: 0, rotate: 0, duration: 1, stagger: 0.06, delay: 0.3, ease: 'expo.out' }
-		);
-		gsap.fromTo(
-			overlay.querySelectorAll('[data-menu-fade]'),
-			{ opacity: 0, y: 20 },
-			{ opacity: 1, y: 0, duration: 0.6, stagger: 0.08, delay: 0.6, ease: 'power3.out' }
+			overlay.querySelectorAll('.mobile-nav a, .mobile-menu-bottom > *'),
+			{ opacity: 0, x: 24 },
+			{ opacity: 1, x: 0, duration: 0.5, stagger: 0.05, delay: 0.2, ease: 'power3.out' }
 		);
 	} else {
+		gsap.to(drawer, { xPercent: 100, duration: 0.4, ease: 'power3.in' });
 		gsap.to(overlay, {
-			clipPath: `circle(0% ${at})`,
-			duration: 0.6,
-			ease: 'expo.inOut',
+			opacity: 0,
+			duration: 0.4,
+			ease: 'power2.in',
 			onComplete: () => gsap.set(overlay, { visibility: 'hidden' }),
 		});
 	}
@@ -145,7 +142,7 @@ function whatsapp(): gsap.core.Tween[] {
 
 /**
  * Para las páginas propias del sitio (fuera del mockup: /productos, /nosotros,
- * /contacto, /preguntas-frecuentes, /distribuidores/[estado]) — sólo necesitan el
+ * /contacto, /preguntas-frecuentes) — sólo necesitan el
  * subconjunto fade/box/split/count, con el mismo motor que el resto del sitio.
  */
 function wireSimple(scope: ParentNode = document) {

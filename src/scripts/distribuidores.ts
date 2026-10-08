@@ -29,6 +29,8 @@ function init(): void {
 	const panelSub = document.querySelector<HTMLElement>('[data-panel-sub]');
 	const panelItems = document.querySelector<HTMLElement>('[data-panel-items]');
 	const panelLink = document.querySelector<HTMLAnchorElement>('[data-panel-link]');
+	const panelCta = document.querySelector<HTMLElement>('[data-panel-cta]');
+	const panelCtaText = document.querySelector<HTMLElement>('[data-panel-cta-text]');
 	const searchInput = document.querySelector<HTMLInputElement>('[data-q]');
 	const clearBtn = document.querySelector<HTMLButtonElement>('[data-clear]');
 	const hoverLabel = document.querySelector<HTMLElement>('[data-hover-label]');
@@ -86,7 +88,7 @@ function init(): void {
 			} else {
 				panelItemsEl.innerHTML = `<div class="panel-empty">No encontramos distribuidores con ese nombre o ciudad. Prueba con el nombre del estado o escríbenos.</div>`;
 			}
-			if (panelLink) panelLink.hidden = true;
+			if (panelCta) panelCta.hidden = true;
 		} else {
 			const nombre = NAMES.get(state.sel) ?? '';
 			const dist = DIST.get(state.sel) ?? [];
@@ -95,10 +97,11 @@ function init(): void {
 			panelItemsEl.innerHTML = buildPanelItemsHTML(
 				dist.map((d) => ({ name: d.porConfirmar ? 'Distribuidor autorizado' : d.nombre || '', meta: d.ciudad }))
 			);
+			if (panelCta) panelCta.hidden = false;
+			if (panelCtaText) panelCtaText.textContent = `¿Eres de ${nombre} y quieres ser distribuidor?`;
 			if (panelLink) {
-				panelLink.hidden = false;
-				panelLink.href = `/distribuidores/${state.sel.toLowerCase()}`;
-				panelLink.textContent = `Ver página completa de ${nombre} →`;
+				const msg = `Hola Ecopack, quiero ser distribuidor en ${nombre}.`;
+				panelLink.href = `${panelLink.dataset.wa}?text=${encodeURIComponent(msg)}`;
 			}
 		}
 	}

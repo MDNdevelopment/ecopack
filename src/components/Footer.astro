@@ -1,6 +1,6 @@
 ---
-import { Image } from 'astro:assets';
-import logo from '../assets/logo-ecopack.png';
+import Logo from './Logo.astro';
+import SocialIcon from './SocialIcon.astro';
 import empresa from '../data/empresa.json';
 
 const year = new Date().getFullYear();
@@ -17,7 +17,7 @@ const redLabels: Record<string, string> = {
 <footer class="site-footer">
 	<div class="container footer-grid">
 		<div class="footer-brand">
-			<Image src={logo} alt="Ecopack" width={140} height={47} />
+			<Logo class="footer-logo" />
 			<p>Envases de PET 100% reciclado para alimentos. Guatire, Edo. Miranda.</p>
 		</div>
 		<div class="footer-col">
@@ -37,7 +37,9 @@ const redLabels: Record<string, string> = {
 			<div class="footer-social">
 				{redes.length > 0 ? (
 					redes.map(([key, url]) => (
-						<a href={url} target="_blank" rel="noopener noreferrer">{redLabels[key] ?? key}</a>
+						<a href={url} target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label={`Ecopack en ${redLabels[key] ?? key}`} title={redLabels[key] ?? key}>
+							<SocialIcon red={key as 'instagram' | 'tiktok' | 'youtube' | 'facebook' | 'linkedin'} size={20} />
+						</a>
 					))
 				) : (
 					<span>Próximamente</span>
@@ -51,7 +53,7 @@ const redLabels: Record<string, string> = {
 	</div>
 	<div class="container footer-bottom">
 		<span>© {year} Ecopack Venezuela</span>
-		<span>Sitio web desarrollado por MDN Publicidad</span>
+		<span>Sitio web desarrollado por <a href="https://mdnpublicidad.com" target="_blank" rel="noopener noreferrer" class="footer-credit">MDN Publicidad</a></span>
 	</div>
 </footer>
 
@@ -78,6 +80,10 @@ const redLabels: Record<string, string> = {
 		display: flex;
 		flex-direction: column;
 		gap: 16px;
+	}
+	.footer-brand :global(.footer-logo) {
+		width: 200px;
+		height: auto;
 	}
 	.footer-brand p {
 		margin: 0;
@@ -109,8 +115,35 @@ const redLabels: Record<string, string> = {
 	}
 	.footer-social {
 		display: flex;
-		gap: 16px;
+		gap: 10px;
 		flex-wrap: wrap;
+	}
+	.footer-col a.footer-social-link {
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		display: grid;
+		place-items: center;
+		background: var(--color-sage);
+		color: var(--color-green-dark);
+		transition:
+			transform var(--duration-fast) var(--ease-out),
+			background var(--duration-fast),
+			color var(--duration-fast);
+	}
+	.footer-col a.footer-social-link:hover {
+		background: var(--color-green-dark);
+		color: var(--color-cream);
+		transform: translateY(-2px);
+	}
+	.footer-credit {
+		color: inherit;
+		text-decoration: underline;
+		text-underline-offset: 3px;
+		transition: color var(--duration-fast);
+	}
+	.footer-credit:hover {
+		color: var(--color-green-dark);
 	}
 	.footer-muted {
 		margin: 0;

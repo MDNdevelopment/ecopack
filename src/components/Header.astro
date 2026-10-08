@@ -1,7 +1,5 @@
 ---
-import { Image } from 'astro:assets';
-import logo from '../assets/logo-ecopack.png';
-import logoBlanco from '../assets/logo-ecopack-blanco.png';
+import Logo from './Logo.astro';
 
 export interface Props {
 	current?: 'inicio' | 'productos' | 'distribuidores' | 'nosotros';
@@ -20,7 +18,7 @@ const links = [
 <header class="site-header">
 	<div class="container header-bar">
 		<a href="/" class="logo-link" aria-label="Ecopack Venezuela — inicio">
-			<Image src={logo} alt="Ecopack" width={140} height={47} loading="eager" fetchpriority="high" />
+			<Logo />
 		</a>
 
 		<nav class="nav-desktop" aria-label="Principal">
@@ -50,8 +48,9 @@ const links = [
 </header>
 
 <div id="mobile-menu" class="mobile-menu" data-menu-panel hidden>
+	<div class="mobile-menu-drawer" data-menu-drawer>
 	<div class="mobile-menu-top">
-		<Image src={logoBlanco} alt="Ecopack" width={140} height={47} />
+		<Logo variante="claro" />
 		<button type="button" data-menu-close aria-label="Cerrar menú">✕</button>
 	</div>
 	<nav class="mobile-nav" aria-label="Principal móvil">
@@ -66,6 +65,7 @@ const links = [
 	<div class="mobile-menu-bottom">
 		<a href="/productos" class="btn btn-primary">Ver productos →</a>
 		<p>+58 414-2051941 · sac@plasticosecoplast.com</p>
+	</div>
 	</div>
 </div>
 
@@ -110,8 +110,8 @@ const links = [
 		align-items: center;
 		flex-shrink: 0;
 	}
-	.logo-link :global(img) {
-		height: 30px;
+	.logo-link :global(svg) {
+		height: 44px;
 		width: auto;
 	}
 	.nav-desktop {
@@ -191,6 +191,18 @@ const links = [
 		height: 2px;
 		background: var(--color-cream);
 		border-radius: 2px;
+		transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+	}
+	.menu-toggle[aria-expanded='true'] span:first-child {
+		transform: translateY(4px) rotate(45deg);
+	}
+	.menu-toggle[aria-expanded='true'] span:last-child {
+		transform: translateY(-4px) rotate(-45deg);
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.menu-toggle span {
+			transition: none;
+		}
 	}
 
 	@media (min-width: 900px) {
@@ -212,6 +224,19 @@ const links = [
 		position: fixed;
 		inset: 0;
 		z-index: 70;
+		background: rgba(8, 28, 18, 0.55);
+		display: flex;
+		justify-content: flex-end;
+		/* La entrada/salida (fade del fondo + slide del panel) la anima motion.ts. */
+	}
+	.mobile-menu[hidden] {
+		/* El selector de clase de arriba gana por especificidad sobre la regla UA de
+		   [hidden]; sin esto el panel seguiría en el árbol de foco/accesibilidad. */
+		display: none;
+	}
+	.mobile-menu-drawer {
+		width: min(88vw, 420px);
+		height: 100%;
 		background: var(--color-green-deep);
 		color: var(--color-cream);
 		display: flex;
@@ -219,17 +244,6 @@ const links = [
 		padding: 12px 24px 32px;
 		box-sizing: border-box;
 		overflow-y: auto;
-		/* La revelación circular la anima motion.ts (clip-path) sobre este estado base. */
-		clip-path: circle(0% at calc(100% - 48px) 36px);
-	}
-	.mobile-menu[hidden] {
-		/* El selector de clase de arriba gana por especificidad sobre la regla UA de
-		   [hidden]; sin esto el panel seguiría en el árbol de foco/accesibilidad
-		   aunque esté colapsado visualmente por el clip-path. */
-		display: none;
-	}
-	.mobile-menu.is-open {
-		clip-path: none;
 	}
 	.mobile-menu-top {
 		display: flex;
@@ -238,8 +252,8 @@ const links = [
 		min-height: 48px;
 		padding-bottom: 12px;
 	}
-	.mobile-menu-top :global(img) {
-		height: 30px;
+	.mobile-menu-top :global(svg) {
+		height: 44px;
 		width: auto;
 	}
 	.mobile-menu-top button {

@@ -5,25 +5,28 @@ import HeroCarousel from '../components/HeroCarousel.astro';
 import MapaVenezuela from '../components/MapaVenezuela.astro';
 import PlaceholderMedia from '../components/PlaceholderMedia.astro';
 import FormWhatsApp from '../components/FormWhatsApp.astro';
+import SocialIcon from '../components/SocialIcon.astro';
 import clientes from '../data/clientes.json';
 import empresa from '../data/empresa.json';
 import { breadcrumbSchema } from '../lib/schema';
 import { familias, materialLabel } from '../lib/productos';
-import { imagenDestacado, imagenProducto, logoCliente, imagenInstagram, imagenPlanta } from '../lib/imagenes';
+import { imagenDestacado, imagenProducto, logoCliente, imagenPlanta } from '../lib/imagenes';
 
 const destacados = ['estuche-huevos', 'deligourmet-sello-plus', 'bandeja-ecotray', 'ecocup-porciones', 'delipack-sushi']
 	.map((slug) => familias.find((f) => f.slug === slug))
 	.filter((f): f is NonNullable<typeof f> => Boolean(f));
 
-const totalSkus = familias.reduce((sum, f) => sum + f.items.length, 0);
-const fotoNosotros = imagenPlanta('pet-molido');
+type RedKey = 'instagram' | 'tiktok' | 'youtube' | 'facebook' | 'linkedin';
+const nombreRed: Record<RedKey, string> = {
+	instagram: 'Instagram',
+	tiktok: 'TikTok',
+	youtube: 'YouTube',
+	facebook: 'Facebook',
+	linkedin: 'LinkedIn',
+};
 
-const posts = [
-	{ key: 'deligourmet-dona', alt: 'Deligourmet 116, el envase perfecto para llevar donas' },
-	{ key: 'sello-plus', alt: 'Deligourmet Sello Plus con brownies' },
-	{ key: 'vasos-pet', alt: 'Vasos PET Ecopack con batido' },
-	{ key: 'envase-division', alt: 'Envases para comida con división' },
-];
+const totalSkus =familias.reduce((sum, f) => sum + f.items.length, 0);
+const fotoNosotros = imagenPlanta('pet-molido');
 
 const pasos = [
 	{
@@ -102,27 +105,23 @@ const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }])];
 		</div>
 	</section>
 
-	<section class="container section-clientes cv-auto">
+	<section class="container section-clientes">
 		<h2 data-split>Confían en Ecopack</h2>
-		<div class="clientes-marquee">
-			<div class="clientes-track">
-				{
-					[false, true].flatMap((copia) =>
-						clientes.map((c) => {
-							const logo = logoCliente(c.logo);
-							return (
-								<div class="cliente-card" aria-hidden={copia ? 'true' : undefined}>
-									{logo ? <Image src={logo} alt={copia ? '' : c.nombre} width={150} height={150} densities={[1, 2]} loading="lazy" /> : <PlaceholderMedia label={c.nombre} tone="light" />}
-								</div>
-							);
-						})
-					)
-				}
-			</div>
-		</div>
+		<ul class="clientes-grid">
+			{
+				clientes.map((c) => {
+					const logo = logoCliente(c.logo);
+					return (
+						<li class="cliente-card">
+							{logo ? <Image src={logo} alt={c.nombre} width={240} height={240} densities={[1, 2]} loading="lazy" /> : <PlaceholderMedia label={c.nombre} tone="light" />}
+						</li>
+					);
+				})
+			}
+		</ul>
 	</section>
 
-	<section id="nosotros" class="section-dark cv-auto">
+	<section id="nosotros" class="section-dark">
 		<div class="container section-nosotros">
 			<h2 class="nosotros-headline" data-scrub>
 				Creemos en un futuro donde el plástico reciclado sea <span>la norma</span>
@@ -145,7 +144,7 @@ const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }])];
 		</div>
 	</section>
 
-	<section id="sostenibilidad" class="container section-sostenibilidad cv-auto">
+	<section id="sostenibilidad" class="container section-sostenibilidad">
 		<h2 data-split>Del plástico reciclado a tu mesa</h2>
 		<div class="proceso-grid">
 			<div class="proceso-media">
@@ -168,26 +167,7 @@ const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }])];
 		</div>
 	</section>
 
-	<section class="container section-ig cv-auto">
-		<div class="section-head">
-			<h2 data-split>Síguenos en @ecopackvzla</h2>
-			{empresa.redes.instagram && (
-				<a href={empresa.redes.instagram} target="_blank" rel="noopener noreferrer" class="btn btn-dark" data-fade>Instagram</a>
-			)}
-		</div>
-		<div class="ig-grid" data-shutter>
-			{posts.map((p) => {
-				const img = imagenInstagram(p.key);
-				return (
-					<a class="ig-item" href={empresa.redes.instagram ?? undefined} target="_blank" rel="noopener noreferrer">
-						{img ? <Image src={img} alt={p.alt} width={480} height={600} densities={[1, 2]} loading="lazy" /> : <PlaceholderMedia label="Post de Instagram" tone="light" />}
-					</a>
-				);
-			})}
-		</div>
-	</section>
-
-	<section id="contacto" class="container section-contacto cv-auto">
+	<section id="contacto" class="container section-contacto">
 		<div class="contacto-grid">
 			<div class="contacto-info">
 				<p class="eyebrow" data-fade>Contacto</p>
@@ -222,6 +202,19 @@ const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }])];
 							<div class="info-value">{empresa.ciudad}, Edo. {empresa.estado}, Venezuela</div>
 						</div>
 					</div>
+				</div>
+
+				<div class="redes" data-fade>
+					<div class="info-label">Síguenos</div>
+					<ul class="redes-list">
+						{(Object.entries(empresa.redes) as [RedKey, string][]).map(([red, url]) => (
+							<li>
+								<a href={url} target="_blank" rel="noopener noreferrer" class="red-link" aria-label={`Ecopack en ${nombreRed[red]}`} title={nombreRed[red]}>
+									<SocialIcon red={red} size={20} />
+								</a>
+							</li>
+						))}
+					</ul>
 				</div>
 
 				<p class="faq-hint" data-fade>
@@ -288,8 +281,7 @@ const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }])];
 	.destacado-media :global(img),
 	.cliente-card :global(img),
 	.nosotros-media :global(img),
-	.proceso-media :global(video),
-	.ig-item :global(img) {
+	.proceso-media :global(video) {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
@@ -371,49 +363,39 @@ const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }])];
 	}
 
 	.section-clientes {
-		padding: 0 24px 112px;
+		padding: 24px 24px 112px;
 	}
 	.section-clientes h2 {
 		font-size: clamp(40px, 4.6vw, 64px);
 		margin-bottom: 32px;
 	}
-	.clientes-marquee {
-		--marquee-duration: 28s;
-		overflow: hidden;
-		-webkit-mask-image: linear-gradient(90deg, transparent, #000 64px, #000 calc(100% - 64px), transparent);
-		mask-image: linear-gradient(90deg, transparent, #000 64px, #000 calc(100% - 64px), transparent);
-	}
-	.clientes-track {
+	.clientes-grid {
+		list-style: none;
+		margin: 0;
+		padding: 0;
 		display: flex;
-		width: max-content;
-		animation: clientes-scroll var(--marquee-duration) linear infinite;
-	}
-	.clientes-marquee:hover .clientes-track {
-		animation-play-state: paused;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 16px;
 	}
 	.cliente-card {
-		flex: 0 0 auto;
-		width: 180px;
-		margin-right: 12px;
-		aspect-ratio: 3 / 2;
-		background: #fff;
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-client-card);
+		flex: 0 0 calc((100% - 5 * 16px) / 6);
+		aspect-ratio: 4 / 3;
 		overflow: hidden;
-		padding: 14px;
+		padding: 12px;
 		box-sizing: border-box;
 	}
-	@keyframes clientes-scroll {
-		from {
-			transform: translateX(0);
-		}
-		to {
-			transform: translateX(-50%);
+	@media (max-width: 900px) {
+		.cliente-card {
+			flex-basis: calc((100% - 2 * 16px) / 3);
 		}
 	}
-	@media (prefers-reduced-motion: reduce) {
-		.clientes-track {
-			animation: none;
+	@media (max-width: 600px) {
+		.clientes-grid {
+			gap: 12px;
+		}
+		.cliente-card {
+			flex-basis: calc((100% - 12px) / 2);
 		}
 	}
 
@@ -512,27 +494,8 @@ const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }])];
 		text-wrap: pretty;
 	}
 
-	.section-ig {
-		padding: 0 24px 112px;
-	}
-	.section-ig h2 {
-		font-size: clamp(40px, 4.6vw, 64px);
-	}
-	.ig-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
-		gap: 16px;
-	}
-	.ig-item {
-		display: block;
-		aspect-ratio: 4 / 5;
-		border-radius: var(--radius-ig-cell);
-		overflow: hidden;
-		background: var(--color-sage);
-	}
-
 	.section-contacto {
-		padding: 0 24px 112px;
+		padding: 24px 24px 112px;
 	}
 	.contacto-grid {
 		display: grid;
@@ -596,6 +559,39 @@ const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }])];
 	.info-value {
 		font-size: 17px;
 		font-weight: 600;
+	}
+	.redes {
+		margin-top: 28px;
+	}
+	.redes-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+		margin-top: 8px;
+		list-style: none;
+		padding: 0;
+	}
+	.red-link {
+		width: 44px;
+		height: 44px;
+		border-radius: 50%;
+		display: grid;
+		place-items: center;
+		background: var(--color-sage);
+		color: var(--color-green-dark);
+		transition:
+			transform var(--duration-fast) var(--ease-out),
+			background var(--duration-fast),
+			color var(--duration-fast);
+	}
+	.red-link:hover {
+		background: var(--color-green-dark);
+		color: var(--color-cream);
+		transform: translateY(-2px);
+	}
+	.red-link:focus-visible {
+		outline: 3px solid var(--color-lime);
+		outline-offset: 3px;
 	}
 	.faq-hint {
 		margin-top: 32px;

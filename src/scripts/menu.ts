@@ -1,5 +1,5 @@
 /**
- * Menú móvil: revelación circular (vía motion.ts/GSAP) desde el botón hamburguesa,
+ * Menú móvil: panel lateral deslizante (vía motion.ts/GSAP),
  * focus trap, Escape para cerrar, bloqueo de scroll del body.
  * Progressive enhancement — el botón de menú sólo se muestra por CSS una vez que JS
  * confirma que puede manejar el panel (ver el fallback noscript del Header).
@@ -47,7 +47,7 @@ function initMenu(): void {
 			motionMod.EcoMotion.menu(false);
 			window.setTimeout(() => {
 				panel.hidden = true;
-			}, 600);
+			}, 450);
 		}
 		lastFocused?.focus();
 	};
@@ -56,7 +56,8 @@ function initMenu(): void {
 	closeBtn.addEventListener('click', close);
 
 	panel.addEventListener('click', (e) => {
-		if ((e.target as HTMLElement).closest('a')) close();
+		const t = e.target as HTMLElement;
+		if (t === panel || t.closest('a')) close();
 	});
 
 	document.addEventListener('keydown', (e) => {
