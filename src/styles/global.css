@@ -42,6 +42,10 @@ html {
 	}
 }
 
+html {
+	overflow-x: clip;
+}
+
 body {
 	margin: 0;
 	background: var(--color-cream);
