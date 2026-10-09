@@ -10,7 +10,7 @@ import clientes from '../data/clientes.json';
 import empresa from '../data/empresa.json';
 import { breadcrumbSchema } from '../lib/schema';
 import { familias, materialLabel } from '../lib/productos';
-import { imagenDestacado, imagenProducto, logoCliente, imagenPlanta } from '../lib/imagenes';
+import { imagenProducto, logoCliente, imagenPlanta } from '../lib/imagenes';
 
 const destacados = ['estuche-huevos', 'deligourmet-sello-plus', 'bandeja-ecotray', 'ecocup-porciones', 'delipack-sushi']
 	.map((slug) => familias.find((f) => f.slug === slug))
@@ -66,7 +66,7 @@ const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }])];
 					<a class="destacado-card" href={`/productos/${fam.slug}`}>
 						<div class="destacado-media">
 							{(() => {
-								const foto = imagenDestacado(fam.slug) ?? imagenProducto(fam.slug);
+								const foto = imagenProducto(fam.slug);
 								return foto ? (
 									<Image src={foto} alt={`${fam.nombre} de Ecopack`} width={420} height={420} densities={[1, 1.5]} loading="lazy" />
 								) : (

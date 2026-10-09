@@ -4,7 +4,7 @@ type Mods = Record<string, { default: ImageMetadata }>;
 
 const productos = import.meta.glob<{ default: ImageMetadata }>('/src/assets/productos/*.webp', { eager: true }) as Mods;
 const ambiente = import.meta.glob<{ default: ImageMetadata }>('/src/assets/ambiente/*.webp', { eager: true }) as Mods;
-const destacados = import.meta.glob<{ default: ImageMetadata }>('/src/assets/destacados/*.webp', { eager: true }) as Mods;
+const hero = import.meta.glob<{ default: ImageMetadata }>('/src/assets/hero/*.webp', { eager: true }) as Mods;
 const clientes = import.meta.glob<{ default: ImageMetadata }>('/src/assets/clientes/*.webp', { eager: true }) as Mods;
 const planta = import.meta.glob<{ default: ImageMetadata }>('/src/assets/planta/*.webp', { eager: true }) as Mods;
 const instagram = import.meta.glob<{ default: ImageMetadata }>('/src/assets/instagram/*.webp', { eager: true }) as Mods;
@@ -22,8 +22,8 @@ export function variantesColor(slug: string): { key: string; img: ImageMetadata 
 }
 /** Foto de producto en uso (portadas del catálogo). */
 export const imagenAmbiente = (key: string) => pick(ambiente, 'ambiente', key);
-/** Foto de estudio de las 5 familias destacadas del home, tal como las muestra la web original. */
-export const imagenDestacado = (slug: string) => pick(destacados, 'destacados', slug);
+/** Fotos del carrusel del home (`<slide>-desktop` / `<slide>-movil`). */
+export const imagenHero = (key: string) => pick(hero, 'hero', key);
 export const logoCliente = (slug: string) => pick(clientes, 'clientes', slug);
 export const imagenPlanta = (key: string) => pick(planta, 'planta', key);
 export const imagenInstagram = (key: string) => pick(instagram, 'instagram', key);

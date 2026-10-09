@@ -1,6 +1,6 @@
 ---
-import { Image } from "astro:assets";
-import { imagenAmbiente, imagenPlanta } from "../lib/imagenes";
+import { Image, getImage } from "astro:assets";
+import { imagenHero, imagenPlanta } from "../lib/imagenes";
 
 const slides = [
   {
@@ -22,7 +22,8 @@ const slides = [
     ],
   },
   {
-    foto: imagenAmbiente("deligourmet"),
+    foto: imagenHero("productos-desktop"),
+    fotoMovil: imagenHero("productos-movil"),
     pos: "50% 50%",
     heading: "Envases que cuidan <em>lo que preparas</em>",
     text: "Estuches, bandejas, vasos y delipacks para restaurantes, productores y comercios.",
@@ -31,7 +32,8 @@ const slides = [
     ],
   },
   {
-    foto: imagenAmbiente("ecotray"),
+    foto: imagenHero("distribuidores-desktop"),
+    fotoMovil: imagenHero("distribuidores-movil"),
     pos: "50% 60%",
     heading: "Ecopack en <em>16 estados.</em>",
     text: "32 distribuidores autorizados en todo el país. Encuentra el más cercano a tu negocio.",
@@ -49,7 +51,8 @@ const slides = [
     ],
   },
   {
-    foto: imagenPlanta("maquina"),
+    foto: imagenHero("reciclaje-desktop"),
+    fotoMovil: imagenHero("reciclaje-movil"),
     pos: "50% 50%",
     heading: "Reciclado con <em>estándares internacionales</em>",
     text: "Tecnología EREMA, Reglamento (CE) Nº 282/2008 y disposiciones de la FDA.",
@@ -62,6 +65,14 @@ const slides = [
     ],
   },
 ];
+
+const movil = await Promise.all(
+  slides.map((s) =>
+    "fotoMovil" in s && s.fotoMovil
+      ? getImage({ src: s.fotoMovil, widths: [480, 640, 941], format: "webp" })
+      : undefined,
+  ),
+);
 
 const dotLabels = [
   "Sostenibilidad",
@@ -88,7 +99,16 @@ const dotLabels = [
         >
           <div class="hero-zoom" data-slide-zoom>
             {s.foto && (
-              <Image
+              <picture>
+                {movil[i] && (
+                  <source
+                    media="(max-width: 700px)"
+                    srcset={movil[i].srcSet.attribute}
+                    sizes="100vw"
+                    type="image/webp"
+                  />
+                )}
+                <Image
                 src={s.foto}
                 alt=""
                 widths={[640, 1080, 1664, 1920]}
@@ -96,7 +116,8 @@ const dotLabels = [
                 loading={i === 0 ? "eager" : "lazy"}
                 fetchpriority={i === 0 ? "high" : undefined}
                 style={`object-position:${s.pos}`}
-              />
+                />
+              </picture>
             )}
           </div>
           <div class="hero-overlay" aria-hidden="true" />
@@ -114,7 +135,6 @@ const dotLabels = [
                 <a
                   href={c.href}
                   class={`btn btn-${c.style === "primary" ? "primary" : "outline"}`}
-                  download={c.download || undefined}
                 >
                   {c.text}
                 </a>
@@ -198,6 +218,12 @@ const dotLabels = [
     position: absolute;
     inset: 0;
     background: var(--color-green-dark);
+  }
+  .hero-zoom :global(picture),
+  .hero-zoom :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
   .hero-zoom :global(img) {
     width: 100%;
