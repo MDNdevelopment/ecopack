@@ -11,7 +11,7 @@ const totalSkus = familias.reduce((sum, f) => sum + f.items.length, 0);
 const grupos = porCategoria();
 const slugs = familias.map((f) => f.slug);
 
-const franja = ['fiambreras', 'ecocup-curvo', 'ecotray'].map((k) => ({ key: k, img: imagenAmbiente(k) })).filter((f) => f.img);
+const franja = ['fiambreras', 'ecocup-curvo'].map((k) => ({ key: k, img: imagenAmbiente(k) })).filter((f) => f.img);
 
 const itemListSchema = {
 	'@type': 'ItemList',
@@ -116,7 +116,7 @@ const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }, { name: 'Produc
 	}
 	.franja {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(2, 1fr);
 		gap: 12px;
 		margin-bottom: 56px;
 	}
