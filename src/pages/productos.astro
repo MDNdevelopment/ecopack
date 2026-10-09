@@ -1,17 +1,13 @@
 ---
-import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import FiltrosProductos from '../components/FiltrosProductos.astro';
 import FamiliaCard from '../components/FamiliaCard.astro';
 import { breadcrumbSchema, SITE_URL } from '../lib/schema';
 import { familias, porCategoria } from '../lib/productos';
-import { imagenAmbiente } from '../lib/imagenes';
 
 const totalSkus = familias.reduce((sum, f) => sum + f.items.length, 0);
 const grupos = porCategoria();
 const slugs = familias.map((f) => f.slug);
-
-const franja = ['fiambreras', 'ecocup-curvo'].map((k) => ({ key: k, img: imagenAmbiente(k) })).filter((f) => f.img);
 
 const itemListSchema = {
 	'@type': 'ItemList',
@@ -44,18 +40,6 @@ const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }, { name: 'Produc
 		</p>
 		<a href="/catalogo-ecopack.pdf" download class="btn btn-dark btn-pdf" data-fade>Descargar catálogo PDF ↓</a>
 	</section>
-
-	{
-		franja.length > 0 && (
-			<section class="container franja" aria-hidden="true">
-				{franja.map((f) => (
-					<div class="franja-item" data-fade>
-						<Image src={f.img!} alt="" width={640} height={420} loading={f.key === franja[0].key ? 'eager' : 'lazy'} />
-					</div>
-				))}
-			</section>
-		)
-	}
 
 	<section class="container section-body">
 		<FiltrosProductos />
@@ -113,34 +97,6 @@ const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }, { name: 'Produc
 		line-height: 1.55;
 		color: var(--color-text-soft);
 		max-width: 700px;
-	}
-	.franja {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 12px;
-		margin-bottom: 56px;
-	}
-	.franja-item {
-		aspect-ratio: 4 / 3;
-		border-radius: var(--radius-card);
-		overflow: hidden;
-		background: var(--color-cream-media);
-	}
-	.franja-item :global(img) {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
-	@media (max-width: 700px) {
-		.franja {
-			grid-template-columns: 1fr;
-		}
-		.franja-item:nth-child(n + 2) {
-			display: none;
-		}
-		.franja-item {
-			aspect-ratio: 16 / 9;
-		}
 	}
 	.section-body {
 		padding-bottom: 96px;
