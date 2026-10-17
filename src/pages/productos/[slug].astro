@@ -30,6 +30,9 @@ const relacionadas = familias.filter((f) => f.categoria === familia.categoria &&
 const og = foto ? (await getImage({ src: foto, width: 1080, height: 1080, fit: 'cover', format: 'jpg' })).src : undefined;
 const imageUrl = og ? `${SITE_URL}${og}` : undefined;
 
+const unico = n === 1 ? familia.items[0] : undefined;
+const miniatura = unico && foto ? (await getImage({ src: foto, width: 160, height: 160, fit: 'cover', format: 'webp' })).src : undefined;
+
 const waText = encodeURIComponent(`Hola, quisiera información sobre ${familia.nombre} de Ecopack.`);
 const waHref = `https://wa.me/${empresa.telefonoWhatsapp}?text=${waText}`;
 
@@ -113,15 +116,28 @@ const jsonLd = [
 				<p class="desc" data-fade>{familia.descripcion}</p>
 				<div class="ctas" data-fade>
 					<a class="btn btn-dark" href={waHref} target="_blank" rel="noopener">Consultar por WhatsApp</a>
-					<a class="btn btn-claro" href="#especs-titulo">Agregar al carrito</a>
+					{
+						unico ? (
+							<button type="button" class="btn btn-claro" data-add-carrito data-codigo={unico.codigo} data-nombre={unico.nombre} data-familia={familia.nombre} data-empaque={unico.empaque} data-foto={miniatura}>
+								Agregar al pedido
+							</button>
+						) : (
+							<a class="btn btn-claro" href="#especs-titulo" data-elegir-ref>
+								Elegir referencias ↓
+							</a>
+						)
+					}
 				</div>
+				<p class="ctas-nota" data-fade>
+					{unico ? `Empaque: ${unico.empaque}. Se agrega a tu pedido y lo envías por WhatsApp.` : 'Elige la referencia y el empaque que necesitas y agrégalos a tu pedido.'}
+				</p>
 			</div>
 		</div>
 	</section>
 
 	<section class="container especs" aria-labelledby="especs-titulo">
 		<h2 id="especs-titulo" data-fade>Referencias y medidas</h2>
-		<div data-fade>
+		<div data-fade data-tabla-refs>
 			<TablaSkus familia={familia} />
 		</div>
 	</section>
@@ -158,7 +174,50 @@ const jsonLd = [
 	);
 </script>
 
+<script>
+	// "Elegir referencias": baja a la tabla y la resalta para que se vea que ahí se agrega al pedido.
+	const elegir = document.querySelector<HTMLElement>('[data-elegir-ref]');
+	elegir?.addEventListener('click', () => {
+		const tabla = document.querySelector<HTMLElement>('[data-tabla-refs]');
+		if (!tabla) return;
+		tabla.classList.remove('resaltar');
+		void tabla.offsetWidth;
+		tabla.classList.add('resaltar');
+		window.setTimeout(() => tabla.classList.remove('resaltar'), 2200);
+	});
+</script>
+
 <style>
+	.ctas-nota {
+		margin-top: 12px;
+		font-size: 14px;
+		color: var(--color-text-muted);
+	}
+	[data-tabla-refs].resaltar {
+		animation: pulso-tabla 1.1s ease-out 2;
+		border-radius: var(--radius-card);
+	}
+	@keyframes pulso-tabla {
+		0% {
+			box-shadow: 0 0 0 0 rgb(0 0 0 / 0);
+		}
+		35% {
+			box-shadow: 0 0 0 6px var(--color-lime);
+		}
+		100% {
+			box-shadow: 0 0 0 0 rgb(0 0 0 / 0);
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		[data-tabla-refs].resaltar {
+			animation: none;
+			box-shadow: 0 0 0 4px var(--color-lime);
+		}
+	}
+	.ctas :global(.btn-claro.is-added) {
+		background: var(--color-lime);
+		color: var(--color-ink);
+	}
 	.ficha {
 		padding-top: 32px;
 		padding-bottom: 56px;
@@ -301,6 +360,11 @@ const jsonLd = [
 	}
 	.especs {
 		padding-bottom: 72px;
+		/* el header es sticky: sin esto tapa el título al saltar a #especs-titulo */
+		scroll-margin-top: 96px;
+	}
+	.especs h2 {
+		scroll-margin-top: 96px;
 	}
 	.especs h2,
 	.relacionadas h2 {

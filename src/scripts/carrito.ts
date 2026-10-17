@@ -48,6 +48,10 @@ function initCarrito(): void {
 	const vaciar = panel.querySelector<HTMLButtonElement>('[data-carrito-vaciar]')!;
 	const cerrar = panel.querySelector<HTMLButtonElement>('[data-carrito-cerrar]')!;
 	const live = document.querySelector<HTMLElement>('[data-carrito-live]');
+	const toast = document.querySelector<HTMLElement>('[data-carrito-toast]');
+	const toastTexto = document.querySelector<HTMLElement>('[data-carrito-toast-texto]');
+	let temporizadorToast: number | undefined;
+	let temporizadorToastSalida: number | undefined;
 	const telefono = panel.dataset.telefono ?? '';
 	let abridor: HTMLElement | null = null;
 
@@ -56,6 +60,27 @@ function initCarrito(): void {
 	function mensaje(): string {
 		const filas = lineas.map((l) => `• ${l.codigo} — ${l.familia}, ${l.nombre}: ${l.cantidad} × ${l.empaque}`);
 		return ['Hola Ecopack, quisiera cotizar el siguiente pedido:', filas.join('\n')].join('\n\n');
+	}
+
+	function ocultarToast(): void {
+		if (!toast || toast.hidden) return;
+		window.clearTimeout(temporizadorToast);
+		toast.classList.add('is-saliendo');
+		temporizadorToastSalida = window.setTimeout(() => {
+			toast.hidden = true;
+			toast.classList.remove('is-saliendo');
+		}, 250);
+	}
+
+	function mostrarToast(codigo: string): void {
+		if (!toast || !toastTexto || !panel!.hidden) return;
+		window.clearTimeout(temporizadorToast);
+		window.clearTimeout(temporizadorToastSalida);
+		const n = totalUnidades();
+		toastTexto.textContent = `${codigo} agregado · ${n} en tu pedido`;
+		toast.classList.remove('is-saliendo');
+		toast.hidden = false;
+		temporizadorToast = window.setTimeout(ocultarToast, 4500);
 	}
 
 	function pintarContador(): void {
@@ -144,6 +169,7 @@ function initCarrito(): void {
 		panel!.classList.remove('is-closing');
 		backdrop!.classList.remove('is-closing');
 		if (!panel!.hidden) return;
+		if (toast) toast.hidden = true;
 		abridor = desde ?? (document.activeElement as HTMLElement | null);
 		panel!.hidden = false;
 		backdrop!.hidden = false;
@@ -190,6 +216,7 @@ function initCarrito(): void {
 			if (live) live.textContent = `${codigo} agregado al pedido. ${totalUnidades()} en total.`;
 			const original = add.dataset.label ?? add.textContent ?? '';
 			add.dataset.label = original;
+			mostrarToast(codigo);
 			add.textContent = 'Agregado ✓';
 			add.classList.add('is-added');
 			setTimeout(() => {
