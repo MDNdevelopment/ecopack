@@ -111,8 +111,13 @@ const links = [
 		flex-shrink: 0;
 	}
 	.logo-link :global(svg) {
-		height: 44px;
+		height: 54px;
 		width: auto;
+	}
+	@media (max-width: 699px) {
+		.logo-link :global(svg) {
+			height: 48px;
+		}
 	}
 	.nav-desktop {
 		display: none;

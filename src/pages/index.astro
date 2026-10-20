@@ -12,7 +12,7 @@ import { breadcrumbSchema } from '../lib/schema';
 import { familias, materialLabel } from '../lib/productos';
 import { imagenProducto, logoCliente, imagenPlanta } from '../lib/imagenes';
 
-const destacados = ['estuche-huevos', 'deligourmet-sello-plus', 'bandeja-ecotray', 'ecocup-porciones', 'delipack-sushi']
+const destacados = ['estuche-huevos', 'deligourmet-sello-plus', 'bandeja-ecotray', 'ecocup-porciones']
 	.map((slug) => familias.find((f) => f.slug === slug))
 	.filter((f): f is NonNullable<typeof f> => Boolean(f));
 
@@ -89,7 +89,7 @@ const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }])];
 		<div class="cobertura-box" data-box>
 			<div class="cobertura-copy">
 				<h2 data-split>
-					Presentes en todo el país
+					Gran presencia en todo el territorio nacional
 				</h2>
 				<p data-fade>
 					{empresa.distribuidoresAutorizados} distribuidores llevan los envases Ecopack a comercios, restaurantes y productores de alimentos de todo el país.
@@ -260,9 +260,19 @@ const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }])];
 	}
 	.destacados-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr));
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 		gap: 20px;
 		perspective: 1200px;
+	}
+	@media (min-width: 900px) {
+		.destacados-grid {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
+	}
+	@media (max-width: 520px) {
+		.destacados-grid {
+			grid-template-columns: 1fr;
+		}
 	}
 	.destacado-card {
 		color: inherit;
@@ -380,9 +390,9 @@ const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }])];
 	}
 	.cliente-card {
 		flex: 0 0 calc((100% - 5 * 16px) / 6);
-		aspect-ratio: 4 / 3;
+		aspect-ratio: 6 / 5;
 		overflow: hidden;
-		padding: 12px;
+		padding: 1.5px; /* logos más grandes: antes 12px */
 		box-sizing: border-box;
 	}
 	@media (max-width: 900px) {
@@ -428,6 +438,10 @@ const jsonLd = [breadcrumbSchema([{ name: 'Inicio', path: '/' }])];
 		color: var(--color-text-on-dark);
 		max-width: 540px;
 		text-wrap: pretty;
+	}
+	/* "Somos una empresa venezolana de Guatire…": 4px más grande que el resto */
+	.nosotros-texto p:first-child {
+		font-size: 22px;
 	}
 	.nosotros-texto p {
 		margin: 0;
