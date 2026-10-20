@@ -9,6 +9,10 @@ async function init(): Promise<void> {
 	const { ensureRegistered, EcoMotion } = await import('./motion');
 	ensureRegistered();
 	EcoMotion.wireSimple();
+	// El filtro de /productos oculta tarjetas y cambia la altura de la página: sin
+	// recalcular, los títulos de grupo que aparecen al filtrar se quedan en opacity 0.
+	const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+	document.addEventListener('catalogo:filtrado', () => ScrollTrigger.refresh());
 }
 
 if (document.readyState === 'loading') {
