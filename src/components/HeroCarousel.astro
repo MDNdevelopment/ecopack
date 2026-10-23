@@ -22,6 +22,19 @@ const slides = [
     ],
   },
   {
+    foto: imagenHero("carton-desktop"),
+    pos: "75% 50%",
+    heading: "Cajas de cartón <em>con tu marca</em>",
+    text: "Nuevas cajas para tortas, dulces y regalos, impresas con el diseño de tu negocio o de temporada.",
+    ctas: [
+      {
+        href: "/productos?categoria=cajas-carton",
+        text: "Ver cajas →",
+        style: "primary",
+      },
+    ],
+  },
+  {
     foto: imagenHero("productos-desktop"),
     fotoMovil: imagenHero("productos-movil"),
     pos: "50% 50%",
@@ -76,6 +89,7 @@ const movil = await Promise.all(
 
 const dotLabels = [
   "Sostenibilidad",
+  "Cajas de cartón",
   "Productos",
   "Distribuidores",
   "Certificación",
@@ -329,7 +343,7 @@ const dotLabels = [
   .hero-dots {
     flex: 1;
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 10px;
   }
   .hero-dots button {

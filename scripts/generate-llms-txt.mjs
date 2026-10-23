@@ -17,7 +17,7 @@ const SITE = 'https://ecopackvenezuela.com';
 const totalSkus = productos.familias.reduce((s, f) => s + f.items.length, 0);
 const totalDist = distribuidores.estados.reduce((s, e) => s + e.distribuidores.length, 0);
 
-const materialLabel = { PET: '100% PET reciclado', HIPS: 'HIPS (poliestireno de alto impacto)', PP: 'Polipropileno' };
+const materialLabel = { PET: '100% PET reciclado', HIPS: 'HIPS (poliestireno de alto impacto)', PP: 'Polipropileno', CARTON: 'Cartón' };
 
 // --- llms.txt (concise, per the llmstxt.org convention) ---
 const llms = `# Ecopack Venezuela
@@ -42,7 +42,7 @@ Contacto: ${empresa.telefono} (WhatsApp) · ${empresa.email}
 
 ## Datos clave
 
-- Materiales usados: PET 100% reciclado (la mayoría de la línea), HIPS (Fiambrera ecológica RT) y polipropileno (pitillos y removedores).
+- Materiales usados: PET 100% reciclado (la mayoría de la línea), HIPS (Fiambrera ecológica RT) polipropileno (pitillos y removedores) y cartón (cajas personalizables).
 - Certificaciones/normativas: tecnología de reciclaje EREMA, Reglamento (CE) Nº 282/2008, evaluaciones EFSA, disposiciones de la FDA (EE. UU.).
 - Cobertura: todo el país, ${totalDist} distribuidores autorizados.
 

@@ -9,18 +9,21 @@ export const categorias = [
 	{ value: 'bebidas', label: 'Bebidas' },
 	{ value: 'huevos', label: 'Huevos' },
 	{ value: 'complementos', label: 'Complementos' },
+	{ value: 'cajas-carton', label: 'Cajas de cartón' },
 ] as const;
 
 export const materialLabel: Record<Familia['material'], string> = {
 	PET: '100% PET reciclado',
 	HIPS: 'Poliestireno de alto impacto (HIPS)',
 	PP: 'Polipropileno',
+	CARTON: 'Cartón',
 };
 
 export const materialCorto: Record<Familia['material'], string> = {
 	PET: 'PET reciclado',
 	HIPS: 'HIPS',
 	PP: 'Polipropileno',
+	CARTON: 'Cartón',
 };
 
 export function categoriaLabel(value: string): string {

@@ -13,7 +13,7 @@ export interface Familia {
 	slug: string;
 	nombre: string;
 	categoria: string;
-	material: 'PET' | 'HIPS' | 'PP';
+	material: 'PET' | 'HIPS' | 'PP' | 'CARTON';
 	color: string;
 	descripcion: string;
 	items: Item[];

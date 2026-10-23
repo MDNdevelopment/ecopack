@@ -89,6 +89,10 @@ function initFiltros(): void {
 
 	checks.forEach((c) => c.addEventListener('change', apply));
 
+	// Enlaces como /productos?categoria=cajas-carton llegan con el filtro ya marcado.
+	const preset = new URLSearchParams(location.search).get('categoria');
+	if (preset) checks.forEach((c) => c.dataset.filtroCheck === 'categoria' && c.value === preset && (c.checked = true));
+
 	root.querySelector('[data-filtro-clear]')?.addEventListener('click', () => {
 		checks.forEach((c) => (c.checked = false));
 		inputs.forEach((i) => (i.value = ''));
