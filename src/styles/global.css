@@ -26,6 +26,8 @@ html {
 	-webkit-text-size-adjust: 100%;
 	text-size-adjust: 100%;
 	scroll-behavior: smooth;
+	/* Los paneles (menú, filtros) bloquean el scroll del body; sin esto la barra desaparece y el layout se ensancha de golpe. */
+	scrollbar-gutter: stable;
 }
 
 @media (prefers-reduced-motion: reduce) {
