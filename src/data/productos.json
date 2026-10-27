@@ -1033,93 +1033,89 @@
       ]
     },
     {
-      "slug": "caja-alta-estrellas",
-      "nombre": "Caja alta Estrellas",
+      "slug": "caja-alta",
+      "nombre": "Caja alta",
       "categoria": "cajas-carton",
       "material": "CARTON",
-      "color": "Crema con estrellas rojas y verdes",
-      "descripcion": "Caja vertical para botellas, panettones y regalos, con estampado de estrellas. Personalizable con tu diseño.",
+      "color": "Crema con estrellas rojas y verdes, o roja con tipografía navideña",
+      "descripcion": "Caja vertical para botellas, panettones y regalos, en dos diseños: Estrellas y Navidad. Personalizable con tu diseño.",
+      "disenos": [
+        {
+          "key": "estrellas",
+          "label": "Estrellas"
+        },
+        {
+          "key": "navidad",
+          "label": "Navidad"
+        }
+      ],
       "items": [
         {
-          "codigo": "CJAE01",
-          "nombre": "Caja alta Estrellas",
-          "empaque": "Por confirmar",
+          "codigo": "CJAL01",
+          "nombre": "Caja alta",
+          "empaque": "50 unidades",
           "pesoEmpaque": "Por confirmar"
         }
       ]
     },
     {
-      "slug": "caja-alta-navidad",
-      "nombre": "Caja alta Navidad",
-      "categoria": "cajas-carton",
-      "material": "CARTON",
-      "color": "Rojo",
-      "descripcion": "Caja vertical roja con tipografía navideña, ideal para botellas y obsequios de temporada. Personalizable con tu diseño.",
-      "items": [
-        {
-          "codigo": "CJAN01",
-          "nombre": "Caja alta Navidad",
-          "empaque": "Por confirmar",
-          "pesoEmpaque": "Por confirmar"
-        }
-      ]
-    },
-    {
-      "slug": "caja-torta-rio",
-      "nombre": "Caja para torta con tapa",
+      "slug": "caja-torta",
+      "nombre": "Caja para torta",
       "categoria": "cajas-carton",
       "material": "CARTON",
       "color": "Blanco",
-      "descripcion": "Caja con tapa para tortas y postres, impresa con el logo y los motivos de tu marca.",
-      "items": [
+      "descripcion": "Caja con tapa para tortas y postres, en dos diseños: con el logo y los motivos de tu marca, o impresa a todo color con ilustraciones y código QR.",
+      "disenos": [
         {
-          "codigo": "CJTR01",
-          "nombre": "Caja para torta con tapa",
-          "empaque": "Por confirmar",
-          "pesoEmpaque": "Por confirmar"
+          "key": "rio",
+          "label": "Con tapa"
+        },
+        {
+          "key": "todohogar",
+          "label": "Impresa a color"
         }
-      ]
-    },
-    {
-      "slug": "caja-torta-todohogar",
-      "nombre": "Caja para torta impresa a color",
-      "categoria": "cajas-carton",
-      "material": "CARTON",
-      "color": "Blanco con impresión a color",
-      "descripcion": "Caja con tapa impresa a todo color con ilustraciones, logo y código QR para tu negocio.",
+      ],
       "items": [
         {
-          "codigo": "CJTH01",
-          "nombre": "Caja para torta impresa a color",
-          "empaque": "Por confirmar",
-          "pesoEmpaque": "Por confirmar"
-        }
-      ]
-    },
-    {
-      "slug": "cajas-torta-set",
-      "nombre": "Set de cajas para torta",
-      "categoria": "cajas-carton",
-      "material": "CARTON",
-      "color": "Blanco",
-      "descripcion": "Cajas con tapa en tres tamaños que se apilan, con la misma impresión de marca.",
-      "items": [
-        {
-          "codigo": "CJTS01",
-          "nombre": "Caja para torta pequeña",
+          "codigo": "CJTO01",
+          "nombre": "Caja para torta 23x23x20",
+          "medidas": "23 x 23 x 20 cm",
           "empaque": "Por confirmar",
           "pesoEmpaque": "Por confirmar"
         },
         {
-          "codigo": "CJTS02",
-          "nombre": "Caja para torta mediana",
+          "codigo": "CJTO02",
+          "nombre": "Caja para torta 30x30x15",
+          "medidas": "30 x 30 x 15 cm",
           "empaque": "Por confirmar",
+          "pesoEmpaque": "Por confirmar"
+        }
+      ]
+    },
+    {
+      "slug": "cajas-pasteles",
+      "nombre": "Cajas de pasteles",
+      "categoria": "cajas-carton",
+      "material": "CARTON",
+      "color": "Blanco",
+      "descripcion": "Cajas con tapa en tres tamaños que se apilan, con la misma impresión de marca. Se venden en 1, 3 o 6 unidades.",
+      "items": [
+        {
+          "codigo": "CJPA01",
+          "nombre": "Cajas de pasteles x1",
+          "empaque": "1 unidad",
           "pesoEmpaque": "Por confirmar"
         },
         {
-          "codigo": "CJTS03",
-          "nombre": "Caja para torta grande",
-          "empaque": "Por confirmar",
+          "codigo": "CJPA03",
+          "nombre": "Cajas de pasteles x3",
+          "empaque": "3 unidades",
+          "pesoEmpaque": "Por confirmar"
+        },
+        {
+          "codigo": "CJPA06",
+          "nombre": "Cajas de pasteles x6",
+          "empaque": "6 unidades",
           "pesoEmpaque": "Por confirmar"
         }
       ]

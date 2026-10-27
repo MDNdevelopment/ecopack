@@ -16,5 +16,7 @@ export interface Familia {
 	material: 'PET' | 'HIPS' | 'PP' | 'CARTON';
 	color: string;
 	descripcion: string;
+	/** Diseños con foto propia (`<slug>--<key>.webp`), cuando la familia varía por diseño y no por color. */
+	disenos?: { key: string; label: string }[];
 	items: Item[];
 }

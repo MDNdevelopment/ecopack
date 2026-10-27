@@ -21,9 +21,9 @@ const categoria = categoriaLabel(familia.categoria);
 const foto = imagenProducto(familia.slug);
 const colores = coloresDe(familia.color);
 const variantes = variantesColor(familia.slug)
-	.map((v) => ({ ...v, chip: chipDe(v.key) }))
+	.map((v) => ({ ...v, chip: familia.disenos ? familia.disenos.find((d) => d.key === v.key) : chipDe(v.key) }))
 	.filter((v) => v.chip)
-	.sort((a, b) => colores.findIndex((c) => c.key === a.key) - colores.findIndex((c) => c.key === b.key));
+	.sort((a, b) => (familia.disenos ?? colores).findIndex((c) => c.key === a.key) - (familia.disenos ?? colores).findIndex((c) => c.key === b.key));
 
 const relacionadas = familias.filter((f) => f.categoria === familia.categoria && f.slug !== familia.slug).slice(0, 4);
 
@@ -81,13 +81,13 @@ const jsonLd = [
 						<>
 							<div class="foto foto-principal">
 								{variantes.map((v, i) => (
-									<Image src={v.img} alt={`${familia.nombre} de Ecopack, color ${v.chip!.label.toLowerCase()}`} width={640} height={640} loading={i === 0 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : undefined} data-color-foto={v.key} hidden={i !== 0} />
+									<Image src={v.img} alt={`${familia.nombre} de Ecopack, ${familia.disenos ? 'diseño' : 'color'} ${v.chip!.label.toLowerCase()}`} width={640} height={640} loading={i === 0 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : undefined} data-color-foto={v.key} hidden={i !== 0} />
 								))}
 							</div>
-							<div class="selector-color" role="group" aria-label="Color">
+							<div class="selector-color" role="group" aria-label={familia.disenos ? 'Diseño' : 'Color'}>
 								{variantes.map((v, i) => (
 									<button type="button" class:list={['chip-color', { 'is-active': i === 0 }]} data-color-btn={v.key} aria-pressed={i === 0 ? 'true' : 'false'}>
-										<span class="chip-dot" style={`background:${v.chip!.css}`} />
+										{'css' in v.chip! && <span class="chip-dot" style={`background:${v.chip.css}`} />}
 										{v.chip!.label}
 									</button>
 								))}
